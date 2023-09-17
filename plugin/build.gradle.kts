@@ -25,7 +25,7 @@ gradlePlugin {
         // 每个插件块的名称不会影响插件配置，但对于提供的每个插件需要是唯一的。
         create("publish") {
             // 	设置插件的唯一性。id
-            id = "com.android.helper"
+            id = "com.android.helper.publish"
             // 短名称显示
             displayName = "PublishPlugin"
             // 插件的描述
@@ -34,6 +34,11 @@ gradlePlugin {
             implementationClass = "com.android.helper.plugin.PublishPlugin"
         }
     }
+}
+
+dependencies {
+    implementation("com.android.tools.build:gradle-api:7.4.0")
+    implementation(gradleApi()) // gradle sdk
 }
 
 //dependencies {
