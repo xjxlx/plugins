@@ -6,7 +6,7 @@ plugins {
 
 pluginBundle {
     // 为您的插件项目设置网站。
-    website = "http://www.gradle.org/"
+    website = "https://github.com/"
     // 提供源存储库 URI，以便其他人在想要贡献时可以找到它。
     vcsUrl = "https://github.com/xjxlx/plugins"
     // 设置要用于所有插件的标签，除非在块中被覆盖。plugins,插件的tag。可以通过这个在插件门户上搜索
