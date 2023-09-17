@@ -1,7 +1,7 @@
 package com.android.helper.plugin
 
 import com.android.build.api.dsl.LibraryExtension
-import com.android.helper.interfaces.PublishExtension
+import com.android.helper.interfaces.PublishPluginExtension
 import com.android.helper.utils.TextUtils
 import org.gradle.api.Action
 import org.gradle.api.Plugin
@@ -72,7 +72,7 @@ abstract class PublishPlugin2 : Plugin<Project> {
         // 在所有的配置都完成之后执行
         project.afterEvaluate {
             // 1：获取插件版本信息
-            val publishExtension = project.extensions.create("publishExtension", PublishExtension::class.java)
+            val publishExtension = project.extensions.create("publishExtension", PublishPluginExtension::class.java)
 
             var groupId = publishExtension.groupId.get()
             val artifactId = publishExtension.artifactId.get()

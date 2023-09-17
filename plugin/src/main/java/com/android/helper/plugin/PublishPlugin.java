@@ -2,7 +2,7 @@ package com.android.helper.plugin;
 
 import com.android.build.api.dsl.LibraryExtension;
 import com.android.build.api.dsl.LibrarySingleVariant;
-import com.android.helper.interfaces.PublishExtension;
+import com.android.helper.interfaces.PublishPluginExtension;
 import com.android.helper.utils.SystemUtil;
 
 import org.gradle.api.Action;
@@ -52,7 +52,7 @@ public class PublishPlugin implements Plugin<Project> {
             @Override
             public void execute(Project project) {
                 // 1：获取插件版本信息
-                PublishExtension extension = project.getExtensions().create("publishExtension", PublishExtension.class);
+                PublishPluginExtension extension = project.getExtensions().create("publishExtension", PublishPluginExtension.class);
                 Property<String> groupId = extension.getGroupId();
                 Property<String> artifactId = extension.getArtifactId();
                 Property<String> version = extension.getVersion();
