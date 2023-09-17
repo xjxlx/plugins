@@ -12,7 +12,7 @@ import org.gradle.api.publish.maven.MavenPublication
 /**
  * 发布应用的插件
  */
-abstract class PublishPlugin : Plugin<Project> {
+abstract class PublishPlugin2 : Plugin<Project> {
 
     private val VERSION = latestGitTag().ifEmpty { Config.versionName }
 
@@ -77,6 +77,7 @@ abstract class PublishPlugin : Plugin<Project> {
             var groupId = publishExtension.groupId.get()
             val artifactId = publishExtension.artifactId.get()
             var version = publishExtension.version.get()
+
 
             println("groupId:$groupId artifactId:$artifactId version:$version")
 

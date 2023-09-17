@@ -20,6 +20,10 @@ group = "com.github.xjxlx"
 // 设置此出版物的版本。如果您之前已经发布了该插件，则需要增加版本。
 version = "1.0"
 
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
 
 gradlePlugin {
     // 捆绑包中的每个插件都在块中指定。由于您此时只发布一个插件，因此只会有 一个条目，但如果您的项目将来发布捆绑包，您将在此处列出每个条目。plugins
