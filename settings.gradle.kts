@@ -12,7 +12,7 @@ pluginManagement {
     }
 }
 dependencyResolutionManagement {
-//    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    //  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
     repositories {
         maven { setUrl("https://maven.aliyun.com/repository/public") }
@@ -26,4 +26,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "plugins"
 include(":app")
+include(":plugin2")
 include(":plugin")

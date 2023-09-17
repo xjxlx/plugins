@@ -1,6 +1,8 @@
 package com.android.helper.plugin
 
 import com.android.build.api.dsl.LibraryExtension
+import com.android.helper.interfaces.PublishExtension
+import com.android.helper.utils.TextUtils
 import org.gradle.api.Action
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -15,6 +17,7 @@ abstract class PublishPlugin : Plugin<Project> {
     private val VERSION = latestGitTag().ifEmpty { Config.versionName }
 
     override fun apply(project: Project) {
+
         // 1: 添加插件信息
         project.pluginManager.apply("maven-publish")
         project.group = "com.github.jitpack"
@@ -68,14 +71,35 @@ abstract class PublishPlugin : Plugin<Project> {
     private fun publishTask(project: Project, modelName: String) {
         // 在所有的配置都完成之后执行
         project.afterEvaluate {
+            // 1：获取插件版本信息
+            val publishExtension = project.extensions.create("publishExtension", PublishExtension::class.java)
+
+            var groupId = publishExtension.groupId.get()
+            val artifactId = publishExtension.artifactId.get()
+            var version = publishExtension.version.get()
+
+            println("groupId:$groupId artifactId:$artifactId version:$version")
+
+            if (TextUtils.isEmpty(groupId)) {
+                groupId = "com.android.helper"
+            }
+
+            if (TextUtils.isEmpty(version)) {
+                // 最后的版本信息
+                version = latestGitTag()
+            }
+
+            println("groupId:$groupId artifactId:$artifactId version:$version")
+
             project.extensions.getByType(PublishingExtension::class.java)
                 .apply {
                     // 发布内容
                     this.publications {
                         create("release", MavenPublication::class.java, object : Action<MavenPublication> {
                             override fun execute(it: MavenPublication) {
-                                it.groupId = "com.android.apphelper" // 组的名字
-                                it.artifactId = modelName // 插件名称
+
+                                it.groupId = groupId // 组的名字
+                                it.artifactId = artifactId // 插件名称
                                 it.version = VERSION // 版本号
 
                                 // 从当前 module 的 release 包中发布

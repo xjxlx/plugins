@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("com.android.apphelper.publish")
+//    id("com.android.apphelper.publish")
 }
 //id 'com.uploadplugin'//3、此处为插件resources下文件名
 

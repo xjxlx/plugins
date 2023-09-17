@@ -1,5 +1,5 @@
 plugins {
-    `kotlin-dsl`
+
     id("java-library")
     id("maven-publish") // 用来发布插件用
     id("org.jetbrains.kotlin.jvm") // 用kotlin语言来开发

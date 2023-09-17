@@ -2,15 +2,14 @@
 
 buildscript {
     dependencies {
-        classpath("com.android.helper.plugins:publish2:1.0.0")
-        //2、具体插件名称，拼接原则：pom.groupId:pom.artifactId:pom.version
-//        classpath 'com.geexy:uploadPlugin:1.0.7'
+        // 发布JitPack的依赖版本，【3.0+以上用1.5】，【4.1+以上用2.0】，【4.6+以上用2.1】
+        classpath("com.github.dcendents:android-maven-gradle-plugin:2.1")
     }
 }
-
 plugins {
+    `kotlin-dsl`
     id("com.android.application") version "7.4.2" apply false
     id("com.android.library") version "7.4.2" apply false
-    id("org.jetbrains.kotlin.android") version "1.8.10" apply false
-    id("org.jetbrains.kotlin.jvm") version "1.8.0" apply false
+    id("org.jetbrains.kotlin.android") version "1.6.21" apply false
 }
+
