@@ -18,13 +18,14 @@ pluginBundle {
 // 确保您的项目有一组用于您在 Gradle 插件门户存储库中发布的工件（jar 和元数据） 并且也描述了插件作者或插件所属的组织。group
 group = "com.android.helper"
 // 设置此出版物的版本。如果您之前已经发布了该插件，则需要增加版本。
-version = "1.0"
+version = "1.0.0"
 
 java {
     withJavadocJar()
     withSourcesJar()
 }
 
+// 发布到gradle门户
 gradlePlugin {
     // 捆绑包中的每个插件都在块中指定。由于您此时只发布一个插件，因此只会有 一个条目，但如果您的项目将来发布捆绑包，您将在此处列出每个条目。plugins
     plugins {
@@ -44,6 +45,20 @@ gradlePlugin {
 dependencies {
     implementation("com.android.tools.build:gradle-api:7.4.0")
     implementation(gradleApi()) // gradle sdk
+}
+
+// 发布到本地
+afterEvaluate {
+    publishing { // 发布配置
+        publications {// 发布内容
+            create<MavenPublication>("release") {// 注册一个名字为 release 的发布内容
+                from(components["java"])
+                groupId = "com.android.helper" // 唯一标识（通常为模块包名，也可以任意）
+                artifactId = "publish" // 插件名称
+                version = "1.0.0"//  版本号
+            }
+        }
+    }
 }
 
 //dependencies {
