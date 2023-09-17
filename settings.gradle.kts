@@ -26,5 +26,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "plugins"
 include(":app")
-include(":plugin2")
+//include(":plugin2")
 include(":plugin")

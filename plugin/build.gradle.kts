@@ -1,30 +1,43 @@
 plugins {
-    id("java-library")
+    id("java-gradle-plugin")
     id("maven-publish")
-    `kotlin-dsl`
+    id("com.gradle.plugin-publish") version "1.0.0-rc-1"
 }
 
-dependencies {
-    implementation("com.android.tools.build:gradle-api:7.4.0")
-    implementation(kotlin("stdlib"))
-    implementation(gradleApi())
+pluginBundle {
+    // 为您的插件项目设置网站。
+    website = "http://www.gradle.org/"
+    // 提供源存储库 URI，以便其他人在想要贡献时可以找到它。
+    vcsUrl = "https://github.com/xjxlx/plugins"
+    // 设置要用于所有插件的标签，除非在块中被覆盖。plugins,插件的tag。可以通过这个在插件门户上搜索
+    tags = listOf("publish", "android", "发布", "plugins")
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_7
-    targetCompatibility = JavaVersion.VERSION_1_7
-}
+// https://docs.gradle.org/7.5/userguide/publishing_gradle_plugins.html
 
-// 发布信息
-afterEvaluate {
-    publishing { // 发布配置
-        publications {// 发布内容
-            create<MavenPublication>("release") {// 注册一个名字为 release 的发布内容
-                from(components["java"])
-                groupId = "com.android.helper" // 唯一标识（通常为模块包名，也可以任意）
-                artifactId = "publish" // 插件名称
-                version = "1.0.0"//  版本号
-            }
+group = "com.github.xjxlx"
+version = "1.0"
+
+
+gradlePlugin {
+    // 捆绑包中的每个插件都在块中指定。由于您此时只发布一个插件，因此只会有 一个条目，但如果您的项目将来发布捆绑包，您将在此处列出每个条目。plugins
+    plugins {
+        // 每个插件块的名称不会影响插件配置，但对于提供的每个插件需要是唯一的。
+        create("publish") {
+            // 	设置插件的唯一性。id
+            id = "com.android.helper"
+            // 短名称显示
+            displayName = "PublishPlugin"
+            // 插件的描述
+            description = "A helper plug-in for publishing an application"
+            // 插件的全路径显示地址
+            implementationClass = "com.android.helper.plugin.PublishPlugin"
         }
     }
 }
+
+//dependencies {
+//    implementation("com.android.tools.build:gradle-api:7.4.0")
+//    implementation(gradleApi()) // gradle sdk
+//    implementation(localGroovy()) //groovy sdk
+//}
