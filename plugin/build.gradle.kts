@@ -16,7 +16,7 @@ pluginBundle {
 // https://docs.gradle.org/7.5/userguide/publishing_gradle_plugins.html
 
 // 确保您的项目有一组用于您在 Gradle 插件门户存储库中发布的工件（jar 和元数据） 并且也描述了插件作者或插件所属的组织。group
-group = "com.github.xjxlx"
+group = "com.android.helper"
 // 设置此出版物的版本。如果您之前已经发布了该插件，则需要增加版本。
 version = "1.0"
 
