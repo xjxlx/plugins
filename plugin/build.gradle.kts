@@ -1,7 +1,7 @@
 plugins {
     id("java-gradle-plugin")
     id("maven-publish")
-    id("com.gradle.plugin-publish") version "1.0.0-rc-1"
+    id("com.gradle.plugin-publish") version "1.0.0-rc-1" // 这个是发布到插件门户网站的插件
 }
 
 pluginBundle {
@@ -10,7 +10,7 @@ pluginBundle {
     // 提供源存储库 URI，以便其他人在想要贡献时可以找到它。
     vcsUrl = "https://github.com/xjxlx/plugins"
     // 设置要用于所有插件的标签，除非在块中被覆盖。plugins,插件的tag。可以通过这个在插件门户上搜索
-    tags = listOf("publish", "android", "发布", "plugins")
+    tags = listOf("publish", "android", "plugins")
 }
 
 // https://docs.gradle.org/7.5/userguide/publishing_gradle_plugins.html
