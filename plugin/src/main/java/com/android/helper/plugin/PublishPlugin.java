@@ -62,17 +62,14 @@ public class PublishPlugin implements Plugin<Project> {
 
                 PublishingExtension publish = project.getExtensions().getByType(PublishingExtension.class);
 
-                publish.getPublications().create("release", MavenPublication.class, new Action<MavenPublication>() {
-                    @Override
-                    public void execute(MavenPublication maven) {
-                        // 设置属性
-                        maven.setGroupId("com.android.helper");
-                        maven.setArtifactId("publish");
-                        maven.setVersion("1.0.0");
+                publish.getPublications().create("release", MavenPublication.class, maven -> {
+                    // 设置属性
+                    maven.setGroupId("com.android.helper");
+                    maven.setArtifactId("publish");
+                    maven.setVersion("1.0.0");
 
-                        // 发布
-                        maven.from(project.getComponents().getByName("release"));
-                    }
+                    // 发布
+                    maven.from(project.getComponents().getByName("release"));
                 });
             }
         });
