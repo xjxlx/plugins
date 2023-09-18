@@ -4,6 +4,18 @@ plugins {
     id("com.gradle.plugin-publish") version "1.0.0-rc-1" // 这个是发布到插件门户网站的插件
 }
 
+// 依赖仓库
+//repositories {
+//    mavenCentral()
+//}
+
+// https://docs.gradle.org/7.5/userguide/publishing_gradle_plugins.html
+
+// 确保您的项目有一组用于您在 Gradle 插件门户存储库中发布的工件（jar 和元数据） 并且也描述了插件作者或插件所属的组织。group
+group = "com.android.helper"
+// 设置此出版物的版本。如果您之前已经发布了该插件，则需要增加版本。
+version = "1.0.0"
+
 pluginBundle {
     // 为您的插件项目设置网站。
     website = "https://github.com/"
@@ -12,13 +24,6 @@ pluginBundle {
     // 设置要用于所有插件的标签，除非在块中被覆盖。plugins,插件的tag。可以通过这个在插件门户上搜索
     tags = listOf("publish", "android", "plugins")
 }
-
-// https://docs.gradle.org/7.5/userguide/publishing_gradle_plugins.html
-
-// 确保您的项目有一组用于您在 Gradle 插件门户存储库中发布的工件（jar 和元数据） 并且也描述了插件作者或插件所属的组织。group
-group = "com.android.helper"
-// 设置此出版物的版本。如果您之前已经发布了该插件，则需要增加版本。
-version = "1.0.0"
 
 java {
     withJavadocJar()
@@ -48,21 +53,24 @@ dependencies {
 }
 
 // 发布到本地
-afterEvaluate {
-    publishing { // 发布配置
-        publications {// 发布内容
-            create<MavenPublication>("release") {// 注册一个名字为 release 的发布内容
-                from(components["java"])
-                groupId = "com.android.helper" // 唯一标识（通常为模块包名，也可以任意）
-                artifactId = "publish" // 插件名称
-                version = "1.0.0"//  版本号
-            }
+//afterEvaluate {
+//    publishing { // 发布配置
+//        publications {// 发布内容
+//            create<MavenPublication>("release") {// 注册一个名字为 release 的发布内容
+//                from(components["java"])
+//                groupId = "com.android.helper" // 唯一标识（通常为模块包名，也可以任意）
+//                artifactId = "publish" // 插件名称
+//                version = "1.0.0"//  版本号
+//            }
+//        }
+//    }
+//}
+
+publishing {
+    repositories {
+        maven {
+            name = "localPluginRepository"
+            url = uri("../local-plugin-repository")
         }
     }
 }
-
-//dependencies {
-//    implementation("com.android.tools.build:gradle-api:7.4.0")
-//    implementation(gradleApi()) // gradle sdk
-//    implementation(localGroovy()) //groovy sdk
-//}
