@@ -12,13 +12,13 @@ plugins {
 // https://docs.gradle.org/7.5/userguide/publishing_gradle_plugins.html
 
 // 确保您的项目有一组用于您在 Gradle 插件门户存储库中发布的工件（jar 和元数据） 并且也描述了插件作者或插件所属的组织。group
-group = "com.android.helper"
+group = "org.android.plugin"
 // 设置此出版物的版本。如果您之前已经发布了该插件，则需要增加版本。
 version = "1.0.0"
 
 pluginBundle {
     // 为您的插件项目设置网站。
-    website = "https://github.com/"
+    website = "https://github.com/xjxlx/plugins"
     // 提供源存储库 URI，以便其他人在想要贡献时可以找到它。
     vcsUrl = "https://github.com/xjxlx/plugins"
     // 设置要用于所有插件的标签，除非在块中被覆盖。plugins,插件的tag。可以通过这个在插件门户上搜索
@@ -37,7 +37,7 @@ gradlePlugin {
         // 每个插件块的名称不会影响插件配置，但对于提供的每个插件需要是唯一的。
         create("publish") {
             // 	设置插件的唯一性。id
-            id = "com.android.helper.publish"
+            id = "org.android.plugin.publish"
             // 短名称显示
             displayName = "PublishPlugin"
             // 插件的描述
