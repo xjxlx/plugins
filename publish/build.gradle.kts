@@ -14,11 +14,11 @@ plugins {
 // 确保您的项目有一组用于您在 Gradle 插件门户存储库中发布的工件（jar 和元数据） 并且也描述了插件作者或插件所属的组织。group
 group = "io.github.xjx.plugin"
 // 设置此出版物的版本。如果您之前已经发布了该插件，则需要增加版本。
-version = "1.0.0"
+version = "1.0.1"
 
 pluginBundle {
     // 为您的插件项目设置网站。
-    website = "https://github.com/xjxlx/plugins"
+    website = "https://github.com/xjxlx/plugins/blob/main/publish/README.md"
     // 提供源存储库 URI，以便其他人在想要贡献时可以找到它。
     vcsUrl = "https://github.com/xjxlx/plugins"
     // 设置要用于所有插件的标签，除非在块中被覆盖。plugins,插件的tag。可以通过这个在插件门户上搜索
