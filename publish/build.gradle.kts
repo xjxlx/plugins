@@ -37,7 +37,7 @@ gradlePlugin {
         // 每个插件块的名称不会影响插件配置，但对于提供的每个插件需要是唯一的。
         create("publish") {
             // 	设置插件的唯一性。id
-            id = "io.github.xjx.plugin.publish"
+            id = "${group}.publish"
             // 短名称显示
             displayName = "PublishPlugin"
             // 插件的描述
