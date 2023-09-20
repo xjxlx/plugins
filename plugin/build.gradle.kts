@@ -12,7 +12,7 @@ plugins {
 // https://docs.gradle.org/7.5/userguide/publishing_gradle_plugins.html
 
 // 确保您的项目有一组用于您在 Gradle 插件门户存储库中发布的工件（jar 和元数据） 并且也描述了插件作者或插件所属的组织。group
-group = "org.android.plugin"
+group = "io.github.xjx.plugin"
 // 设置此出版物的版本。如果您之前已经发布了该插件，则需要增加版本。
 version = "1.0.0"
 
@@ -37,7 +37,7 @@ gradlePlugin {
         // 每个插件块的名称不会影响插件配置，但对于提供的每个插件需要是唯一的。
         create("publish") {
             // 	设置插件的唯一性。id
-            id = "org.android.plugin.publish"
+            id = "io.github.xjx.plugin.publish"
             // 短名称显示
             displayName = "PublishPlugin"
             // 插件的描述
