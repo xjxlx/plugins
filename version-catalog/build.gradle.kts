@@ -1,20 +1,14 @@
 plugins {
     id("java-gradle-plugin")
-    id("maven-publish")
+    `version-catalog`
+    `maven-publish`
     id("com.gradle.plugin-publish") version "1.0.0-rc-1" // 这个是发布到插件门户网站的插件
 }
-
-// 依赖仓库
-//repositories {
-//    mavenCentral()
-//}
-
-// https://docs.gradle.org/7.5/userguide/publishing_gradle_plugins.html
 
 // 确保您的项目有一组用于您在 Gradle 插件门户存储库中发布的工件（jar 和元数据） 并且也描述了插件作者或插件所属的组织。group
 group = Config.plugin_group
 // 设置此出版物的版本。如果您之前已经发布了该插件，则需要增加版本。
-version = Config.plugin_version_publish
+version = Config.plugin_version_catalog
 
 pluginBundle {
     // 为您的插件项目设置网站。
@@ -52,25 +46,16 @@ dependencies {
     implementation(gradleApi()) // gradle sdk
 }
 
-// 发布到本地
-//afterEvaluate {
-//    publishing { // 发布配置
-//        publications {// 发布内容
-//            create<MavenPublication>("release") {// 注册一个名字为 release 的发布内容
-//                from(components["java"])
-//                groupId = "com.android.helper" // 唯一标识（通常为模块包名，也可以任意）
-//                artifactId = "publish" // 插件名称
-//                version = "1.0.0"//  版本号
-//            }
-//        }
-//    }
-//}
+catalog {
+    versionCatalog {
+        library("version-catalog", "$${Config.plugin_group}:version:${Config.plugin_version_catalog}")
+    }
+}
 
 publishing {
-    repositories {
-        maven {
-            name = "localPluginRepository"
-            url = uri("../local-plugin-repository")
+    publications {
+        create<MavenPublication>("maven") {
+            from(components["versionCatalog"])
         }
     }
 }
