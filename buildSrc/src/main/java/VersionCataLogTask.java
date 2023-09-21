@@ -1,5 +1,3 @@
-import com.android.tools.r8.S;
-
 import org.gradle.api.DefaultTask;
 import org.gradle.api.Project;
 import org.gradle.api.tasks.TaskAction;
@@ -8,12 +6,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import utils.FileUtil;
-import utils.SystemUtil;
 
-abstract public class VersionCataLogTask extends DefaultTask {
+public class VersionCataLogTask extends DefaultTask {
 
-    public FileUtil mFileUtil = new FileUtil();
+    private static String urlPath = "https://github.com/xjxlx/plugins/blob/39a705f313bec743e2c0437ce0f61a64a63c60f2/gradle/libs.versions.toml";
+
+    FileUtil mFileUtil = new FileUtil();
 
 //    @get:InputFile
 //    abstract val mergedManifest: RegularFileProperty
@@ -23,16 +21,16 @@ abstract public class VersionCataLogTask extends DefaultTask {
 
     @TaskAction
     public void taskAction() {
-        Project project = getProject();
-        File root = project.getRootDir();
-        String rootPath = root.getAbsolutePath();
+        SystemUtil.println("taskAction: ------> ");
 
-        // 查找gradle文件，读取内容
-        File versionFile = new File(rootPath, "gradle" + File.separator + "libs.versions.toml");
-        String versionPath = versionFile.getAbsolutePath();
+        Project project = getProject();
+        File rootDir = project.getRootDir();
+
+        // 写入云端文件到gradle
+        String configuration = mFileUtil.writeGradleFile(urlPath, new File(rootDir, "gradle" + File.separator + "libs2.versions.toml"));
 
         // 查找model的name
-        File[] rootFiles = root.listFiles();
+        File[] rootFiles = rootDir.listFiles();
         File settingsFile = mFileUtil.filterStart(rootFiles, "settings.gradle");
         List<String> settingContent = mFileUtil.readFile(settingsFile);
         List<String> listInclude = mFileUtil.filterStart(settingContent, "include");
@@ -40,7 +38,7 @@ abstract public class VersionCataLogTask extends DefaultTask {
 
         for (int i = 0; i < modelList.size(); i++) {
             String model = modelList.get(i);
-            modelTask(new File(rootPath, model));
+            modelTask(new File(rootDir, model));
         }
     }
 
