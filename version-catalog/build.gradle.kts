@@ -75,7 +75,7 @@ afterEvaluate {
     }
 }
 
-tasks.register("aaaa", VersionCataLogTask::class.java, object : Action<VersionCataLogTask> {
+tasks.register("versionCatalog-write", VersionCataLogTask::class.java, object : Action<VersionCataLogTask> {
     override fun execute(t: VersionCataLogTask) {
     }
 })
