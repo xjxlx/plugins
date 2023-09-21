@@ -106,7 +106,6 @@ refresh-layout-kernel = { group = "io.github.scwang90", name = "refresh-layout-k
 refresh-header-classics = { group = "io.github.scwang90", name = "refresh-header-classics", version.ref = "refresh-header-classics" }
 refresh-footer-classics = { group = "io.github.scwang90", name = "refresh-footer-classics", version.ref = "refresh-footer-classics" }
 
-
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "app" }
 com-android-library = { id = "com.android.library", version.ref = "agp" }
