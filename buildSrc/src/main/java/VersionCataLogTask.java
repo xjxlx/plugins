@@ -68,16 +68,38 @@ public class VersionCataLogTask extends DefaultTask {
     }
 
     private void modelTask(File model) {
+        boolean isKts = false;
         SystemUtil.println("model: " + model.getName());
-        File filter = mFileUtil.filterStart(model.listFiles(), "build.gradle");
-        List<String> modelGradleContent = mFileUtil.readFile(filter);
+        File modelGradle = mFileUtil.filterStart(model.listFiles(), "build.gradle");
+        String modelGradleName = modelGradle.getName();
+        SystemUtil.println("modelGradleName : " + modelGradleName);
+        if (modelGradleName.endsWith(".kts")) {
+            isKts = true;
+        } else if (modelGradleName.endsWith(".gradle")) {
+            isKts = false;
+        }
+
+        List<String> modelGradleContent = mFileUtil.readFile(modelGradle);
         // 获取依赖的内容
         List<String> dependenciesList = mFileUtil.filterStartAndEnd(modelGradleContent, "dependencies", "}");
         for (int i = 0; i < dependenciesList.size(); i++) {
             String dependencies = dependenciesList.get(i);
-            SystemUtil.println("dependencies: " + dependencies);
+            // replace dependencies
+            if (isKts) {
+                SystemUtil.println("dependencies: " + dependencies);
+                String[] split = dependencies.split("\"");
+//                for (int j = 0; j < split.length; j++) {
+//                    String splitContent = split[j];
+//                    SystemUtil.println("splitContent: " + splitContent);
+//                }
+                if (split.length >= 1) {
+                    String dependenciesContent = split[1];
+                    SystemUtil.println("dependenciesContent: " + dependenciesContent);
+                }
+
+            }
         }
-        SystemUtil.println("model find success !  \r\n");
+        SystemUtil.println("\r\n");
 
         // 更改配置信息
         changeModelDependencies(dependenciesList);
