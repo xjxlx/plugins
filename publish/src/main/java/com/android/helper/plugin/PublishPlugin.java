@@ -1,9 +1,10 @@
 package com.android.helper.plugin;
 
+import static com.plugin.utils.SystemUtil.println;
+
 import com.android.build.api.dsl.LibraryExtension;
 import com.android.build.api.dsl.LibrarySingleVariant;
 import com.android.helper.interfaces.PublishPluginExtension;
-import com.android.helper.utils.SystemUtil;
 
 import org.gradle.api.Action;
 import org.gradle.api.Plugin;
@@ -58,7 +59,7 @@ public class PublishPlugin implements Plugin<Project> {
                 Property<String> version = extension.getVersion();
 
                 // 1：获取插件版本信息
-                SystemUtil.println("groupId:" + groupId.get() + " artifactId:" + artifactId.get() + " version:" + version.get());
+                println("groupId:" + groupId.get() + " artifactId:" + artifactId.get() + " version:" + version.get());
 
                 PublishingExtension publish = project.getExtensions().getByType(PublishingExtension.class);
 
