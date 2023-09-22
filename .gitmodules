@@ -1,0 +1,5 @@
+[submodule "pluginUtil"]
+	path = pluginUtil
+	url = git@github.com:xjxlx/pluginUtils.git
+
+

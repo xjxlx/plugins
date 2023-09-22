@@ -42,6 +42,7 @@ gradlePlugin {
 dependencies {
     implementation("com.android.tools.build:gradle-api:7.4.0")
     implementation(gradleApi()) // gradle sdk
+    implementation(project(":pluginUtil"))
 }
 
 // 发布到本地

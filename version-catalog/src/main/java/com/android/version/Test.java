@@ -1,5 +1,6 @@
 package com.android.version;
 
+import org.apache.groovy.util.SystemUtil;
 import org.gradle.api.artifacts.VersionCatalog;
 
 import java.io.File;
@@ -10,6 +11,7 @@ public class Test {
         String root = "/Users/XJX/AndroidStudioProjects/plugins";
         File file = new File(root, "app/build.gradle.kts");
 //        SystemUtil.println("file:" + (file.exists()));
+//        CommonPlugin
 
 //        List<String> modelGradleContent = mFileUtil.readFile(modelGradle);
 //        // 获取依赖的内容
