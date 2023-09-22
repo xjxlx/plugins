@@ -1,4 +1,6 @@
-package com.android.common.utils;
+package com.android.common;
+
+import com.android.common.utils.SystemUtil;
 
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
