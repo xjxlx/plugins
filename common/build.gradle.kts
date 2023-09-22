@@ -45,7 +45,7 @@ gradlePlugin {
 }
 
 dependencies {
-    implementation("com.android.tools.build:gradle-api:7.4.0")
+    // implementation("com.android.tools.build:gradle-api:7.4.0")
     implementation(gradleApi()) // gradle sdk
 
     implementation("org.json:json:20230227")// json 依赖库
