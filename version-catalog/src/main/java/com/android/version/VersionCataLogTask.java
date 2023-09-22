@@ -1,3 +1,10 @@
+package com.android.version;
+
+import static com.plugin.utils.SystemUtil.println;
+
+import com.plugin.utils.FileUtil;
+import com.plugin.utils.SystemUtil;
+
 import org.gradle.api.DefaultTask;
 import org.gradle.api.Project;
 import org.gradle.api.tasks.TaskAction;
@@ -23,11 +30,11 @@ public class VersionCataLogTask extends DefaultTask {
 
     @TaskAction
     public void taskAction() {
-        PrintUtil.println("taskAction: ------> ");
+        println("taskAction: ------> ");
 
         Project project = getProject();
         File rootDir = project.getRootDir();
-        PrintUtil.println("rootPath:" + rootDir.getAbsolutePath());
+        println("rootPath:" + rootDir.getAbsolutePath());
 
         // 写入云端文件到gradle
         String configuration = mFileUtil.writeGradleFile(urlPath, new File(rootDir, "gradle" + File.separator + "libs2.versions.toml"));
@@ -72,10 +79,10 @@ public class VersionCataLogTask extends DefaultTask {
 
     private void modelTask(File model) {
         boolean isKts = false;
-        PrintUtil.println("model: " + model.getName());
+        println("model: " + model.getName());
         File modelGradle = mFileUtil.filterStart(model.listFiles(), "build.gradle");
         String modelGradleName = modelGradle.getName();
-        PrintUtil.println("modelGradleName : " + modelGradleName);
+        println("modelGradleName : " + modelGradleName);
         if (modelGradleName.endsWith(".kts")) {
             isKts = true;
         } else if (modelGradleName.endsWith(".gradle")) {
@@ -92,11 +99,11 @@ public class VersionCataLogTask extends DefaultTask {
                 String string = new String(buffer, "utf-8");
                 stringBuffer.append(string);
             }
-            PrintUtil.println("buffer: " + buffer.toString());
+            println("buffer: " + buffer.toString());
 
 
         } catch (IOException e) {
-            PrintUtil.println("找不到gradle文件");
+            println("找不到gradle文件");
         }
 
         List<String> modelGradleContent = mFileUtil.readFile(modelGradle);
@@ -106,25 +113,25 @@ public class VersionCataLogTask extends DefaultTask {
             String dependencies = dependenciesList.get(i);
             // replace dependencies
             if (isKts) {
-                PrintUtil.println("dependencies: " + dependencies);
+                println("dependencies: " + dependencies);
                 String[] split = dependencies.split("\"");
 
                 if (split.length >= 1) {
                     String originalDependencies = split[1];
-                    PrintUtil.println("originalDependencies: " + originalDependencies);
+                    println("originalDependencies: " + originalDependencies);
                     String[] splitChild = originalDependencies.split(":");
                     String group = splitChild[0];
                     String name = splitChild[1];
-                    PrintUtil.println("[group]: " + group + " [name]: " + name);
+                    println("[group]: " + group + " [name]: " + name);
 
                     String newDependencies = "libs." + (name.replace("-", "."));
-                    PrintUtil.println("newDependencies: " + newDependencies);
+                    println("newDependencies: " + newDependencies);
                     String resultDependencies = split[0] + newDependencies + split[2];
-                    PrintUtil.println("resultDependencies: " + resultDependencies);
+                    println("resultDependencies: " + resultDependencies);
                 }
             }
         }
-        PrintUtil.println("\r\n");
+        println("\r\n");
 
         // 更改配置信息
         changeModelDependencies(dependenciesList);

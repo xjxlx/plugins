@@ -121,13 +121,13 @@ public class FileUtil {
                                 }
                                 result += content;
                             }
-                            SystemUtil.println("gradle-file write success! ");
+                            PrintUtil.println("gradle-file write success! ");
                             return result;
                         }
                     }
                 }
             } catch (Exception e) {
-                SystemUtil.println("body :error: " + e.getMessage());
+                PrintUtil.println("body :error: " + e.getMessage());
             }
         } catch (Exception e) {
             e.printStackTrace();

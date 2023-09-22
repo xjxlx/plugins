@@ -9,4 +9,4 @@
 
 This is a public class library used when developing plugins in Gradle, which inherits many tool
 classes. By using this plugin, you can omit many tool class repeated wheel building functions, and
-integrate SystemUtil, FileUtil...，More tool classes will be updated at any time in the future。
+integrate PrintUtil, FileUtil...，More tool classes will be updated at any time in the future。
