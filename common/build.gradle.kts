@@ -1,5 +1,4 @@
-@Suppress("DSL_SCOPE_VIOLATION")
-plugins {
+@Suppress("DSL_SCOPE_VIOLATION") plugins {
     id("java-library")
     id("java-gradle-plugin")
     id("maven-publish")
@@ -16,11 +15,11 @@ version = Config.plugin_common
 
 pluginBundle {
     // 为您的插件项目设置网站。
-    website = "https://github.com/xjxlx/plugins/blob/main/publish/README.md"
+    website = "https://github.com/xjxlx/plugins/blob/main/common/README.md"
     // 提供源存储库 URI，以便其他人在想要贡献时可以找到它。
-    vcsUrl = "https://github.com/xjxlx/plugins"
+    vcsUrl = "https://github.com/xjxlx/plugins/tree/main/common"
     // 设置要用于所有插件的标签，除非在块中被覆盖。plugins,插件的tag。可以通过这个在插件门户上搜索
-    tags = listOf("publish", "android", "plugins")
+    tags = listOf("common", "android", "utils", "util")
 }
 
 java {
@@ -41,7 +40,7 @@ gradlePlugin {
             // 插件的描述
             description = "A collection of tool classes used to help develop plugins"
             implementationClass = "com.android.common.CommonPlugin"
-         }
+        }
     }
 }
 
