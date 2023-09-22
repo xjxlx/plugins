@@ -3,6 +3,8 @@ import org.gradle.api.Project;
 import org.gradle.api.tasks.TaskAction;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +27,7 @@ public class VersionCataLogTask extends DefaultTask {
 
         Project project = getProject();
         File rootDir = project.getRootDir();
+        SystemUtil.println("rootPath:" + rootDir.getAbsolutePath());
 
         // 写入云端文件到gradle
         String configuration = mFileUtil.writeGradleFile(urlPath, new File(rootDir, "gradle" + File.separator + "libs2.versions.toml"));
@@ -79,6 +82,23 @@ public class VersionCataLogTask extends DefaultTask {
             isKts = false;
         }
 
+        try {
+            RandomAccessFile raf = new RandomAccessFile(modelGradle, "rw"); // 读写模式进行输出
+            StringBuffer stringBuffer = new StringBuffer();
+            byte[] buffer = new byte[1024];
+            int offset = 0;
+
+            while ((offset = raf.read(buffer, 0, 1024)) != -1) {
+                String string = new String(buffer, "utf-8");
+                stringBuffer.append(string);
+            }
+            SystemUtil.println("buffer: " + buffer.toString());
+
+
+        } catch (IOException e) {
+            SystemUtil.println("找不到gradle文件");
+        }
+
         List<String> modelGradleContent = mFileUtil.readFile(modelGradle);
         // 获取依赖的内容
         List<String> dependenciesList = mFileUtil.filterStartAndEnd(modelGradleContent, "dependencies", "}");
@@ -88,15 +108,20 @@ public class VersionCataLogTask extends DefaultTask {
             if (isKts) {
                 SystemUtil.println("dependencies: " + dependencies);
                 String[] split = dependencies.split("\"");
-//                for (int j = 0; j < split.length; j++) {
-//                    String splitContent = split[j];
-//                    SystemUtil.println("splitContent: " + splitContent);
-//                }
-                if (split.length >= 1) {
-                    String dependenciesContent = split[1];
-                    SystemUtil.println("dependenciesContent: " + dependenciesContent);
-                }
 
+                if (split.length >= 1) {
+                    String originalDependencies = split[1];
+                    SystemUtil.println("originalDependencies: " + originalDependencies);
+                    String[] splitChild = originalDependencies.split(":");
+                    String group = splitChild[0];
+                    String name = splitChild[1];
+                    SystemUtil.println("[group]: " + group + " [name]: " + name);
+
+                    String newDependencies = "libs." + (name.replace("-", "."));
+                    SystemUtil.println("newDependencies: " + newDependencies);
+                    String resultDependencies = split[0] + newDependencies + split[2];
+                    SystemUtil.println("resultDependencies: " + resultDependencies);
+                }
             }
         }
         SystemUtil.println("\r\n");

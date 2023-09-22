@@ -55,6 +55,11 @@ public class FileUtil {
         ArrayList<String> dependenciesList = new ArrayList<>();
         for (int i = 0; i < listContent.size(); i++) {
             String content = listContent.get(i);
+
+            if (content.contains("//")) {
+                continue;
+            }
+
             if (content.startsWith(left)) {
                 findFlag = true;
                 continue;
@@ -66,6 +71,7 @@ public class FileUtil {
                     continue;
                 }
             }
+
 
             if (findFlag) {
                 if (!content.isEmpty()) {

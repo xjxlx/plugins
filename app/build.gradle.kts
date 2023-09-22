@@ -38,5 +38,10 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.6.0")
+    implementation("androidx.core:core-ktx:1.6.0"){
+        isForce=true
+    }
+    implementation(libs.core.ktx){
+        isForce=true
+    }
 }
