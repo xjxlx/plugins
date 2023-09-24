@@ -38,11 +38,15 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.6.0"){
-        isForce=true
+    implementation("androidx.core:core-ktx:1.6.0") {
+        isForce = true
     }
-    implementation(libs.core.ktx){
-        isForce=true
+    implementation("com.android.tools.build:gradle-api:7.4.0")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.json:json:20230227")// json 依赖库
+
+    implementation(libs.core.ktx) {
+        isForce = true
     }
 }
 
