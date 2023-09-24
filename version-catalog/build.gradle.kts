@@ -81,10 +81,10 @@ afterEvaluate {
     }
 }
 
-tasks.register("versionCatalog-write", VersionCataLogTask::class.java, object : Action<VersionCataLogTask> {
-    //    dependsOn "sayGood"
-    override fun execute(t: VersionCataLogTask) {
-        t.dependsOn("clean")
-        t.dependsOn("build")
-    }
-})
+//tasks.register("versionCatalog-write", VersionCataLogTask::class.java, object : Action<VersionCataLogTask> {
+//    //    dependsOn "sayGood"
+//    override fun execute(t: VersionCataLogTask) {
+//        t.dependsOn("clean")
+//        t.dependsOn("build")
+//    }
+//})
