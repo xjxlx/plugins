@@ -1,11 +1,12 @@
 import com.android.common.CommonPlugin
 
 plugins {
-    alias(libs.plugins.java.gradle.plugin-library")
+    id("java-gradle-plugin")
+    id("java-library")
     `version-catalog`
     `maven-publish`
-    alias(libs.plugins.com.gradle.plugin.publish)   // 这个是发布到插件门户网站的插件     
-    alias(libs.plugins.io.github.xjxlx.common)  
+    id("com.gradle.plugin-publish") version "1.0.0-rc-1" // 这个是发布到插件门户网站的插件
+    id("io.github.xjxlx.common") version "1.0.0"
 }
 
 apply<CommonPlugin>()
