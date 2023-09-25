@@ -1,7 +1,5 @@
 package com.android.version;
 
-import static com.plugin.utils.SystemUtil.println;
-
 import com.plugin.utils.GradleUtil;
 
 import java.io.File;
@@ -18,6 +16,6 @@ public class Test {
         File rootFile = new File(root);
         gradleUtil.initGradle(rootFile);
         gradleUtil.writeGradleToLocal(urlPath, new File(rootFile, "gradle" + File.separator + "libs2.versions.toml"));
-        gradleUtil.changeDependencies();
+        gradleUtil.changeModules();
     }
 }

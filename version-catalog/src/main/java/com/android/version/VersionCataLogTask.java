@@ -33,9 +33,12 @@ public class VersionCataLogTask extends DefaultTask {
         File rootDir = project.getRootDir();
         println("rootPath:" + rootDir.getAbsolutePath());
 
-        gradleUtil.initGradle(rootDir);
+
+        gradleUtil.initGradle(project);
         gradleUtil.writeGradleToLocal(urlPath, new File(rootDir, "gradle" + File.separator + "libs2.versions.toml"));
-        gradleUtil.changeDependencies();
+        gradleUtil.changeModules();
+        String gradleVersion = project.getGradle().getGradleVersion();
+        println("gradleVersion:" + gradleVersion);
     }
 
 }

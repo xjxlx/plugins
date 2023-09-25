@@ -26,8 +26,8 @@ dependencyResolutionManagement {
 
 rootProject.name = "plugins"
 include(":app")
-include(":publish")
+//include(":publish")
 include(":version-catalog")
-include(":test")
-include(":common")
+//include(":test")
+//include(":common")
 include(":pluginUtil")
