@@ -1,6 +1,4 @@
-
 [versions]
-
 # app - version
 app = "7.4.1"
 agp = "7.4.1"
@@ -64,6 +62,7 @@ refresh-footer-classics = "2.0.6"
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
+
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
@@ -84,11 +83,15 @@ lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-view
 lifecycle-process = { group = "androidx.lifecycle", name = "lifecycle-process", version.ref = "lifecycle-process" }
 lifecycle-service = { group = "androidx.lifecycle", name = "lifecycle-service", version.ref = "lifecycle-service" }
 kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect" } # 反射
+
 # <---------custom--------->
 logger = { group = "com.orhanobut", name = "logger", version.ref = "logger" }
 dimens = { group = "com.github.xjxlx", name = "dimens", version.ref = "dimens" }
 retrofit2 = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit2" }
-converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "converter-gson" } # 必要依赖，解析json字符所用converter-scalars = { group = "com.squareup.retrofit2", name = "converter-scalars", version.ref = "converter-scalars" }# 必要依赖，把数据转产成字符串使用okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }# okHttp的依赖jeromq = { group = "org.zeromq", name = "jeromq", version.ref = "jeromq" }
+converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "converter-gson" } # 必要依赖，解析json字符所用
+converter-scalars = { group = "com.squareup.retrofit2", name = "converter-scalars", version.ref = "converter-scalars" }# 必要依赖，把数据转产成字符串使用
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }# okHttp的依赖
+jeromq = { group = "org.zeromq", name = "jeromq", version.ref = "jeromq" }
 rxjava2 = { group = "io.reactivex.rxjava2", name = "rxjava", version.ref = "rxjava2" }
 adapter-rxjava2 = { group = "com.squareup.retrofit2", name = "adapter-rxjava2", version.ref = "adapter-rxjava2" }
 rxjava3 = { group = "io.reactivex.rxjava3", name = "rxjava", version.ref = "rxjava3" }
@@ -97,10 +100,12 @@ rxpermissions = { group = "com.github.tbruyelle", name = "rxpermissions", versio
 rxandroid = { group = "io.reactivex.rxjava2", name = "rxandroid", version.ref = "rxandroid" }
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide-compiler" }
-android-pickerview = { group = "com.contrarywind", name = "Android-PickerView", version.ref = "android-pickerview" } # 日历选择器viewpager2 = { group = "androidx.viewpager2", name = "viewpager2", version.ref = "viewpager2" }
+android-pickerview = { group = "com.contrarywind", name = "Android-PickerView", version.ref = "android-pickerview" } # 日历选择器
+viewpager2 = { group = "androidx.viewpager2", name = "viewpager2", version.ref = "viewpager2" }
 refresh-layout-kernel = { group = "io.github.scwang90", name = "refresh-layout-kernel", version.ref = "refresh-layout-kernel" }
 refresh-header-classics = { group = "io.github.scwang90", name = "refresh-header-classics", version.ref = "refresh-header-classics" }
 refresh-footer-classics = { group = "io.github.scwang90", name = "refresh-footer-classics", version.ref = "refresh-footer-classics" }
+
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "app" }
