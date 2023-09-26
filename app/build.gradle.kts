@@ -7,12 +7,13 @@ plugins {
 
 android {
     namespace = "com.android.plugins"
-    compileSdk = 30
+//    compileSdk = 30
+    compileSdk = convertVersion(libs.versions.compileSdks)
 
     defaultConfig {
         applicationId = "com.android.plugins"
         minSdk = 24
-        targetSdk = 30
+        targetSdk = convertVersion(libs.versions.targetSdk) //30
         versionCode = 1
         versionName = "1.0"
 
@@ -50,3 +51,7 @@ dependencies {
     }
 }
 
+fun convertVersion(version: Provider<String>): Int {
+    return version.get()
+        .toInt()
+}
