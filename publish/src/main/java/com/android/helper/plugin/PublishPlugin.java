@@ -25,6 +25,9 @@ public class PublishPlugin implements Plugin<Project> {
         Property<String> artifactId = publishExtension.getArtifactId().convention("publish");
         Property<String> version = publishExtension.getVersion().convention("1.0");
 
+        // 注册一个发布的类型
+        registerPublishType(project);
+
         // 2：检查是否安装了push插件
         AppliedPlugin plugin = project.getPluginManager().findPlugin("maven-publish");
         if (plugin == null) {
@@ -43,9 +46,6 @@ public class PublishPlugin implements Plugin<Project> {
         // 3：注册一个发布的task
         project.task("publishTask", task -> {
             task.doLast(task1 -> {
-                // 注册一个发布的类型
-                registerPublishType(project);
-
                 // 发布插件
                 publishTask(project, groupId.get(), artifactId.get(), version.get());
             });
