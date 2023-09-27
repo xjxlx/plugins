@@ -1,5 +1,3 @@
-[submodule "pluginUtil"]
-	path = pluginUtil
-	url = git@github.com:xjxlx/pluginUtils.git
-
-
+# [submodule "pluginUtil"]
+# 	path = pluginUtil
+# 	url = git@github.com:xjxlx/pluginUtils.git
