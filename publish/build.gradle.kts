@@ -4,10 +4,6 @@ plugins {
     id("com.gradle.plugin-publish") version "1.0.0-rc-1" // 这个是发布到插件门户网站的插件
 }
 
-group = Config.plugin_group
-// 设置此出版物的版本。如果您之前已经发布了该插件，则需要增加版本。
-version = Config.plugin_publish
-
 pluginBundle {
     // 为您的插件项目设置网站。
     website = "https://github.com/xjxlx/plugins/blob/main/publish/README.md"
@@ -17,10 +13,9 @@ pluginBundle {
     tags = listOf("publish", "android", "plugins")
 }
 
-java {
-    withJavadocJar()
-    withSourcesJar()
-}
+group = Config.plugin_group
+// 设置此出版物的版本。如果您之前已经发布了该插件，则需要增加版本。
+version = Config.plugin_publish
 
 // 发布到gradle门户
 gradlePlugin {
@@ -35,6 +30,16 @@ gradlePlugin {
             // 插件的描述
             description = "A helper plug-in for publishing an application"
             implementationClass = "com.android.helper.plugin.PublishPlugin"
+        }
+    }
+}
+
+// 发布到本地
+publishing {
+    repositories {
+        maven {
+            name = "localPluginRepository"
+            url = uri("../local-plugin-repository")
         }
     }
 }
@@ -58,39 +63,4 @@ dependencies {
 //    }
 //}
 
-publishing {
-    repositories {
-        maven {
-            name = "localPluginRepository"
-            url = uri("../local-plugin-repository")
-        }
-    }
-}
 
-
-
-
-//abstract class GreetingPluginExtension {
-//    abstract val message: Property<String>
-//    init {
-//        message.convention("Hello from GreetingPlugin")
-//    }
-//}
-//
-//class GreetingPlugin : Plugin<Project> {
-//    override fun apply(project: Project) {
-//        // Add the 'greeting' extension object
-//        val extension = project.extensions.create<GreetingPluginExtension>("greeting")
-//        // Add a task that uses configuration from the extension object
-//        project.task("hello") {
-//            doLast {
-//                println(extension.message.get())
-//            }
-//        }
-//    }
-//}
-//
-//apply<GreetingPlugin>()
-//
-//// Configure the extension
-//the<GreetingPluginExtension>().message.set("Hi from Gradle ddd")
