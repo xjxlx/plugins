@@ -44,7 +44,7 @@ public class PublishPlugin implements Plugin<Project> {
         project.task("publishTask", task -> {
             task.doLast(task1 -> {
                 // 注册一个发布的类型
-//                registerPublishType(project);
+                registerPublishType(project);
 
                 // 发布插件
                 publishTask(project, groupId.get(), artifactId.get(), version.get());
