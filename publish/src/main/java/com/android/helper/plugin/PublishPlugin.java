@@ -1,6 +1,6 @@
 package com.android.helper.plugin;
 
-import static com.plugin.utils.SystemUtil.println;
+import static com.android.helper.utils.PrintlnUtil.println;
 
 import com.android.build.api.dsl.LibraryExtension;
 import com.android.build.api.dsl.LibrarySingleVariant;
@@ -9,7 +9,6 @@ import com.android.helper.interfaces.PublishPluginExtension;
 import org.gradle.api.Action;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
-import org.gradle.api.provider.Property;
 import org.gradle.api.publish.PublishingExtension;
 import org.gradle.api.publish.maven.MavenPublication;
 
@@ -22,6 +21,15 @@ public class PublishPlugin implements Plugin<Project> {
     public void apply(Project project) {
         registerPublishType(project);
     }
+
+    // Add the 'greeting' extension object
+//    val extension = project.extensions.create<GreetingPluginExtension>("greeting")
+//    // Add a task that uses configuration from the extension object
+//        project.task("hello") {
+//        doLast {
+//            println(extension.message.get())
+//        }
+//    }
 
     /**
      * 注册一个release的发布类型
@@ -53,13 +61,13 @@ public class PublishPlugin implements Plugin<Project> {
             @Override
             public void execute(Project project) {
                 // 1：获取插件版本信息
-                PublishPluginExtension extension = project.getExtensions().create("publishExtension", PublishPluginExtension.class);
-                Property<String> groupId = extension.getGroupId();
-                Property<String> artifactId = extension.getArtifactId();
-                Property<String> version = extension.getVersion();
+                PublishPluginExtension publishExtension = project.getExtensions().create("publishExtension", PublishPluginExtension.class);
+                String groupId = publishExtension.getGroupId().get();
+                String artifactId = publishExtension.getArtifactId().get();
+                String version = publishExtension.getVersion().get();
 
                 // 1：获取插件版本信息
-                println("groupId:" + groupId.get() + " artifactId:" + artifactId.get() + " version:" + version.get());
+                println("groupId:" + groupId + " artifactId:" + artifactId + " version:" + version);
 
                 PublishingExtension publish = project.getExtensions().getByType(PublishingExtension.class);
 
