@@ -14,7 +14,7 @@ java {
 }
 
 group = Config.plugin_group
-version = Config.plugin_version_manager
+version = Config.plugin_version
 
 pluginBundle {
     website = "https://github.com/xjxlx/plugins/blob/main/versionManager/README.md"
