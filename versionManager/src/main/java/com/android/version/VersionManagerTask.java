@@ -20,7 +20,7 @@ public class VersionManagerTask extends DefaultTask {
 
     @TaskAction
     public void taskAction() {
-        println("taskAction: ------> ");
+        println("version manager taskAction: ------> ");
         Project project = getProject();
 
         mGradleUtil.initGradle(project);
