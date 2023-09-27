@@ -2,11 +2,14 @@ package com.android.helper.plugin;
 
 import static com.android.helper.utils.PrintlnUtil.println;
 
+import com.android.build.api.dsl.LibraryExtension;
 import com.android.build.api.dsl.LibraryPublishing;
 import com.android.helper.interfaces.PublishPluginExtension;
 
+import org.gradle.api.Action;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
+import org.gradle.api.Task;
 import org.gradle.api.plugins.AppliedPlugin;
 import org.gradle.api.provider.Property;
 import org.gradle.api.publish.PublishingExtension;
@@ -37,13 +40,15 @@ public class PublishPlugin implements Plugin<Project> {
             // PluginContainer plugins = project.getPlugins();
         }
 
-        // 3: 注册一个发布的类型
-        registerPublishType(project);
-
-        // 4：注册一个发布的task
+        // 3：注册一个发布的task
         project.task("publishTask", task -> {
-            // 发布插件
-            publishTask(project, groupId.get(), artifactId.get(), version.get());
+            task.doLast(task1 -> {
+                // 注册一个发布的类型
+//                registerPublishType(project);
+
+                // 发布插件
+                publishTask(project, groupId.get(), artifactId.get(), version.get());
+            });
         });
     }
 
@@ -51,19 +56,12 @@ public class PublishPlugin implements Plugin<Project> {
      * 注册一个release的发布类型
      */
     private void registerPublishType(Project project) {
-        LibraryPublishing publishing = project.getExtensions().getByType(LibraryPublishing.class);
-        publishing.singleVariant("release", singleVariant -> {
-            singleVariant.withSourcesJar();
-            singleVariant.withJavadocJar();
+        LibraryExtension libraryExtension = project.getExtensions().getByType(LibraryExtension.class);
+        libraryExtension.getPublishing().singleVariant("release", library -> {
+            library.withSourcesJar();
+            library.withJavadocJar();
             return null;
         });
-
-//        LibraryExtension libraryExtension = project.getExtensions().getByType(LibraryExtension.class);
-//        libraryExtension.getPublishing().singleVariant("release", library -> {
-//            library.withSourcesJar();
-//            library.withJavadocJar();
-//            return null;
-//        });
     }
 
     /**
