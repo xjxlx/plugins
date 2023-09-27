@@ -8,6 +8,9 @@
 java {
     sourceCompatibility = JavaVersion.VERSION_1_7
     targetCompatibility = JavaVersion.VERSION_1_7
+
+    withJavadocJar()
+    withSourcesJar()
 }
 
 group = Config.plugin_group
@@ -20,11 +23,6 @@ pluginBundle {
     vcsUrl = "https://github.com/xjxlx/plugins/tree/main/common"
     // 设置要用于所有插件的标签，除非在块中被覆盖。plugins,插件的tag。可以通过这个在插件门户上搜索
     tags = listOf("common", "android", "utils", "util")
-}
-
-java {
-    withJavadocJar()
-    withSourcesJar()
 }
 
 // 发布到gradle门户
@@ -43,7 +41,6 @@ gradlePlugin {
         }
     }
 }
-
 
 dependencies {
     // implementation("com.android.tools.build:gradle-api:7.4.0")
