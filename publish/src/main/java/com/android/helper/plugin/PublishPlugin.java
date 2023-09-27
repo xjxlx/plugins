@@ -3,42 +3,36 @@ package com.android.helper.plugin;
 import static com.android.helper.utils.PrintlnUtil.println;
 
 import com.android.build.api.dsl.LibraryExtension;
-import com.android.build.api.dsl.LibrarySingleVariant;
 import com.android.helper.interfaces.PublishPluginExtension;
 
 import org.gradle.api.Action;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.Task;
+import org.gradle.api.provider.Property;
 import org.gradle.api.publish.PublishingExtension;
 import org.gradle.api.publish.maven.MavenPublication;
-
-import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
 
 public class PublishPlugin implements Plugin<Project> {
 
     @Override
     public void apply(Project project) {
-        // 1：获取插件版本信息
+        boolean hasPlugin = project.getPluginManager().hasPlugin("maven-publish");
+        println("hasPlugin:" + hasPlugin);
+
+        // 1：注册一个发布release的buildType
+        registerPublishType(project);
+
+        // 2：注册一个片段，用来传输数据使用
         PublishPluginExtension publishExtension = project.getExtensions().create("publishExtension", PublishPluginExtension.class);
-        String groupId = publishExtension.getGroupId().get();
-        String artifactId = publishExtension.getArtifactId().get();
-        String version = publishExtension.getVersion().get();
+        Property<String> groupId = publishExtension.getGroupId().convention("com.android.helper");
+        Property<String> artifactId = publishExtension.getArtifactId().convention("publish");
+        Property<String> version = publishExtension.getVersion().convention("1.0");
 
-        project.task("publish", new Action<Task>() {
-            @Override
-            public void execute(Task task) {
-                task.doLast(new Action<Task>() {
-                    @Override
-                    public void execute(Task task) {
-                        // 1：获取插件版本信息
-                        println("groupId:" + groupId + " artifactId:" + artifactId + " version:" + version);
-
-                        registerPublishType(project);
-                    }
-                });
-            }
+        // 3：注册一个发布的task
+        project.task("publishTask", task -> {
+            // 发布插件
+            publishTask(project, task, groupId.get(), artifactId.get(), version.get());
         });
     }
 
@@ -47,16 +41,10 @@ public class PublishPlugin implements Plugin<Project> {
      */
     private void registerPublishType(Project project) {
         LibraryExtension libraryExtension = project.getExtensions().getByType(LibraryExtension.class);
-        libraryExtension.getPublishing().singleVariant("release", new Function1<LibrarySingleVariant, Unit>() {
-            @Override
-            public Unit invoke(LibrarySingleVariant library) {
-                library.withSourcesJar();
-                library.withJavadocJar();
-
-                // 2：发布插件
-                publishTask(project);
-                return null;
-            }
+        libraryExtension.getPublishing().singleVariant("release", library -> {
+            library.withSourcesJar();
+            library.withJavadocJar();
+            return null;
         });
     }
 
@@ -66,7 +54,10 @@ public class PublishPlugin implements Plugin<Project> {
      * id "maven-publish"
      * }
      */
-    private void publishTask(Project project) {
+    private void publishTask(Project project, Task task, String groupId, String artifactId, String version) {
+        // 获取插件版本信息
+        println("groupId:" + groupId + " artifactId:" + artifactId + " version:" + version);
+
         // 在所有的配置都完成之后执行
         project.afterEvaluate(new Action<Project>() {
             @Override
@@ -80,7 +71,7 @@ public class PublishPlugin implements Plugin<Project> {
                     maven.setVersion("1.0.0");
 
                     // 发布
-                    maven.from(project.getComponents().getByName("release"));
+                    task.doLast(task1 -> maven.from(project.getComponents().getByName("release")));
                 });
             }
         });
