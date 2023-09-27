@@ -6,14 +6,14 @@ import org.gradle.api.Project;
 import org.gradle.api.tasks.TaskContainer;
 import org.gradle.api.tasks.TaskProvider;
 
-public abstract class VersionManagerPlugin implements Plugin<Project> {
+public abstract class VersionPlugin implements Plugin<Project> {
     @Override
     public void apply(Project project) {
         TaskContainer tasks = project.getTasks();
 
-        TaskProvider<VersionManagerTask> versionManager = tasks.register("versionManager", VersionManagerTask.class, new Action<VersionManagerTask>() {
+        TaskProvider<VersionTask> version = tasks.register("version", VersionTask.class, new Action<VersionTask>() {
             @Override
-            public void execute(VersionManagerTask version) {
+            public void execute(VersionTask version) {
 
             }
         });

@@ -12,7 +12,7 @@ import org.gradle.api.tasks.TaskAction;
 import java.io.File;
 
 
-public class VersionManagerTask extends DefaultTask {
+public class VersionTask extends DefaultTask {
 
     private static final String URL_PATH = "https://github.com/xjxlx/plugins/blob/39a705f313bec743e2c0437ce0f61a64a63c60f2/gradle/libs.versions.toml";
 
