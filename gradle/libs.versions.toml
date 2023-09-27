@@ -58,6 +58,7 @@ refresh-layout-kernel = "2.0.6"
 refresh-header-classics = "2.0.6"
 refresh-footer-classics = "2.0.6"
 android-maven-gradle-plugin = "2.1"
+io-github-xjxlx-common = "1.0.9"
 
 [libraries]
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
@@ -111,5 +112,6 @@ refresh-footer-classics = { group = "io.github.scwang90", name = "refresh-footer
 com-android-application = { id = "com.android.application", version.ref = "app" }
 com-android-library = { id = "com.android.library", version.ref = "agp" }
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
+io-github-xjxlx-common = { id = "io.github.xjxlx.common", version.ref = "io-github-xjxlx-common" }
 
 [bundles]

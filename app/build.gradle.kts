@@ -7,20 +7,18 @@ plugins {
 
 android {
     namespace = "com.android.plugins"
-//    compileSdk = 30
-    compileSdk = convertVersion(libs.versions.compileSdks)
+    compileSdk = 30
+//    compileSdk = convertVersion(libs.versions.compileSdks)
 
     defaultConfig {
         applicationId = "com.android.plugins"
         minSdk = 24
-        targetSdk = convertVersion(libs.versions.targetSdk) //30
+//        targetSdk = convertVersion(libs.versions.targetSdk) //30
+        targetSdk=30
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
     }
 
     buildTypes {
@@ -33,6 +31,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
