@@ -9,6 +9,7 @@ import com.android.helper.interfaces.PublishPluginExtension;
 import org.gradle.api.Action;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
+import org.gradle.api.Task;
 import org.gradle.api.publish.PublishingExtension;
 import org.gradle.api.publish.maven.MavenPublication;
 
@@ -19,17 +20,27 @@ public class PublishPlugin implements Plugin<Project> {
 
     @Override
     public void apply(Project project) {
-        registerPublishType(project);
-    }
+        // 1：获取插件版本信息
+        PublishPluginExtension publishExtension = project.getExtensions().create("publishExtension", PublishPluginExtension.class);
+        String groupId = publishExtension.getGroupId().get();
+        String artifactId = publishExtension.getArtifactId().get();
+        String version = publishExtension.getVersion().get();
 
-    // Add the 'greeting' extension object
-//    val extension = project.extensions.create<GreetingPluginExtension>("greeting")
-//    // Add a task that uses configuration from the extension object
-//        project.task("hello") {
-//        doLast {
-//            println(extension.message.get())
-//        }
-//    }
+        project.task("publish", new Action<Task>() {
+            @Override
+            public void execute(Task task) {
+                task.doLast(new Action<Task>() {
+                    @Override
+                    public void execute(Task task) {
+                        // 1：获取插件版本信息
+                        println("groupId:" + groupId + " artifactId:" + artifactId + " version:" + version);
+
+                        registerPublishType(project);
+                    }
+                });
+            }
+        });
+    }
 
     /**
      * 注册一个release的发布类型
@@ -60,15 +71,6 @@ public class PublishPlugin implements Plugin<Project> {
         project.afterEvaluate(new Action<Project>() {
             @Override
             public void execute(Project project) {
-                // 1：获取插件版本信息
-                PublishPluginExtension publishExtension = project.getExtensions().create("publishExtension", PublishPluginExtension.class);
-                String groupId = publishExtension.getGroupId().get();
-                String artifactId = publishExtension.getArtifactId().get();
-                String version = publishExtension.getVersion().get();
-
-                // 1：获取插件版本信息
-                println("groupId:" + groupId + " artifactId:" + artifactId + " version:" + version);
-
                 PublishingExtension publish = project.getExtensions().getByType(PublishingExtension.class);
 
                 publish.getPublications().create("release", MavenPublication.class, maven -> {
