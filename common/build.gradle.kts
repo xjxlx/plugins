@@ -27,19 +27,6 @@ java {
     withSourcesJar()
 }
 
-// 依赖仓库
-repositories {
-    maven { setUrl("https://maven.aliyun.com/repository/google") }
-    maven { setUrl("https://maven.aliyun.com/repository/public") }
-    maven { setUrl("https://maven.aliyun.com/repository/central") }
-    maven { setUrl("https://maven.aliyun.com/repository/gradle-plugin") }
-    maven { setUrl("https://jitpack.io") }
-
-    mavenCentral()
-    mavenCentral()
-    gradlePluginPortal()
-}
-
 // 发布到gradle门户
 gradlePlugin {
     // 捆绑包中的每个插件都在块中指定。由于您此时只发布一个插件，因此只会有 一个条目，但如果您的项目将来发布捆绑包，您将在此处列出每个条目。plugins
