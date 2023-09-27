@@ -6,7 +6,7 @@ plugins {
     `version-catalog`
     `maven-publish`
     id("com.gradle.plugin-publish") version "1.0.0-rc-1" // 这个是发布到插件门户网站的插件
-    id("io.github.xjxlx.common") version "1.0.0"
+    id("io.github.xjxlx.common") version "1.0.3"
 }
 
 apply<CommonPlugin>()
@@ -16,7 +16,7 @@ apply<CommonPlugin>()
 // 确保您的项目有一组用于您在 Gradle 插件门户存储库中发布的工件（jar 和元数据） 并且也描述了插件作者或插件所属的组织。group
 group = Config.plugin_group
 // 设置此出版物的版本。如果您之前已经发布了该插件，则需要增加版本。
-version = Config.plugin_version_catalog
+version = Config.plugin_version_manager
 
 //pluginBundle {
 //    // 为您的插件项目设置网站。
