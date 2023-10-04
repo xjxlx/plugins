@@ -17,7 +17,7 @@ abstract class PublishPluginExtension {
     abstract val version: Property<String>
 
     init {
-        groupId.convention("com.android.helper")
+        groupId.convention("io.github.xjxlx")
         artifactId.convention("publish")
         version.convention("1.0.0")
     }

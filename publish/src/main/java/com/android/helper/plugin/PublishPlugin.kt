@@ -16,9 +16,6 @@ class PublishPlugin : Plugin<Project> {
         // 1：注册一个片段，用来传输数据使用
         val publishExtension = project.extensions.create("publishExtension", PublishPluginExtension::class.java)
 
-        // 注册一个发布的类型
-        registerPublishType(project)
-
         // 2：检查是否安装了push插件
         val plugin = project.pluginManager.findPlugin("maven-publish")
         if (plugin == null) {
@@ -36,6 +33,9 @@ class PublishPlugin : Plugin<Project> {
 
         // 3：注册一个发布的task
         project.task("publishTask") {
+            // 注册一个发布的类型
+            registerPublishType(project)
+
             // 发布插件
             publishTask(project, publishExtension.groupId.get(), publishExtension.artifactId.get(), publishExtension.version.get())
         }
@@ -66,6 +66,28 @@ class PublishPlugin : Plugin<Project> {
         println("groupId:$groupId artifactId:$artifactId version:$version")
 
         // 在所有的配置都完成之后执行
+        project.afterEvaluate {
+            it.extensions.getByType(PublishingExtension::class.java)
+                .publications { publications ->
+                    publications.create("release", MavenPublication::class.java, object : Action<MavenPublication> {
+                        override fun execute(t: MavenPublication) {
+                            t.groupId = groupId
+                            t.artifactId = artifactId
+
+                            var gitVersion = VersionUtil.VERSION
+                            if (TextUtil.isEmpty(gitVersion)) {
+                                gitVersion = version
+                            }
+                            t.version = gitVersion
+
+                            // 发布
+                            t.from(it.components.getByName("release"))
+                        }
+                    })
+                }
+        }
+
+
         project.afterEvaluate { project1: Project ->
             val publish = project1.extensions.getByType(PublishingExtension::class.java)
             publish.publications.create("release", MavenPublication::class.java, Action { maven: MavenPublication ->

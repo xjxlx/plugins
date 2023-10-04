@@ -7,7 +7,7 @@ object VersionUtil {
         get() {
             val latestGitTag = latestGitTag()
             return if (TextUtil.isEmpty(latestGitTag)) {
-                ""
+                "1.1.0"
             } else {
                 latestGitTag
             }
