@@ -25,10 +25,17 @@ class PublishPlugin : Plugin<Project> {
 
         // 3：注册一个发布的task
         project.task("publishTask") {
+            val groupId = publishExtension.groupId.get()
+            val artifactId = publishExtension.artifactId.get()
+            val version = publishExtension.version.get()
+
+            it.doLast {
+                println("doLast - groupId:$groupId artifactId:$artifactId version:$version")
+            }
             // 注册一个发布的类型
             registerPublishType(project)
             // 发布插件
-            publishTask(project, publishExtension.groupId.get(), publishExtension.artifactId.get(), publishExtension.version.get())
+            publishTask(project, groupId, artifactId, version)
         }
     }
 
