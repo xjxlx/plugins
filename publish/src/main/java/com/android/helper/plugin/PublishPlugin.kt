@@ -18,24 +18,15 @@ class PublishPlugin : Plugin<Project> {
 
         // 2：检查是否安装了push插件
         val plugin = project.pluginManager.findPlugin("maven-publish")
+        // 安装插件
         if (plugin == null) {
-            // 安装插件
             project.pluginManager.apply("maven-publish")
-
-            // String id = plugin.getId();
-            // String name = plugin.getName();
-            // boolean hasPlugin = project.getPluginManager().hasPlugin(id);
-            // println("hasPlugin:" + hasPlugin);
-            // println("id:" + id);
-            // println("name:" + name);
-            // PluginContainer plugins = project.getPlugins();
         }
 
         // 3：注册一个发布的task
         project.task("publishTask") {
             // 注册一个发布的类型
             registerPublishType(project)
-
             // 发布插件
             publishTask(project, publishExtension.groupId.get(), publishExtension.artifactId.get(), publishExtension.version.get())
         }
@@ -45,13 +36,18 @@ class PublishPlugin : Plugin<Project> {
      * 注册一个release的发布类型
      */
     private fun registerPublishType(project: Project) {
-        val libraryExtension = project.extensions.getByType(LibraryExtension::class.java)
-        libraryExtension.publishing {
-            this.singleVariant("release") {
-                this.withSourcesJar()
-                this.withJavadocJar()
+        project.extensions.getByType(LibraryExtension::class.java)
+            .apply {
+                publishing {
+                    this.multipleVariants {
+                        this.allVariants()
+                    }
+                    singleVariant("release") {
+                        this.withSourcesJar()
+                        this.withJavadocJar()
+                    }
+                }
             }
-        }
     }
 
     /**
@@ -67,41 +63,35 @@ class PublishPlugin : Plugin<Project> {
 
         // 在所有的配置都完成之后执行
         project.afterEvaluate {
-            it.extensions.getByType(PublishingExtension::class.java)
-                .publications { publications ->
-                    publications.create("release", MavenPublication::class.java, object : Action<MavenPublication> {
-                        override fun execute(t: MavenPublication) {
-                            t.groupId = groupId
-                            t.artifactId = artifactId
-
-                            var gitVersion = VersionUtil.VERSION
-                            if (TextUtil.isEmpty(gitVersion)) {
-                                gitVersion = version
-                            }
-                            t.version = gitVersion
-
-                            // 发布
-                            t.from(it.components.getByName("release"))
+            project.extensions.getByType(PublishingExtension::class.java)
+                .publications {
+                    var isCreated = false
+                    val names = it.names
+                    names.forEach {
+                        println("publications - name:" + { it })
+                        if (it.equals("release")) {
+                            isCreated = true
                         }
-                    })
+                    }
+
+                    if (!isCreated) {
+                        it.create("release", MavenPublication::class.java, object : Action<MavenPublication> {
+                            override fun execute(t: MavenPublication) {
+                                t.groupId = groupId
+                                t.artifactId = artifactId
+
+                                var gitVersion = VersionUtil.VERSION
+                                if (TextUtil.isEmpty(gitVersion)) {
+                                    gitVersion = version
+                                }
+                                t.version = gitVersion
+
+                                // 发布
+                                t.from(project.components.getByName("release"))
+                            }
+                        })
+                    }
                 }
-        }
-
-
-        project.afterEvaluate { project1: Project ->
-            val publish = project1.extensions.getByType(PublishingExtension::class.java)
-            publish.publications.create("release", MavenPublication::class.java, Action { maven: MavenPublication ->
-                maven.groupId = groupId
-                maven.artifactId = artifactId
-                var gitVersion = VersionUtil.VERSION
-                if (TextUtil.isEmpty(gitVersion)) {
-                    gitVersion = version
-                }
-                maven.version = gitVersion
-
-                // 发布
-                maven.from(project1.components.getByName("release"))
-            })
         }
     }
 }
