@@ -2,9 +2,7 @@ package com.android.helper.plugin
 
 import VersionUtil
 import com.android.build.api.dsl.LibraryExtension
-import com.android.helper.interfaces.PublishPluginExtension
 import com.android.helper.utils.TextUtil
-import org.gradle.api.Action
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
@@ -12,30 +10,48 @@ import org.gradle.api.publish.maven.MavenPublication
 
 class PublishPlugin : Plugin<Project> {
 
+    companion object {
+        const val PUBLISH_PLUGIN_ID = "maven-publish"
+        const val PUBLISH_TYPE = "release"
+    }
+
     override fun apply(project: Project) {
-        // 1：注册一个片段，用来传输数据使用
+        // 1：检查是否安装了push插件
+        project.pluginManager.findPlugin(PUBLISH_PLUGIN_ID)
+            .let {
+                if (it == null) {
+                    project.pluginManager.apply(PUBLISH_PLUGIN_ID)
+                }
+            }
+
+        // 2：注册一个片段，用来传输数据使用
         val publishExtension = project.extensions.create("publishExtension", PublishPluginExtension::class.java)
 
-        // 2：检查是否安装了push插件
-        val plugin = project.pluginManager.findPlugin("maven-publish")
-        // 安装插件
-        if (plugin == null) {
-            project.pluginManager.apply("maven-publish")
+        // 3：注册一个发布的类型
+        registerPublishType(project)
+
+        // 4：在项目对象完全配置完成后，去获取自定义的属性
+        project.gradle.projectsEvaluated {
+            println("pub --->projectsEvaluated")
+            // 获取具体的自定义属性
+            val groupId = publishExtension.groupId.convention("com.github.xjxlx")
+                .get()
+            val artifactId = publishExtension.artifactId.convention(VersionUtil.getModelNameForNamespace(project))
+                .get()
+            val version = publishExtension.version.convention(VersionUtil.VERSION)
+                .get()
+
+            // 注册一个发布的信息
+            publishTask(project, groupId, artifactId, version)
         }
 
-        // 3：注册一个发布的task
+        // 4：注册一个发布的task
         project.task("publishTask") {
-            val groupId = publishExtension.groupId.get()
-            val artifactId = publishExtension.artifactId.get()
-            val version = publishExtension.version.get()
+            it.group = "build"
 
             it.doLast {
-                println("doLast - groupId:$groupId artifactId:$artifactId version:$version")
+                println("publishTask ----->doLast")
             }
-            // 注册一个发布的类型
-            registerPublishType(project)
-            // 发布插件
-            publishTask(project, groupId, artifactId, version)
         }
     }
 
@@ -43,62 +59,51 @@ class PublishPlugin : Plugin<Project> {
      * 注册一个release的发布类型
      */
     private fun registerPublishType(project: Project) {
-        project.extensions.getByType(LibraryExtension::class.java)
-            .apply {
-                publishing {
-                    this.multipleVariants {
-                        this.allVariants()
-                    }
-                    singleVariant("release") {
+        runCatching {
+            project.extensions.getByType(LibraryExtension::class.java)
+                .publishing {
+                    this.singleVariant(PUBLISH_TYPE) {
                         this.withSourcesJar()
                         this.withJavadocJar()
+                        println("[register-publishing-$PUBLISH_TYPE]: success !")
                     }
                 }
-            }
+        }.onFailure { throws ->
+            println("[register-publishing-$PUBLISH_TYPE]: error:${throws.message} !")
+        }
     }
 
     /**
-     * 如果要使用：PublishingExtension 扩展属性的话，必须要依赖于这个插件
-     *
-     * plugins {
+     * 1：如果要使用：PublishingExtension 扩展属性的话，必须要依赖于这个插件
+     *  plugins {
      *      id "maven-publish"
-     * }
+     *  }
+     * 2：必须是在项目进行评估的时候去添加
      */
     private fun publishTask(project: Project, groupId: String, artifactId: String, version: String) {
-        // 获取插件版本信息
-        println("groupId:$groupId artifactId:$artifactId version:$version")
-
-        // 在所有的配置都完成之后执行
-        project.afterEvaluate {
+        runCatching {
+            println("publishTask - groupId:$groupId artifactId:$artifactId version:$version")
+            // 在执行task的时候才会去执行
             project.extensions.getByType(PublishingExtension::class.java)
                 .publications {
-                    var isCreated = false
-                    val names = it.names
-                    names.forEach {
-                        println("publications - name:" + { it })
-                        if (it.equals("release")) {
-                            isCreated = true
+                    val name = it.findByName(PUBLISH_TYPE)?.name
+                    if (TextUtil.isEmpty(name)) {
+                        // 注册一个名字为 release 的发布内容
+                        it.register(PUBLISH_TYPE, MavenPublication::class.java) { maven ->
+                            maven.groupId = groupId
+                            maven.artifactId = artifactId
+                            maven.version = version
+
+                            // 从当前 module 的 release 包中发布
+                            maven.from(project.components.getByName(PUBLISH_TYPE))
+                            println("[publishTask]: success !")
                         }
-                    }
-
-                    if (!isCreated) {
-                        it.create("release", MavenPublication::class.java, object : Action<MavenPublication> {
-                            override fun execute(t: MavenPublication) {
-                                t.groupId = groupId
-                                t.artifactId = artifactId
-
-                                var gitVersion = VersionUtil.VERSION
-                                if (TextUtil.isEmpty(gitVersion)) {
-                                    gitVersion = version
-                                }
-                                t.version = gitVersion
-
-                                // 发布
-                                t.from(project.components.getByName("release"))
-                            }
-                        })
+                    } else {
+                        println("[publishTask]: type already exists !")
                     }
                 }
+        }.onFailure { throws ->
+            println("[publishTask]:error:${throws.message}")
         }
     }
 }

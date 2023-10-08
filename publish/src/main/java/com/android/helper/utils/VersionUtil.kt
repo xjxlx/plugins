@@ -1,5 +1,6 @@
-import com.android.helper.plugin.Config
+import com.android.build.api.dsl.LibraryExtension
 import com.android.helper.utils.TextUtil
+import org.gradle.api.Project
 
 object VersionUtil {
 
@@ -7,7 +8,7 @@ object VersionUtil {
         get() {
             val latestGitTag = latestGitTag()
             return if (TextUtil.isEmpty(latestGitTag)) {
-                "1.1.0"
+                "master-SNAPSHOT"
             } else {
                 latestGitTag
             }
@@ -23,5 +24,20 @@ object VersionUtil {
                 bufferedReader.readText()
                     .trim()
             }
+    }
+
+    /**
+     * 获取model的name
+     */
+    fun getModelNameForNamespace(project: Project): String {
+        var result = "model"
+        project.extensions.getByType(LibraryExtension::class.java).namespace?.let {
+            if (it.contains(".")) {
+                result = it.split(".")
+                    .reversed()
+                    .first()
+            }
+        }
+        return result
     }
 }
