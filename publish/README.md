@@ -22,6 +22,8 @@ configure<com.android.helper.plugin.PublishPluginExtension> {
 ```
 
 
+
+
 ## English
 
 This is a plugin used to publish Library. With this plugin, you can simply configure a few properties and omit a lot of code in Gradle
