@@ -32,7 +32,6 @@ class PublishPlugin : Plugin<Project> {
 
         // 4：在项目对象完全配置完成后，去获取自定义的属性
         project.gradle.projectsEvaluated {
-            println("pub --->projectsEvaluated")
             // 获取具体的自定义属性
             val groupId = publishExtension.groupId.convention("com.github.xjxlx")
                 .get()
