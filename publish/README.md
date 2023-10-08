@@ -9,7 +9,8 @@ plugins {
 id("io.github.xjxlx.publish") version "xxxx"
 }
 
-### configure<com.android.helper.plugin.PublishPluginExtension> {
+### 
+configure<com.android.helper.plugin.PublishPluginExtension> {
     groupId.set("xxxx") // 默认的数据是：com.github.xjxlx
     artifactId.set("xxxx") // 默认的数据是：model的名字
     version.set("xxxx") // 默认的数据是：
