@@ -3,6 +3,7 @@ plugins {
     id("maven-publish")
     id("org.jetbrains.kotlin.jvm") // 用kotlin语言来开发
     id("com.gradle.plugin-publish") version "1.0.0-rc-1" // 这个是发布到插件门户网站的插件
+    id("io.github.xjxlx.common")
 }
 
 pluginBundle {
