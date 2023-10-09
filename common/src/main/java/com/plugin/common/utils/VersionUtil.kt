@@ -3,7 +3,7 @@ package com.plugin.common.utils
 import com.android.build.api.dsl.LibraryExtension
 import org.gradle.api.Project
 
-class VersionUtil {
+object VersionUtil {
 
     val version: String
         get() {

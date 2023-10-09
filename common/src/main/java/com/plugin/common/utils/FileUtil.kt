@@ -1,4 +1,4 @@
-package com.android.helper.utils
+package com.plugin.common.utils
 
 import java.io.File
 import java.io.FileOutputStream

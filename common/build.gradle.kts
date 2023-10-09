@@ -1,13 +1,13 @@
 plugins {
-    id("java-library")
-    id("org.jetbrains.kotlin.jvm") // 用kotlin语言来开发
     id("java-gradle-plugin")
+    id("org.jetbrains.kotlin.jvm") // 用kotlin语言来开发
     id("com.gradle.plugin-publish") version "1.0.0-rc-1" // 这个是发布到插件门户网站的插件
 }
 
 group = "io.github.xjxlx"
 version = "1.1.0"
 
+// 配置插件的发布地址信息
 pluginBundle {
     // 为您的插件项目设置网站。
     website = "https://github.com/xjxlx/plugins/blob/main/common/README.md"
@@ -33,12 +33,12 @@ gradlePlugin {
         }
     }
 }
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_1
-    targetCompatibility = JavaVersion.VERSION_1_1
-}
-
+//
+//java {
+//    sourceCompatibility = JavaVersion.VERSION_1_1
+//    targetCompatibility = JavaVersion.VERSION_1_1
+//}
+//
 dependencies {
     implementation("com.android.tools.build:gradle-api:7.4.2")
     implementation(gradleApi()) // gradle sdk
