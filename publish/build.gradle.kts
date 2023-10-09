@@ -49,18 +49,4 @@ dependencies {
     implementation(gradleApi()) // gradle sdk
 }
 
-// 发布到本地
-//afterEvaluate {
-//    publishing { // 发布配置
-//        publications {// 发布内容
-//            create<MavenPublication>("release") {// 注册一个名字为 release 的发布内容
-//                from(components["java"])
-//                groupId = "com.android.helper" // 唯一标识（通常为模块包名，也可以任意）
-//                artifactId = "publish" // 插件名称
-//                version = "1.0.0"//  版本号
-//            }
-//        }
-//    }
-//}
-
 
