@@ -13,8 +13,8 @@ java {
     withSourcesJar()
 }
 
-group = Config.plugin_group
-version = Config.plugin_version
+group = "io.github.xjxlx"
+version = "1.0.0"
 
 pluginBundle {
     website = "https://github.com/xjxlx/plugins/blob/main/versionManager/README.md"
