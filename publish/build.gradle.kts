@@ -14,9 +14,8 @@ pluginBundle {
     tags = listOf("publish", "android", "plugins")
 }
 
-group = Config.plugin_group
-// 设置此出版物的版本。如果您之前已经发布了该插件，则需要增加版本。
-version = Config.plugin_publish
+group = "io.github.xjxlx"
+version = "1.6.2.5"
 
 // 发布到gradle门户
 gradlePlugin {
