@@ -66,14 +66,17 @@ class PublishPlugin : Plugin<Project> {
         val githubFile = File(rootDir, ".github" + File.separator + ".github" + File.separator + "release.yml")
         // 是否需要写入
         val isWrite = if (githubFile.exists()) {
-            githubFile.length() > 0
+            githubFile.length() <= 0
         } else {
-            false
+            true
         }
         println("是否需要写入github文件：$isWrite")
 
-        if (!isWrite) {
-
+        if (isWrite) {
+            val projectDir = project.projectDir
+            println("projectDir:${projectDir.absolutePath}")
+//            FileUtil.readFile(File())
+//            FileUtil.writeFile(githubFile, content)
         }
     }
 
