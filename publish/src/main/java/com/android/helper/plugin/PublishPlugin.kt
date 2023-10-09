@@ -7,6 +7,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
+import java.io.File
 
 class PublishPlugin : Plugin<Project> {
 
@@ -51,6 +52,28 @@ class PublishPlugin : Plugin<Project> {
             it.doLast {
                 println("publishTask ----->doLast")
             }
+        }
+
+        // 5：写入github文件
+        writeGithub(project)
+    }
+
+    /**
+     * 写入github的文件，用于把推送的tag转换成github的release的信息
+     */
+    private fun writeGithub(project: Project) {
+        val rootDir = project.rootDir
+        val githubFile = File(rootDir, ".github" + File.separator + ".github" + File.separator + "release.yml")
+        // 是否需要写入
+        val isWrite = if (githubFile.exists()) {
+            githubFile.length() > 0
+        } else {
+            false
+        }
+        println("是否需要写入github文件：$isWrite")
+
+        if (!isWrite) {
+
         }
     }
 
