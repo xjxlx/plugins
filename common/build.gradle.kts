@@ -1,11 +1,12 @@
 plugins {
+    id("java-library")
+    id("org.jetbrains.kotlin.jvm") // 用kotlin语言来开发
     id("java-gradle-plugin")
-    id("maven-publish")
     id("com.gradle.plugin-publish") version "1.0.0-rc-1" // 这个是发布到插件门户网站的插件
 }
 
-group = Config.plugin_group
-version = Config.plugin_common
+group = "io.github.xjxlx"
+version = "1.1.0"
 
 pluginBundle {
     // 为您的插件项目设置网站。
@@ -28,9 +29,14 @@ gradlePlugin {
             displayName = "CommonPlugin"
             // 插件的描述
             description = "A collection of tool classes used to help develop plugins"
-            implementationClass = "com.android.utils.plugin.CommonPlugin"
+            implementationClass = "com.plugin.common.CommonPlugin"
         }
     }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_1
+    targetCompatibility = JavaVersion.VERSION_1_1
 }
 
 dependencies {

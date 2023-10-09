@@ -1,11 +1,11 @@
-package com.android.utils
+package com.plugin.common.utils
 
- import com.android.build.api.dsl.LibraryExtension
- import org.gradle.api.Project
+import com.android.build.api.dsl.LibraryExtension
+import org.gradle.api.Project
 
-object VersionUtil {
+class VersionUtil {
 
-    val VERSION: String
+    val version: String
         get() {
             val latestGitTag = latestGitTag()
             return if (TextUtil.isEmpty(latestGitTag)) {
