@@ -1,6 +1,6 @@
-package com.android.version.utils;
+package com.android.version.utils2;
 
-import static com.android.version.utils.PrintlnUtil.println;
+import static com.android.version.utils2.PrintlnUtil.println;
 
 import java.io.RandomAccessFile;
 import java.nio.charset.StandardCharsets;
