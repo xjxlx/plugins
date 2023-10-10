@@ -63,4 +63,23 @@ object FileUtil {
             println("写入数据失败：" + e.message)
         }
     }
+
+    /**
+     * @param outPutFile 写入的指定文件
+     * @param list 数据集合
+     */
+    fun writeFile(outPutFile: File, list: List<String>) {
+        try {
+            if (list.isNotEmpty()) {
+                FileOutputStream(outPutFile).use {
+                    list.forEach { item ->
+                        it.write(item.toByteArray())
+                    }
+                }
+                println("writeFile success!")
+            }
+        } catch (e: Exception) {
+            println("writeFile failed：" + e.message)
+        }
+    }
 }
