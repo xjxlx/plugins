@@ -33,16 +33,16 @@ gradlePlugin {
         }
     }
 }
-//
+
 //java {
 //    sourceCompatibility = JavaVersion.VERSION_1_1
 //    targetCompatibility = JavaVersion.VERSION_1_1
 //}
-//
-dependencies {
-    implementation("com.android.tools.build:gradle-api:7.4.2")
-    implementation(gradleApi()) // gradle sdk
 
-    implementation("org.json:json:20230227")// json 依赖库
-    implementation("org.jsoup:jsoup:1.16.1") // html依赖库
+dependencies {
+//    implementation("com.android.tools.build:gradle-api:7.4.2")
+//    implementation(gradleApi()) // gradle sdk
+//    implementation("org.json:json:20230227")// json 依赖库
+//    implementation("org.jsoup:jsoup:1.16.1") // html依赖库
+    implementation(project(":pluginUtil"))
 }

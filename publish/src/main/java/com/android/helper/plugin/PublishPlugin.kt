@@ -1,8 +1,8 @@
 package com.android.helper.plugin
 
-import VersionUtil
 import com.android.build.api.dsl.LibraryExtension
 import com.android.helper.utils.TextUtil
+import com.android.helper.utils.VersionUtil
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
@@ -38,7 +38,7 @@ class PublishPlugin : Plugin<Project> {
                 .get()
             val artifactId = publishExtension.artifactId.convention(VersionUtil.getModelNameForNamespace(project))
                 .get()
-            val version = publishExtension.version.convention(VersionUtil.VERSION)
+            val version = publishExtension.version.convention(VersionUtil.version)
                 .get()
 
             // 注册一个发布的信息
