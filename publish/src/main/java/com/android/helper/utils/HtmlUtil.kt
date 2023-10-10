@@ -24,7 +24,7 @@ object HtmlUtil {
                         htmlList.add(content)
                         htmlList.add("\r\n")
                     }
-                    println("gradle-file write success!")
+                    println("path:$url \r\nhtml write success!")
                     break
                 }
             }

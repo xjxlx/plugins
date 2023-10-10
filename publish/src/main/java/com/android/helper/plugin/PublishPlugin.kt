@@ -14,7 +14,7 @@ import java.io.File
 
 class PublishPlugin : Plugin<Project> {
 
-    private val mListHtml: List<String> by lazy {
+    private val mListGithub: List<String> by lazy {
         val html = arrayListOf<String>()
         val htmlForGithub = HtmlUtil.getHtmlForGithub(CommonConstant.githubPath)
         if (htmlForGithub.isNotEmpty()) {
@@ -22,13 +22,14 @@ class PublishPlugin : Plugin<Project> {
         }
         return@lazy html
     }
+
     private val mListJitpack: List<String> by lazy {
-        val html = arrayListOf<String>()
-        val htmlForGithub = HtmlUtil.getHtmlForGithub(CommonConstant.githubPath)
-        if (htmlForGithub.isNotEmpty()) {
-            html.addAll(htmlForGithub)
+        val jitpack = arrayListOf<String>()
+        val list = HtmlUtil.getHtmlForGithub(CommonConstant.jitpack)
+        if (list.isNotEmpty()) {
+            jitpack.addAll(list)
         }
-        return@lazy html
+        return@lazy jitpack
     }
 
     companion object {
@@ -73,84 +74,41 @@ class PublishPlugin : Plugin<Project> {
                 println("publishTask ----->doLast")
 
                 // 5：写入github文件
-                writeGithub(project)
+                val githubFile = File(File(project.rootDir, ".github" + File.separator + "workflows" + File.separator).apply {
+                    if (!exists()) {
+                        mkdirs()
+                    }
+                }, "release.yml").apply {
+                    if (!exists()) {
+                        createNewFile()
+                    }
+                }
+                writeProject("github", githubFile, mListGithub)
 
-                writeJitpack(project)
+                // 6：写入jitpack文件
+                val jitpackFile = File(project.rootDir, "jitpack.yml").apply {
+                    if (!exists()) {
+                        createNewFile()
+                    }
+                }
+                writeProject("jitpack", jitpackFile, mListJitpack)
             }
         }
     }
 
-    private fun writeProject(project: Project, url: String, outFile: File, list: List<String>) {
-        println("writeProject -[url]: $url")
+    /**
+     * 写入文件到项目中
+     */
+    private fun writeProject(tag: String, outFile: File, list: List<String>) {
+        println("$tag -[file-path]: ${outFile.absolutePath}")
         val isWrite = if (outFile.exists()) {
             outFile.length() <= 0
         } else {
             true
         }
-        println("writeProject - write：$isWrite")
+        println("$tag - write：$isWrite")
         if (isWrite) {
             FileUtil.writeFile(outFile, list)
-        }
-    }
-
-    private fun writeJitpack(project: Project) {
-        println("writeJitpack --->")
-        val jitpackFile = File(project.rootDir, "jitpack.yml")
-
-        val isWrite = if (githubFile.exists()) {
-            githubFile.length() <= 0
-        } else {
-            true
-        }
-
-        if (!githubFile.exists()) {
-            githubFile.createNewFile()
-        }
-        println("writeGithub - path:${githubFile.absolutePath}")
-        println("writeGithub - write：$isWrite")
-
-        if (isWrite) {
-            if (mListHtml.size <= 0) {
-                val html = HtmlUtil.getHtmlForGithub(CommonConstant.githubPath)
-                mListHtml.clear()
-                mListHtml.addAll(html)
-            }
-            println("writeGithub - html: $mListHtml")
-            FileUtil.writeFile(githubFile, mListHtml)
-        }
-    }
-
-    /**
-     * 写入github的文件，用于把推送的tag转换成github的release的信息
-     */
-    private fun writeGithub(project: Project) {
-        println("writeGithub --->")
-        val parentFile = File(project.rootDir, ".github" + File.separator + "workflows" + File.separator)
-        if (!parentFile.exists()) {
-            parentFile.mkdirs()
-        }
-        val githubFile = File(parentFile, "release.yml")
-
-        val isWrite = if (githubFile.exists()) {
-            githubFile.length() <= 0
-        } else {
-            true
-        }
-
-        if (!githubFile.exists()) {
-            githubFile.createNewFile()
-        }
-        println("writeGithub - path:${githubFile.absolutePath}")
-        println("writeGithub - write：$isWrite")
-
-        if (isWrite) {
-            if (mListHtml.size <= 0) {
-                val html = HtmlUtil.getHtmlForGithub(CommonConstant.githubPath)
-                mListHtml.clear()
-                mListHtml.addAll(html)
-            }
-            println("writeGithub - html: $mListHtml")
-            FileUtil.writeFile(githubFile, mListHtml)
         }
     }
 
