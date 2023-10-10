@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "io.github.xjxlx"
-version = "1.1.0"
+version = "1.1.1"
 
 // 配置插件的发布地址信息
 pluginBundle {
