@@ -2,14 +2,14 @@ package com.android.helper.plugin
 
 import com.android.build.api.dsl.LibraryExtension
 import com.android.helper.CommonConstant
-import com.android.helper.utils.FileUtil
-import com.android.helper.utils.HtmlUtil
-import com.android.helper.utils.TextUtil
-import com.android.helper.utils.VersionUtil
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
+import utils.FileUtil
+import utils.HtmlUtil
+import utils.TextUtil
+import utils.VersionUtil
 import java.io.File
 
 class PublishPlugin : Plugin<Project> {
