@@ -1,9 +1,9 @@
 package com.android.version;
 
 
-import static com.android.version.utils.PrintlnUtil.println;
+import static com.android.version.utils2.PrintlnUtil.println;
 
-import com.android.version.utils.GradleUtil;
+import com.android.version.utils2.GradleUtil;
 
 import org.gradle.api.DefaultTask;
 import org.gradle.api.Project;

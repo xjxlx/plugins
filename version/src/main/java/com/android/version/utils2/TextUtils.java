@@ -1,4 +1,4 @@
-package com.android.version.utils;
+package com.android.version.utils2;
 
 public class TextUtils {
     public static boolean isEmpty(String content) {
