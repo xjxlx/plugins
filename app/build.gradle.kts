@@ -14,7 +14,7 @@ android {
         applicationId = "com.android.plugins"
         minSdk = 26
 //        targetSdk = convertVersion(libs.versions.targetSdk) //30
-        targetSdk=26
+        targetSdk = 26
         versionCode = 1
         versionName = "1.0"
 

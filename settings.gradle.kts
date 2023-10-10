@@ -1,16 +1,17 @@
 pluginManagement {
-
     //  加载本地插件
-    resolutionStrategy {
-        eachPlugin {
-            // useModule("io.github.xjxlx:publish:1.6.2.5")
-            println("id:【${requested.id.id}】 namespace:【${requested.id.namespace}】")
-            if (requested.id.namespace == "io.github.xjxlx") {
-                useModule("io.github.xjxlx:common:1.1.0")
-                println("引入了common!")
-            }
-        }
-    }
+//    resolutionStrategy {
+//        eachPlugin {
+//            // useModule("io.github.xjxlx:publish:1.6.2.5")
+//            println("id:【${requested.id.id}】 namespace:【${requested.id.namespace}】")
+//            if (requested.id.namespace == "io.github.xjxlx") {
+//                // useModule("io.github.xjxlx:common:1.1.1")
+//                // println("common!")
+//                useModule("io.github.xjxlx:common:1.1.1")
+//                println("common!")
+//            }
+//        }
+//    }
 
     repositories {
         maven { setUrl("https://maven.aliyun.com/repository/google") }
@@ -43,5 +44,4 @@ rootProject.name = "plugins"
 include(":app")
 include(":publish")
 include(":version")
-include(":pluginUtil")
 include(":common")

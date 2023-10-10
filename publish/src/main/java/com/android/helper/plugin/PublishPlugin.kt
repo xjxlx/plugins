@@ -1,8 +1,9 @@
 package com.android.helper.plugin
 
 import com.android.build.api.dsl.LibraryExtension
-import com.android.helper.utils.TextUtil
-import com.android.helper.utils.VersionUtil
+import com.plugin.utils.FileUtil
+import com.plugin.utils.TextUtil
+import com.plugin.utils.VersionUtil
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
@@ -46,16 +47,17 @@ class PublishPlugin : Plugin<Project> {
         }
 
         // 4：注册一个发布的task
-        project.task("publishTask") {
+        project.task("publishTask1") {
             it.group = "build"
 
             it.doLast {
                 println("publishTask ----->doLast")
+
+
+                // 5：写入github文件
+                writeGithub(project)
             }
         }
-
-        // 5：写入github文件
-        writeGithub(project)
     }
 
     /**
@@ -75,7 +77,15 @@ class PublishPlugin : Plugin<Project> {
         if (isWrite) {
             val projectDir = project.projectDir
             println("projectDir:${projectDir.absolutePath}")
-//            FileUtil.readFile(File())
+
+            val githubPath = CommonConstant.githubPath
+
+            val readFile = FileUtil.readFile(File(githubPath))
+            println("readFile:$readFile")
+            readFile?.forEach {
+                println("item:$it")
+            }
+
 //            FileUtil.writeFile(githubFile, content)
         }
     }

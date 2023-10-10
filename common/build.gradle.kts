@@ -4,8 +4,12 @@ plugins {
     id("com.gradle.plugin-publish") version "1.0.0-rc-1" // 这个是发布到插件门户网站的插件
 }
 
-group = "io.github.xjxlx"
-version = "1.1.1"
+val publishGroup = "io.github.xjxlx"
+val publishVersion = "1.1.1.0"
+val publishArtifactId = "common"
+
+group = publishGroup
+version = publishVersion
 
 // 配置插件的发布地址信息
 pluginBundle {
@@ -24,7 +28,7 @@ gradlePlugin {
         // 每个插件块的名称不会影响插件配置，但对于提供的每个插件需要是唯一的。
         create("common") {
             // 	设置插件的唯一性。id
-            id = "${group}.common"
+            id = publishArtifactId
             // 短名称显示
             displayName = "CommonPlugin"
             // 插件的描述
@@ -34,15 +38,6 @@ gradlePlugin {
     }
 }
 
-//java {
-//    sourceCompatibility = JavaVersion.VERSION_1_1
-//    targetCompatibility = JavaVersion.VERSION_1_1
-//}
-
 dependencies {
-//    implementation("com.android.tools.build:gradle-api:7.4.2")
-//    implementation(gradleApi()) // gradle sdk
-//    implementation("org.json:json:20230227")// json 依赖库
-//    implementation("org.jsoup:jsoup:1.16.1") // html依赖库
-    implementation(project(":pluginUtil"))
+    implementation("com.android.tools.build:gradle-api:7.4.2")
 }
