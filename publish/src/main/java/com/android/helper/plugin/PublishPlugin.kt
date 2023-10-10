@@ -1,9 +1,9 @@
 package com.android.helper.plugin
 
 import com.android.build.api.dsl.LibraryExtension
-import com.plugin.utils.FileUtil
-import com.plugin.utils.TextUtil
-import com.plugin.utils.VersionUtil
+import com.android.helper.utils.FileUtil
+import com.android.helper.utils.TextUtil
+import com.android.helper.utils.VersionUtil
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
