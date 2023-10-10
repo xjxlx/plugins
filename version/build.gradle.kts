@@ -6,9 +6,6 @@ plugins {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_7
-    targetCompatibility = JavaVersion.VERSION_1_7
-
     withJavadocJar()
     withSourcesJar()
 }
@@ -40,7 +37,8 @@ gradlePlugin {
 }
 
 dependencies {
-    implementation(gradleApi()) // gradle sdk
-    implementation("org.json:json:20230227")// json 依赖库
-    implementation("org.jsoup:jsoup:1.16.1") // html依赖库
+    // implementation(gradleApi()) // gradle sdk
+    // implementation("org.json:json:20230227")// json 依赖库
+    // implementation("org.jsoup:jsoup:1.16.1") // html依赖库
+    implementation(project(":pluginUtil"))
 }
