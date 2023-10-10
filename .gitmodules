@@ -7,3 +7,11 @@
 [submodule "publish/src/main/java/utils"]
 	path = publish/src/main/java/utils
 	url = git@github.com:xjxlx/pluginUtils.git
+
+[submodule "common/src/main/java/utils"]
+	path = publish/src/main/java/utils
+	url = git@github.com:xjxlx/pluginUtils.git
+
+[submodule "version/src/main/java/utils"]
+	path = publish/src/main/java/utils
+	url = git@github.com:xjxlx/pluginUtils.git
