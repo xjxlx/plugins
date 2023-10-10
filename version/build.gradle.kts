@@ -1,6 +1,5 @@
 plugins {
     id("java-gradle-plugin")
-    id("java-library")
     id("maven-publish")
     id("com.gradle.plugin-publish") version "1.0.0-rc-1" // 这个是发布到插件门户网站的插件
 }
@@ -10,8 +9,8 @@ java {
     withSourcesJar()
 }
 
-group = "io.github.xjxlx"
-version = "1.0.0"
+group = Config.plugin_group
+version = Config.plugin_version
 
 pluginBundle {
     website = "https://github.com/xjxlx/plugins/blob/main/versionManager/README.md"
@@ -26,7 +25,7 @@ gradlePlugin {
         // 每个插件块的名称不会影响插件配置，但对于提供的每个插件需要是唯一的。
         create("versionManager") {
             // 	设置插件的唯一性。id
-            id = "${group}.version"
+            id = "$group.version"
             // 短名称显示
             displayName = "versionManager"
             // 插件的描述
@@ -37,7 +36,7 @@ gradlePlugin {
 }
 
 dependencies {
-     implementation(gradleApi()) // gradle sdk
-     implementation("org.json:json:20230227")// json 依赖库
-     implementation("org.jsoup:jsoup:1.16.1") // html依赖库
+    implementation(gradleApi()) // gradle sdk
+    implementation("org.json:json:20230227")// json 依赖库
+    implementation("org.jsoup:jsoup:1.16.1") // html依赖库
 }

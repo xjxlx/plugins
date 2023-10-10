@@ -1,6 +1,5 @@
 plugins {
     id("java-gradle-plugin")
-    id("maven-publish")
     id("org.jetbrains.kotlin.jvm") // 用kotlin语言来开发
     id("com.gradle.plugin-publish") version "1.0.0-rc-1" // 这个是发布到插件门户网站的插件
 }
@@ -14,8 +13,8 @@ pluginBundle {
     tags = listOf("publish", "android", "plugins")
 }
 
-group = "io.github.xjxlx"
-version = "1.6.2.5"
+group = Config.plugin_group
+version = Config.plugin_publish
 
 // 发布到gradle门户
 gradlePlugin {
@@ -24,7 +23,7 @@ gradlePlugin {
         // 每个插件块的名称不会影响插件配置，但对于提供的每个插件需要是唯一的。
         create("publish") {
             // 	设置插件的唯一性。id
-            id = "${group}.publish"
+            id = "$group.publish"
             // 短名称显示
             displayName = "PublishPlugin"
             // 插件的描述
