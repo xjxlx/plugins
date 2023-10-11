@@ -161,7 +161,7 @@ class PublishPlugin : Plugin<Project> {
                     if (TextUtil.isEmpty(name)) {
                         // 注册一个名字为 release 的发布内容
                         it.register(PUBLISH_TYPE, MavenPublication::class.java) { maven ->
-                            println("[publishTask] - groupId:$groupId artifactId:$artifactId version:$version")
+                            println("[publishTask] - [groupId:$groupId] [artifactId:$artifactId] [version:$version]")
                             maven.groupId = groupId
                             maven.artifactId = artifactId
                             maven.version = version
