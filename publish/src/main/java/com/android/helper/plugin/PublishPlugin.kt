@@ -154,7 +154,6 @@ class PublishPlugin : Plugin<Project> {
      */
     private fun publishTask(project: Project, groupId: String, artifactId: String, version: String) {
         runCatching {
-            println("publishTask - groupId:$groupId artifactId:$artifactId version:$version")
             // 在执行task的时候才会去执行
             project.extensions.getByType(PublishingExtension::class.java)
                 .publications {
@@ -162,6 +161,7 @@ class PublishPlugin : Plugin<Project> {
                     if (TextUtil.isEmpty(name)) {
                         // 注册一个名字为 release 的发布内容
                         it.register(PUBLISH_TYPE, MavenPublication::class.java) { maven ->
+                            println("publishTask - groupId:$groupId artifactId:$artifactId version:$version")
                             maven.groupId = groupId
                             maven.artifactId = artifactId
                             maven.version = version
