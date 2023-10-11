@@ -1,35 +1,32 @@
 package com.android.helper.plugin
 
 import com.android.build.api.dsl.LibraryExtension
-import com.android.helper.CommonConstant
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
 import utils.FileUtil
-import utils.HtmlUtil
 import utils.TextUtil
 import utils.VersionUtil
 import java.io.File
+import java.io.InputStream
 
 class PublishPlugin : Plugin<Project> {
 
-    private val mListGithub: List<String> by lazy {
-        val html = arrayListOf<String>()
-        val htmlForGithub = HtmlUtil.getHtmlForGithub(CommonConstant.githubPath)
-        if (htmlForGithub.isNotEmpty()) {
-            html.addAll(htmlForGithub)
-        }
-        return@lazy html
+    private val mJarPath: String? by lazy {
+        return@lazy FileUtil.getFilePathForJar(PublishPlugin::class.java)
     }
-
-    private val mListJitpack: List<String> by lazy {
-        val jitpack = arrayListOf<String>()
-        val list = HtmlUtil.getHtmlForGithub(CommonConstant.jitpack)
-        if (list.isNotEmpty()) {
-            jitpack.addAll(list)
+    private val mGithubStream: InputStream? by lazy {
+        mJarPath?.let {
+            return@lazy FileUtil.getInputStreamForJar(it, "release.yml")
         }
-        return@lazy jitpack
+        return@lazy null
+    }
+    private val mJitpackStream: InputStream? by lazy {
+        mJarPath?.let {
+            return@lazy FileUtil.getInputStreamForJar(it, "jitpack.yml")
+        }
+        return@lazy null
     }
 
     companion object {
@@ -77,24 +74,27 @@ class PublishPlugin : Plugin<Project> {
             task.doFirst {
                 println("publishTask ----->doFirst")
                 // 5.4：写入github文件
-                val githubFile = File(File(project.rootDir, ".github" + File.separator + "workflows" + File.separator).apply {
-                    if (!exists()) {
-                        mkdirs()
+                mGithubStream?.let {
+                    val githubFile = File(File(project.rootDir, ".github" + File.separator + "workflows" + File.separator).apply {
+                        if (!exists()) {
+                            mkdirs()
+                        }
+                    }, "release.yml").apply {
+                        if (!exists()) {
+                            createNewFile()
+                        }
                     }
-                }, "release.yml").apply {
-                    if (!exists()) {
-                        createNewFile()
-                    }
+                    writeProject("github", githubFile, it)
                 }
-                writeProject("github", githubFile, mListGithub)
-
                 // 5.5：写入jitpack文件
-                val jitpackFile = File(project.rootDir, "jitpack.yml").apply {
-                    if (!exists()) {
-                        createNewFile()
+                mJitpackStream?.let {
+                    val jitpackFile = File(project.rootDir, "jitpack.yml").apply {
+                        if (!exists()) {
+                            createNewFile()
+                        }
                     }
+                    writeProject("jitpack", jitpackFile, it)
                 }
-                writeProject("jitpack", jitpackFile, mListJitpack)
             }
 
             task.doLast {
@@ -106,7 +106,7 @@ class PublishPlugin : Plugin<Project> {
     /**
      * 写入文件到项目中
      */
-    private fun writeProject(tag: String, outFile: File, list: List<String>) {
+    private fun writeProject(tag: String, outFile: File, inputStream: InputStream) {
         println("$tag -[file-path]: ${outFile.absolutePath}")
         val isWrite = if (outFile.exists()) {
             outFile.length() <= 0
@@ -115,7 +115,7 @@ class PublishPlugin : Plugin<Project> {
         }
         println("$tag - write：$isWrite")
         if (isWrite) {
-            FileUtil.writeFile(outFile, list)
+            FileUtil.writeFile(outFile, inputStream)
         }
     }
 
