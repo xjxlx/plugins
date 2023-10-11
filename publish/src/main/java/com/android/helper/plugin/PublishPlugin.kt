@@ -72,7 +72,7 @@ class PublishPlugin : Plugin<Project> {
             task.finalizedBy("publishToMavenLocal")
             // 5.3：执行写入本地的配置文件
             task.doFirst {
-                println("publishTask ----->doFirst")
+                // println("publishTask ----->doFirst")
                 // 5.4：写入github文件
                 mGithubStream?.let {
                     val githubFile = File(File(project.rootDir, ".github" + File.separator + "workflows" + File.separator).apply {
@@ -106,7 +106,7 @@ class PublishPlugin : Plugin<Project> {
             }
 
             task.doLast {
-                println("publishTask ----->doLast")
+                // println("publishTask ----->doLast")
             }
         }
     }
@@ -161,7 +161,7 @@ class PublishPlugin : Plugin<Project> {
                     if (TextUtil.isEmpty(name)) {
                         // 注册一个名字为 release 的发布内容
                         it.register(PUBLISH_TYPE, MavenPublication::class.java) { maven ->
-                            println("publishTask - groupId:$groupId artifactId:$artifactId version:$version")
+                            println("[publishTask] - groupId:$groupId artifactId:$artifactId version:$version")
                             maven.groupId = groupId
                             maven.artifactId = artifactId
                             maven.version = version
