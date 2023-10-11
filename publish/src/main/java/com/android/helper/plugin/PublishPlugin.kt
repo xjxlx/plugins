@@ -66,14 +66,17 @@ class PublishPlugin : Plugin<Project> {
             publishTask(project, groupId, artifactId, version)
         }
 
-        // 4：注册一个发布的task
-        project.task("publishTask") {
-            it.group = "build"
-
-            it.doLast {
-                println("publishTask ----->doLast")
-
-                // 5：写入github文件
+        // 5：注册一个发布的task，用来写入一些本地的配置文件
+        project.task("publishTask") { task ->
+            task.group = "build"
+            // 5.1：先执行清理任务
+            task.dependsOn("clean")
+            // 5.2：执行完配置文件后，执行本地的写入任务
+            task.finalizedBy("publishToMavenLocal")
+            // 5.3：执行写入本地的配置文件
+            task.doFirst {
+                println("publishTask ----->doFirst")
+                // 5.4：写入github文件
                 val githubFile = File(File(project.rootDir, ".github" + File.separator + "workflows" + File.separator).apply {
                     if (!exists()) {
                         mkdirs()
@@ -85,13 +88,17 @@ class PublishPlugin : Plugin<Project> {
                 }
                 writeProject("github", githubFile, mListGithub)
 
-                // 6：写入jitpack文件
+                // 5.5：写入jitpack文件
                 val jitpackFile = File(project.rootDir, "jitpack.yml").apply {
                     if (!exists()) {
                         createNewFile()
                     }
                 }
                 writeProject("jitpack", jitpackFile, mListJitpack)
+            }
+
+            task.doLast {
+                println("publishTask ----->doLast")
             }
         }
     }
