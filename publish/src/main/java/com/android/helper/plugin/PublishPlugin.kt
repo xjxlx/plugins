@@ -86,8 +86,8 @@ class PublishPlugin : Plugin<Project> {
                     }
                     if (githubFile.length() <= 0) {
                         writeProject("github", githubFile, it)
-                    }else{
-                        println("github file already exists！")
+                    } else {
+                        println("[github] file already exists！")
                     }
                 }
                 // 5.5：写入jitpack文件
@@ -99,8 +99,8 @@ class PublishPlugin : Plugin<Project> {
                     }
                     if (jitpackFile.length() <= 0) {
                         writeProject("jitpack", jitpackFile, it)
-                    }else{
-                        println("jitpack file already exists！")
+                    } else {
+                        println("[jitpack] file already exists！")
                     }
                 }
             }
@@ -137,11 +137,11 @@ class PublishPlugin : Plugin<Project> {
                     this.singleVariant(PUBLISH_TYPE) {
                         this.withSourcesJar()
                         this.withJavadocJar()
-                        println("[register-publishing-$PUBLISH_TYPE]: success !")
+                        println("[publishTask-register-type-$PUBLISH_TYPE]: success !")
                     }
                 }
         }.onFailure { throws ->
-            println("[register-publishing-$PUBLISH_TYPE]: error:${throws.message} !")
+            println("[publishTask-register-type-$PUBLISH_TYPE]: error:${throws.message} !")
         }
     }
 
@@ -168,14 +168,14 @@ class PublishPlugin : Plugin<Project> {
 
                             // 从当前 module 的 release 包中发布
                             maven.from(project.components.getByName(PUBLISH_TYPE))
-                            println("[publishTask]: success !")
+                            println("[publishTask-publish]: success !")
                         }
                     } else {
-                        println("[publishTask]: type already exists !")
+                        println("[publishTask-publish]: type already exists !")
                     }
                 }
         }.onFailure { throws ->
-            println("[publishTask]:error:${throws.message}")
+            println("[publishTask-publish]:error:${throws.message}")
         }
     }
 }
