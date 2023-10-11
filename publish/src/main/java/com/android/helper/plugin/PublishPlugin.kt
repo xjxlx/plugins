@@ -84,7 +84,11 @@ class PublishPlugin : Plugin<Project> {
                             createNewFile()
                         }
                     }
-                    writeProject("github", githubFile, it)
+                    if (githubFile.length() <= 0) {
+                        writeProject("github", githubFile, it)
+                    }else{
+                        println("github file already exists！")
+                    }
                 }
                 // 5.5：写入jitpack文件
                 mJitpackStream?.let {
@@ -93,7 +97,11 @@ class PublishPlugin : Plugin<Project> {
                             createNewFile()
                         }
                     }
-                    writeProject("jitpack", jitpackFile, it)
+                    if (jitpackFile.length() <= 0) {
+                        writeProject("jitpack", jitpackFile, it)
+                    }else{
+                        println("jitpack file already exists！")
+                    }
                 }
             }
 
