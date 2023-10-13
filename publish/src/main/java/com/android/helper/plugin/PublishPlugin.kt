@@ -43,11 +43,11 @@ class PublishPlugin : Plugin<Project> {
                 }
             }
 
-        // 2：注册一个片段，用来传输数据使用
-        val publishExtension = project.extensions.create("publishExtension", PublishPluginExtension::class.java)
-
-        // 3：注册一个发布的类型
+        // 2：注册一个发布的类型
         registerPublishType(project)
+
+        // 3：注册一个片段，用来传输数据使用
+        val publishExtension = project.extensions.create("publishExtension", PublishPluginExtension::class.java)
 
         // 4：在项目对象完全配置完成后，去获取自定义的属性
         project.gradle.projectsEvaluated {
@@ -143,8 +143,8 @@ class PublishPlugin : Plugin<Project> {
             project.extensions.getByType(LibraryExtension::class.java)
                 .publishing {
                     this.singleVariant(PUBLISH_TYPE) {
-                        this.withSourcesJar()
-                        this.withJavadocJar()
+                        // this.withSourcesJar()
+                        // this.withJavadocJar()
                         println("[publishTask-register-type-$PUBLISH_TYPE]: success !")
                     }
                 }
