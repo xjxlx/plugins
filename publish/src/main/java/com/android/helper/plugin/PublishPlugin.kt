@@ -68,7 +68,8 @@ class PublishPlugin : Plugin<Project> {
             task.group = "build"
             // 5.1：先执行清理任务
             // task.dependsOn("clean")
-            // 5.2：找到library的publishing组下的publishToMavenLocal
+
+            // 5.2：找到library的publishing组下的publishToMavenLocal，在执行完publishTask后发布
             project.tasks.find { itemTask ->
                 itemTask.group == "publishing" && itemTask.name == "publishToMavenLocal"
             }
