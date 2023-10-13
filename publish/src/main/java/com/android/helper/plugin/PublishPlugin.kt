@@ -68,8 +68,15 @@ class PublishPlugin : Plugin<Project> {
             task.group = "build"
             // 5.1：先执行清理任务
             task.dependsOn("clean")
-            // 5.2：执行完配置文件后，执行本地的写入任务
-            task.finalizedBy("publishToMavenLocal")
+            // 5.2：找到library的publishing组下的publishToMavenLocal
+            project.tasks.find { itemTask ->
+                itemTask.group == "publishing" && itemTask.name == "publishToMavenLocal"
+            }
+                ?.let {
+                    task.finalizedBy(it)
+                }
+            // task.finalizedBy("publishToMavenLocal")
+
             // 5.3：执行写入本地的配置文件
             task.doFirst {
                 // println("publishTask ----->doFirst")
