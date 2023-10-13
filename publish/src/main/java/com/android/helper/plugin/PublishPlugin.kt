@@ -63,8 +63,6 @@ class PublishPlugin : Plugin<Project> {
             publishTask(project, groupId, artifactId, version)
         }
 
-
-
         // 5：注册一个发布的task，用来写入一些本地的配置文件
         project.task("publishTask") { task ->
             task.group = "build"
