@@ -35,7 +35,11 @@ class PublishPlugin : Plugin<Project> {
     }
 
     override fun apply(project: Project) {
-        // 1：检查是否安装了push插件
+        // 1：添加group，不然会找不到id
+        project.group="com.github.jitpack"
+        project.version="1.0"
+
+        // 2：检查是否安装了push插件
         project.pluginManager.findPlugin(PUBLISH_PLUGIN_ID)
             .let {
                 if (it == null) {
@@ -43,13 +47,13 @@ class PublishPlugin : Plugin<Project> {
                 }
             }
 
-        // 2：注册一个发布的类型
+        // 3：注册一个发布的类型
         registerPublishType(project)
 
-        // 3：注册一个片段，用来传输数据使用
+        // 4：注册一个片段，用来传输数据使用
         val publishExtension = project.extensions.create("publishExtension", PublishPluginExtension::class.java)
 
-        // 4：在项目对象完全配置完成后，去获取自定义的属性
+        // 5：在项目对象完全配置完成后，去获取自定义的属性
         project.gradle.projectsEvaluated {
             // 获取具体的自定义属性
             val groupId = publishExtension.groupId.convention("com.github.xjxlx")
@@ -63,13 +67,13 @@ class PublishPlugin : Plugin<Project> {
             publishTask(project, groupId, artifactId, version)
         }
 
-        // 5：注册一个发布的task，用来写入一些本地的配置文件
+        // 6：注册一个发布的task，用来写入一些本地的配置文件
         project.task("publishTask") { task ->
             task.group = "build"
-            // 5.1：先执行清理任务
+            // 6.1：先执行清理任务
             // task.dependsOn("clean")
 
-            // 5.2：找到library的publishing组下的publishToMavenLocal，在执行完publishTask后发布
+            // 6.2：找到library的publishing组下的publishToMavenLocal，在执行完publishTask后发布
             project.tasks.find { itemTask ->
                 itemTask.group == "publishing" && itemTask.name == "publishToMavenLocal"
             }
@@ -78,10 +82,10 @@ class PublishPlugin : Plugin<Project> {
                 }
             // task.finalizedBy("publishToMavenLocal")
 
-            // 5.3：执行写入本地的配置文件
+            // 6.3：执行写入本地的配置文件
             task.doFirst {
                 // println("publishTask ----->doFirst")
-                // 5.4：写入github文件
+                // 6.4：写入github文件
                 mGithubStream?.let {
                     val githubFile = File(File(project.rootDir, ".github" + File.separator + "workflows" + File.separator).apply {
                         if (!exists()) {
@@ -98,7 +102,7 @@ class PublishPlugin : Plugin<Project> {
                         println("[github] file already exists！")
                     }
                 }
-                // 5.5：写入jitpack文件
+                // 6.5：写入jitpack文件
                 mJitpackStream?.let {
                     val jitpackFile = File(project.rootDir, "jitpack.yml").apply {
                         if (!exists()) {
