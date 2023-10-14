@@ -14,8 +14,8 @@ pluginBundle {
     tags = listOf("publish", "android", "plugins")
 }
 
-group = "io.github.xjxlx"
-version = "1.6.2.5"
+group = Config.plugin_group
+version = Config.plugin_group_version
 
 // 发布到gradle门户
 gradlePlugin {
