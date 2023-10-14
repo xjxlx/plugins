@@ -1,0 +1,8 @@
+// 1：初始化
+    git submodule init
+
+// 2：切换到master 分支
+    git submodule foreach "git checkout master"
+
+// 3: 更新所有的子模块地址
+    git submodule update --remote

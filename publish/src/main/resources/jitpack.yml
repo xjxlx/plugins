@@ -1,0 +1,11 @@
+jdk:
+  - openjdk11
+#before_install:
+#  - sdk install java 11.0.18-open
+#  - sdk use java 11.0.18-open
+##  - ./custom_setup.sh
+install:
+  - echo "Running a custom install command"
+  - ./gradle clean install -xtest
+env:
+  MYVAR: "custom environment variable"

@@ -1,35 +1,32 @@
 package com.android.helper.plugin
 
 import com.android.build.api.dsl.LibraryExtension
-import com.android.helper.CommonConstant
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
 import utils.FileUtil
-import utils.HtmlUtil
 import utils.TextUtil
 import utils.VersionUtil
 import java.io.File
+import java.io.InputStream
 
 class PublishPlugin : Plugin<Project> {
 
-    private val mListGithub: List<String> by lazy {
-        val html = arrayListOf<String>()
-        val htmlForGithub = HtmlUtil.getHtmlForGithub(CommonConstant.githubPath)
-        if (htmlForGithub.isNotEmpty()) {
-            html.addAll(htmlForGithub)
-        }
-        return@lazy html
+    private val mJarPath: String? by lazy {
+        return@lazy FileUtil.getFilePathForJar(PublishPlugin::class.java)
     }
-
-    private val mListJitpack: List<String> by lazy {
-        val jitpack = arrayListOf<String>()
-        val list = HtmlUtil.getHtmlForGithub(CommonConstant.jitpack)
-        if (list.isNotEmpty()) {
-            jitpack.addAll(list)
+    private val mGithubStream: InputStream? by lazy {
+        mJarPath?.let {
+            return@lazy FileUtil.getInputStreamForJar(it, "release.yml")
         }
-        return@lazy jitpack
+        return@lazy null
+    }
+    private val mJitpackStream: InputStream? by lazy {
+        mJarPath?.let {
+            return@lazy FileUtil.getInputStreamForJar(it, "jitpack.yml")
+        }
+        return@lazy null
     }
 
     companion object {
@@ -46,11 +43,11 @@ class PublishPlugin : Plugin<Project> {
                 }
             }
 
-        // 2：注册一个片段，用来传输数据使用
-        val publishExtension = project.extensions.create("publishExtension", PublishPluginExtension::class.java)
-
-        // 3：注册一个发布的类型
+        // 2：注册一个发布的类型
         registerPublishType(project)
+
+        // 3：注册一个片段，用来传输数据使用
+        val publishExtension = project.extensions.create("publishExtension", PublishPluginExtension::class.java)
 
         // 4：在项目对象完全配置完成后，去获取自定义的属性
         project.gradle.projectsEvaluated {
@@ -66,32 +63,58 @@ class PublishPlugin : Plugin<Project> {
             publishTask(project, groupId, artifactId, version)
         }
 
-        // 4：注册一个发布的task
-        project.task("publishTask") {
-            it.group = "build"
+        // 5：注册一个发布的task，用来写入一些本地的配置文件
+        project.task("publishTask") { task ->
+            task.group = "build"
+            // 5.1：先执行清理任务
+            // task.dependsOn("clean")
 
-            it.doLast {
-                println("publishTask ----->doLast")
+            // 5.2：找到library的publishing组下的publishToMavenLocal，在执行完publishTask后发布
+            project.tasks.find { itemTask ->
+                itemTask.group == "publishing" && itemTask.name == "publishToMavenLocal"
+            }
+                ?.let {
+                    task.finalizedBy(it)
+                }
+            // task.finalizedBy("publishToMavenLocal")
 
-                // 5：写入github文件
-                val githubFile = File(File(project.rootDir, ".github" + File.separator + "workflows" + File.separator).apply {
-                    if (!exists()) {
-                        mkdirs()
+            // 5.3：执行写入本地的配置文件
+            task.doFirst {
+                // println("publishTask ----->doFirst")
+                // 5.4：写入github文件
+                mGithubStream?.let {
+                    val githubFile = File(File(project.rootDir, ".github" + File.separator + "workflows" + File.separator).apply {
+                        if (!exists()) {
+                            mkdirs()
+                        }
+                    }, "release.yml").apply {
+                        if (!exists()) {
+                            createNewFile()
+                        }
                     }
-                }, "release.yml").apply {
-                    if (!exists()) {
-                        createNewFile()
+                    if (githubFile.length() <= 0) {
+                        writeProject("github", githubFile, it)
+                    } else {
+                        println("[github] file already exists！")
                     }
                 }
-                writeProject("github", githubFile, mListGithub)
-
-                // 6：写入jitpack文件
-                val jitpackFile = File(project.rootDir, "jitpack.yml").apply {
-                    if (!exists()) {
-                        createNewFile()
+                // 5.5：写入jitpack文件
+                mJitpackStream?.let {
+                    val jitpackFile = File(project.rootDir, "jitpack.yml").apply {
+                        if (!exists()) {
+                            createNewFile()
+                        }
+                    }
+                    if (jitpackFile.length() <= 0) {
+                        writeProject("jitpack", jitpackFile, it)
+                    } else {
+                        println("[jitpack] file already exists！")
                     }
                 }
-                writeProject("jitpack", jitpackFile, mListJitpack)
+            }
+
+            task.doLast {
+                // println("publishTask ----->doLast")
             }
         }
     }
@@ -99,7 +122,7 @@ class PublishPlugin : Plugin<Project> {
     /**
      * 写入文件到项目中
      */
-    private fun writeProject(tag: String, outFile: File, list: List<String>) {
+    private fun writeProject(tag: String, outFile: File, inputStream: InputStream) {
         println("$tag -[file-path]: ${outFile.absolutePath}")
         val isWrite = if (outFile.exists()) {
             outFile.length() <= 0
@@ -108,7 +131,7 @@ class PublishPlugin : Plugin<Project> {
         }
         println("$tag - write：$isWrite")
         if (isWrite) {
-            FileUtil.writeFile(outFile, list)
+            FileUtil.writeFile(outFile, inputStream)
         }
     }
 
@@ -120,13 +143,13 @@ class PublishPlugin : Plugin<Project> {
             project.extensions.getByType(LibraryExtension::class.java)
                 .publishing {
                     this.singleVariant(PUBLISH_TYPE) {
-                        this.withSourcesJar()
-                        this.withJavadocJar()
-                        println("[register-publishing-$PUBLISH_TYPE]: success !")
+                        // this.withSourcesJar()
+                        // this.withJavadocJar()
+                        println("[publishTask-register-type-$PUBLISH_TYPE]: success !")
                     }
                 }
         }.onFailure { throws ->
-            println("[register-publishing-$PUBLISH_TYPE]: error:${throws.message} !")
+            println("[publishTask-register-type-$PUBLISH_TYPE]: error:${throws.message} !")
         }
     }
 
@@ -139,7 +162,6 @@ class PublishPlugin : Plugin<Project> {
      */
     private fun publishTask(project: Project, groupId: String, artifactId: String, version: String) {
         runCatching {
-            println("publishTask - groupId:$groupId artifactId:$artifactId version:$version")
             // 在执行task的时候才会去执行
             project.extensions.getByType(PublishingExtension::class.java)
                 .publications {
@@ -147,20 +169,21 @@ class PublishPlugin : Plugin<Project> {
                     if (TextUtil.isEmpty(name)) {
                         // 注册一个名字为 release 的发布内容
                         it.register(PUBLISH_TYPE, MavenPublication::class.java) { maven ->
+                            println("[publishTask] - [groupId:$groupId] [artifactId:$artifactId] [version:$version]")
                             maven.groupId = groupId
                             maven.artifactId = artifactId
                             maven.version = version
 
                             // 从当前 module 的 release 包中发布
                             maven.from(project.components.getByName(PUBLISH_TYPE))
-                            println("[publishTask]: success !")
+                            println("[publishTask-publish]: success !")
                         }
                     } else {
-                        println("[publishTask]: type already exists !")
+                        println("[publishTask-publish]: type already exists !")
                     }
                 }
         }.onFailure { throws ->
-            println("[publishTask]:error:${throws.message}")
+            println("[publishTask-publish]:error:${throws.message}")
         }
     }
 }

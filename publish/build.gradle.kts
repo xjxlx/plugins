@@ -1,6 +1,5 @@
 plugins {
     id("java-gradle-plugin")
-    id("maven-publish")
     id("org.jetbrains.kotlin.jvm") // 用kotlin语言来开发
     id("com.gradle.plugin-publish") version "1.0.0-rc-1" // 这个是发布到插件门户网站的插件
 }
@@ -24,7 +23,7 @@ gradlePlugin {
         // 每个插件块的名称不会影响插件配置，但对于提供的每个插件需要是唯一的。
         create("publish") {
             // 	设置插件的唯一性。id
-            id = "${group}.publish"
+            id = "$group.publish"
             // 短名称显示
             displayName = "PublishPlugin"
             // 插件的描述
