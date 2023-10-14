@@ -5,6 +5,10 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
+import utils.Config.PROJECT_GROUP
+import utils.Config.PROJECT_VERSION
+import utils.Config.PUBLISH_PLUGIN_ID
+import utils.Config.PUBLISH_TYPE
 import utils.FileUtil
 import utils.TextUtil
 import utils.VersionUtil
@@ -29,15 +33,10 @@ class PublishPlugin : Plugin<Project> {
         return@lazy null
     }
 
-    companion object {
-        const val PUBLISH_PLUGIN_ID = "maven-publish"
-        const val PUBLISH_TYPE = "release"
-    }
-
     override fun apply(project: Project) {
         // 1：添加group，不然会找不到id
-        project.group="com.github.jitpack"
-        project.version="1.0"
+        project.project.group = PROJECT_GROUP
+        project.project.version = PROJECT_VERSION
 
         // 2：检查是否安装了push插件
         project.pluginManager.findPlugin(PUBLISH_PLUGIN_ID)
