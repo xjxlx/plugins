@@ -1,7 +1,28 @@
 plugins {
     id("java-gradle-plugin")
     id("maven-publish")
+    id("org.jetbrains.kotlin.jvm") // 用kotlin语言来开发
     id("com.gradle.plugin-publish") version "1.0.0-rc-1" // 这个是发布到插件门户网站的插件
+    `version-catalog` // 1：version control
+}
+
+// 2：指定目录的位置
+catalog {
+    versionCatalog {
+        from(files("${rootDir.absoluteFile}/gradle/libs.versions.toml"))
+    }
+}
+
+// 3：配置发布catalog到云端的信息
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            group = Config.plugin_group
+            version = Config.plugin_version
+            artifactId = "catalog"
+            from(components["versionCatalog"])
+        }
+    }
 }
 
 java {
@@ -36,6 +57,7 @@ gradlePlugin {
 }
 
 dependencies {
+    implementation("com.android.tools.build:gradle-api:7.4.2")
     implementation(gradleApi()) // gradle sdk
     implementation("org.json:json:20230227")// json 依赖库
     implementation("org.jsoup:jsoup:1.16.1") // html依赖库
