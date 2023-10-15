@@ -7,5 +7,9 @@ abstract class VersionPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
         println("version plugin apply --->")
+
+        project.task("convertGradleTask") {
+
+        }
     }
 }

@@ -6,7 +6,9 @@ import org.gradle.api.tasks.TaskAction
 import java.io.File
 
 class VersionTask : DefaultTask() {
+
     private val mGradleUtil: GradleUtil = GradleUtil()
+
     @TaskAction
     fun taskAction() {
         println("version manager taskAction: ------> ")
