@@ -1,8 +1,8 @@
 package com.android.version
 
-import utils.GradleUtil
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
+import utils.GradleUtil
 import java.io.File
 
 class VersionTask : DefaultTask() {
@@ -15,7 +15,7 @@ class VersionTask : DefaultTask() {
         val project = project
         mGradleUtil.initGradle(project)
         mGradleUtil.writeGradleToLocal(URL_PATH, File(project.rootDir, "gradle" + File.separator + "libs2.versions.toml"))
-        mGradleUtil.changeModules()
+        // mGradleUtil.changeModules()
         mGradleUtil.changeRootGradle()
         println("versionTask success!")
     }

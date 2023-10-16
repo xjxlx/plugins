@@ -3,35 +3,10 @@ plugins {
     id("maven-publish")
     id("org.jetbrains.kotlin.jvm") // 用kotlin语言来开发
     id("com.gradle.plugin-publish") version "1.0.0-rc-1" // 这个是发布到插件门户网站的插件
-    `version-catalog` // 1：version control
-}
-
-// 2：指定目录的位置
-catalog {
-    versionCatalog {
-        from(files("${rootDir.absoluteFile}/gradle/libs.versions.toml"))
-    }
-}
-
-// 3：配置发布catalog到云端的信息
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            group = Config.plugin_group
-            version = Config.plugin_version
-            artifactId = "catalog"
-            from(components["versionCatalog"])
-        }
-    }
-}
-
-java {
-    withJavadocJar()
-    withSourcesJar()
 }
 
 group = Config.plugin_group
-version = Config.plugin_version
+version = Config.plugin_version_code
 
 pluginBundle {
     website = "https://github.com/xjxlx/plugins/blob/main/versionManager/README.md"
@@ -46,7 +21,7 @@ gradlePlugin {
         // 每个插件块的名称不会影响插件配置，但对于提供的每个插件需要是唯一的。
         create("versionManager") {
             // 	设置插件的唯一性。id
-            id = "$group.version"
+            id = "$group.${Config.plugin_version}"
             // 短名称显示
             displayName = "versionManager"
             // 插件的描述
