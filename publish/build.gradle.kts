@@ -14,7 +14,7 @@ pluginBundle {
 }
 
 group = Config.plugin_group
-version = Config.plugin_publish
+version = Config.plugin_publish_code
 
 // 发布到gradle门户
 gradlePlugin {
