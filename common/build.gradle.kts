@@ -5,7 +5,7 @@ plugins {
 }
 
 group = Config.plugin_group
-version = Config.plugin_version
+version = Config.plugin_version_code
 
 // 配置插件的发布地址信息
 pluginBundle {
