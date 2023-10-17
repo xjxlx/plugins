@@ -5,7 +5,7 @@ plugins {
 }
 
 group = Config.plugin_group
-version = Config.plugin_version_code
+version = Config.plugin_common_code
 
 // 配置插件的发布地址信息
 pluginBundle {
@@ -35,7 +35,8 @@ gradlePlugin {
 }
 
 dependencies {
-    implementation("com.android.tools.build:gradle-api:7.4.2")
-    implementation("org.json:json:20230227")// json 依赖库
-    implementation("org.jsoup:jsoup:1.16.1") // html依赖库
+    api("com.android.tools.build:gradle-api:7.4.2")
+    api(gradleApi()) // gradle sdk
+    api("org.json:json:20230227")// json 依赖库
+    api("org.jsoup:jsoup:1.16.1") // html依赖库
 }
