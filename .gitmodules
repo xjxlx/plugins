@@ -7,6 +7,6 @@
 	path = common/src/main/java/utils
 	url = git@github.com:xjxlx/pluginUtils.git
 
-[submodule "version/src/main/java/utils"]
+[submodule "catalog/src/main/java/utils"]
 	path = version/src/main/java/utils
 	url = git@github.com:xjxlx/pluginUtils.git

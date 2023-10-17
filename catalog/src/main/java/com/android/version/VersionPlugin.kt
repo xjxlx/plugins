@@ -2,9 +2,8 @@ package com.android.version
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import utils.Config
-import utils.FileUtil
-import utils.GradleUtil2
+import org.gradle.internal.impldep.org.apache.ivy.util.FileUtil
+
 import java.io.File
 
 abstract class VersionPlugin : Plugin<Project> {
@@ -41,8 +40,19 @@ abstract class VersionPlugin : Plugin<Project> {
         project.task("convertRootTask") { convertRootTask ->
             convertRootTask.group = version
             convertRootTask.doLast {
-
                 val dependencies = project.buildscript.dependencies
+
+                project.buildscript.dependencies.components
+                project.buildscript.dependencies.components.all {
+                    println("all:${it}")
+                }
+
+
+                println("dependencies:${dependencies}")
+                val modules = dependencies.modules
+                println("modules:${modules}")
+                val localGroovy = dependencies.localGroovy()
+                println("localGroovy:${localGroovy}")
 
             }
         }
