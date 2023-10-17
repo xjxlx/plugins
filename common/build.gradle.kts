@@ -1,11 +1,14 @@
+import utils.Config.Plugin
+
 plugins {
     id("java-gradle-plugin")
     id("org.jetbrains.kotlin.jvm") // 用kotlin语言来开发
     id("com.gradle.plugin-publish") version "1.0.0-rc-1" // 这个是发布到插件门户网站的插件
+    id("io.github.xjxlx.common")
 }
 
-group = "io.github.xjxlx"
-version = "1.0.0"
+group = Plugin.GROUP
+version = Plugin.VERSION
 
 // 配置插件的发布地址信息
 pluginBundle {
@@ -24,7 +27,7 @@ gradlePlugin {
         // 每个插件块的名称不会影响插件配置，但对于提供的每个插件需要是唯一的。
         create("common") {
             // 	设置插件的唯一性。id
-            id = "$group.common"
+            id = "${Plugin.GROUP}.${Plugin.COMMON}"
             // 短名称显示
             displayName = "CommonPlugin"
             // 插件的描述
