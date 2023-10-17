@@ -1,4 +1,5 @@
 import utils.Config.Plugin
+import utils.Config.Project
 
 plugins {
     id("java-gradle-plugin")
@@ -7,8 +8,8 @@ plugins {
     id("io.github.xjxlx.common")
 }
 
-group = Plugin.GROUP
-version = Plugin.VERSION
+group = Project.GROUP
+version = Project.VERSION
 
 // 配置插件的发布地址信息
 pluginBundle {
