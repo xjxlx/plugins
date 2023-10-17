@@ -7,7 +7,7 @@ import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
 import utils.Config
 import utils.Config.Plugin.GROUP
-import utils.Config.Plugin.VERSION
+import utils.Config.Plugin.PUBLISH_CODE
 import utils.Config.Project.PUBLISH_PLUGIN_ID
 import utils.Config.Project.PUBLISH_TYPE
 import utils.FileUtil
@@ -37,7 +37,7 @@ class PublishPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         // 1：添加group，不然会找不到id
         project.project.group = GROUP
-        project.project.version = VERSION
+        project.project.version = PUBLISH_CODE
 
         // 2：检查是否安装了push插件
         project.pluginManager.findPlugin(PUBLISH_PLUGIN_ID)
