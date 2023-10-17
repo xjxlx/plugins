@@ -36,8 +36,8 @@ class PublishPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
         // 1：添加group，不然会找不到id
-        project.project.group = GROUP
-        project.project.version = PUBLISH_CODE
+        project.project.group = Config.Project.JITPACK
+        project.project.version = Config.Project.JITPACK_VERSION
 
         // 2：检查是否安装了push插件
         project.pluginManager.findPlugin(PUBLISH_PLUGIN_ID)
