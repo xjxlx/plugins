@@ -1,11 +1,13 @@
+import utils.Config
+
 plugins {
     id("java-gradle-plugin")
     id("org.jetbrains.kotlin.jvm") // 用kotlin语言来开发
     id("com.gradle.plugin-publish") version "1.0.0-rc-1" // 这个是发布到插件门户网站的插件
 }
 
-group = Config.plugin_group
-version = Config.plugin_common_code
+group = Config.Plugin.plugin_group
+version = Config.Plugin.plugin_common_code
 
 // 配置插件的发布地址信息
 pluginBundle {
