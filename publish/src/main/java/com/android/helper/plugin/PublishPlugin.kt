@@ -5,10 +5,11 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
-import utils.Config.PROJECT_GROUP
-import utils.Config.PROJECT_VERSION
-import utils.Config.PUBLISH_PLUGIN_ID
-import utils.Config.PUBLISH_TYPE
+import utils.Config
+import utils.Config.Plugin.GROUP
+import utils.Config.Plugin.VERSION
+import utils.Config.Project.PUBLISH_PLUGIN_ID
+import utils.Config.Project.PUBLISH_TYPE
 import utils.FileUtil
 import utils.TextUtil
 import utils.VersionUtil
@@ -35,8 +36,8 @@ class PublishPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
         // 1：添加group，不然会找不到id
-        project.project.group = PROJECT_GROUP
-        project.project.version = PROJECT_VERSION
+        project.project.group = GROUP
+        project.project.version = VERSION
 
         // 2：检查是否安装了push插件
         project.pluginManager.findPlugin(PUBLISH_PLUGIN_ID)
@@ -68,7 +69,7 @@ class PublishPlugin : Plugin<Project> {
 
         // 6：注册一个发布的task，用来写入一些本地的配置文件
         project.task("publishTask") { task ->
-            task.group = "build"
+            task.group = Config.Plugin.PUBLISH
             // 6.1：先执行清理任务
             // task.dependsOn("clean")
 
