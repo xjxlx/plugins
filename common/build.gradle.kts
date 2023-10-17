@@ -1,5 +1,4 @@
 import utils.Config.Plugin
-import utils.Config.Project
 
 plugins {
     id("java-gradle-plugin")
@@ -8,8 +7,8 @@ plugins {
     id("io.github.xjxlx.common")
 }
 
-group = Project.GROUP
-version = Project.VERSION
+group = Plugin.GROUP
+version = Plugin.COMMON_CODE
 
 // 配置插件的发布地址信息
 pluginBundle {
@@ -28,7 +27,7 @@ gradlePlugin {
         // 每个插件块的名称不会影响插件配置，但对于提供的每个插件需要是唯一的。
         create("common") {
             // 	设置插件的唯一性。id
-            id = "${Project.GROUP}.${Plugin.COMMON}"
+            id = "${Plugin.GROUP}.${Plugin.COMMON}"
             // 短名称显示
             displayName = "CommonPlugin"
             // 插件的描述
