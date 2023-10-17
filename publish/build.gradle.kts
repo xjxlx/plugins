@@ -8,7 +8,7 @@ plugins {
 }
 
 group = Plugin.GROUP
-version = Plugin.VERSION
+version = Plugin.PUBLISH_CODE
 
 pluginBundle {
     // 为您的插件项目设置网站。
