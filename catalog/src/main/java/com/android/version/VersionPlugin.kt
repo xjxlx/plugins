@@ -2,7 +2,9 @@ package com.android.version
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.internal.impldep.org.apache.ivy.util.FileUtil
+import utils.Config
+import utils.FileUtil
+import utils.GradleUtil2
 
 import java.io.File
 
@@ -20,7 +22,7 @@ abstract class VersionPlugin : Plugin<Project> {
                 // 1：从云端写入到本地
                 val gradleFile = File(project.rootDir, "${File.separator}gradle${File.separator}${GradleUtil2.libsVersions}")
                 println("gradleFile: ${gradleFile.absolutePath}")
-                GradleUtil2.writeGradleToLocal(Config.URL_VERSION_PATH, gradleFile)
+                GradleUtil2.writeGradleToLocal(Config.URL.VERSION_PATH, gradleFile)
             }
         }
 
