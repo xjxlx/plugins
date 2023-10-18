@@ -13,16 +13,16 @@ abstract class VersionPlugin : Plugin<Project> {
         // 2：创建写入的task
         project.task("tomlTask") { tomlTask ->
             tomlTask.group = Config.Plugin.CATALOG
-            tomlTask.doLast {
-                project.tasks.forEach { task ->
-                    val group = task.group
-                    val name = task.name
-                    if (group == "build" && name == "build") {
-                        println("build")
-                        tomlTask.finalizedBy(task)
-                    }
+            project.tasks.forEach { task ->
+                val group = task.group
+                val name = task.name
+                if (group == "build" && name == "build") {
+                    println("build")
+                    tomlTask.finalizedBy(task)
                 }
+            }
 
+            tomlTask.doLast {
                 // 1：从云端写入到本地
                 val gradleFile = File(project.rootDir, "${File.separator}gradle${File.separator}${GradleUtil2.libsVersions}")
                 println("gradleFile: ${gradleFile.absolutePath}")
@@ -33,16 +33,15 @@ abstract class VersionPlugin : Plugin<Project> {
         //  2: 转换module task
         project.task("convertTask") { convertTask ->
             convertTask.group = Config.Plugin.CATALOG
-            convertTask.doLast {
-                project.tasks.forEach { task ->
-                    val group = task.group
-                    val name = task.name
-                    if (group == "build" && name == "build") {
-                        println("build")
-                        convertTask.finalizedBy(task)
-                    }
+            project.tasks.forEach { task ->
+                val group = task.group
+                val name = task.name
+                if (group == "build" && name == "build") {
+                    println("build")
+                    convertTask.finalizedBy(task)
                 }
-
+            }
+            convertTask.doLast {
                 // 1: 读取本地的libs文件
                 GradleUtil2.initGradle(project)
                 // 2: 改变当前build的文件内容
@@ -53,16 +52,15 @@ abstract class VersionPlugin : Plugin<Project> {
         // 3：转换root.gradle task
         project.task("convertRootTask") { convertRootTask ->
             convertRootTask.group = Config.Plugin.CATALOG
-            convertRootTask.doLast {
-                project.tasks.forEach { task ->
-                    val group = task.group
-                    val name = task.name
-                    if (group == "build" && name == "build") {
-                        println("build")
-                        convertRootTask.finalizedBy(task)
-                    }
+            project.tasks.forEach { task ->
+                val group = task.group
+                val name = task.name
+                if (group == "build" && name == "build") {
+                    println("build")
+                    convertRootTask.finalizedBy(task)
                 }
-
+            }
+            convertRootTask.doLast {
                 // 1: 读取本地的libs文件
                 GradleUtil2.initGradle(project)
                 // 2：改变本地root.gradle
