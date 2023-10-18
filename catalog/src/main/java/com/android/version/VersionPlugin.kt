@@ -14,13 +14,12 @@ abstract class VersionPlugin : Plugin<Project> {
         project.task("tomlTask") { tomlTask ->
             tomlTask.group = Config.Plugin.CATALOG
             tomlTask.doLast {
-
                 project.tasks.forEach { task ->
                     val group = task.group
                     val name = task.name
                     if (group == "build" && name == "build") {
                         println("build")
-                        tomlTask.finalizedBy(it)
+                        tomlTask.finalizedBy(task)
                     }
                 }
 
@@ -35,6 +34,15 @@ abstract class VersionPlugin : Plugin<Project> {
         project.task("convertTask") { convertTask ->
             convertTask.group = Config.Plugin.CATALOG
             convertTask.doLast {
+                project.tasks.forEach { task ->
+                    val group = task.group
+                    val name = task.name
+                    if (group == "build" && name == "build") {
+                        println("build")
+                        convertTask.finalizedBy(task)
+                    }
+                }
+
                 // 1: 读取本地的libs文件
                 GradleUtil2.initGradle(project)
                 // 2: 改变当前build的文件内容
@@ -46,14 +54,19 @@ abstract class VersionPlugin : Plugin<Project> {
         project.task("convertRootTask") { convertRootTask ->
             convertRootTask.group = Config.Plugin.CATALOG
             convertRootTask.doLast {
-                try {
-                    // 1: 读取本地的libs文件
-                    GradleUtil2.initGradle(project)
-                    // 2：改变本地root.gradle
-                    GradleUtil2.changeRootGradle()
-                } catch (e: Exception) {
-                    println("e:$e")
+                project.tasks.forEach { task ->
+                    val group = task.group
+                    val name = task.name
+                    if (group == "build" && name == "build") {
+                        println("build")
+                        convertRootTask.finalizedBy(task)
+                    }
                 }
+
+                // 1: 读取本地的libs文件
+                GradleUtil2.initGradle(project)
+                // 2：改变本地root.gradle
+                GradleUtil2.changeRootGradle()
             }
         }
     }
