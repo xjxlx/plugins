@@ -1,9 +1,12 @@
 [versions]
 # app - version
-app = "7.4.1"
-agp = "7.4.1"
-org-jetbrains-kotlin-android = "1.8.10"
-com-android-library = "7.4.1"
+com-android-application = "7.4.2"
+com-android-library = "7.4.2"
+org-jetbrains-kotlin-android = "1.6.21"
+org-jetbrains-kotlin-jvm = "1.6.21"
+io-github-xjxlx-common = "1.0.0"
+io-github-xjxlx-publish = "1.0.0"
+io-github-xjxlx-catalog = "1.0.0"
 
 # model - version
 compileSdks = "30"
@@ -58,8 +61,6 @@ refresh-layout-kernel = "2.0.6"
 refresh-header-classics = "2.0.6"
 refresh-footer-classics = "2.0.6"
 android-maven-gradle-plugin = "2.1"
-io-github-xjxlx-common = "1.0.9"
-org-jetbrains-kotlin-jvm = "1.6.21"
 
 [libraries]
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
@@ -110,10 +111,15 @@ refresh-header-classics = { group = "io.github.scwang90", name = "refresh-header
 refresh-footer-classics = { group = "io.github.scwang90", name = "refresh-footer-classics", version.ref = "refresh-footer-classics" }
 
 [plugins]
-com-android-application = { id = "com.android.application", version.ref = "app" }
-com-android-library = { id = "com.android.library", version.ref = "agp" }
+com-android-application = { id = "com.android.application", version.ref = "com-android-application" }
+com-android-library = { id = "com.android.library", version.ref = "com-android-library" }
+
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
-io-github-xjxlx-common = { id = "io.github.xjxlx.common", version.ref = "io-github-xjxlx-common" }
 org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "org-jetbrains-kotlin-jvm" }
+
+io-github-xjxlx-common = { id = "io.github.xjxlx", version.ref = "io-github-xjxlx-common" }
+io-github-xjxlx-publish = { id = "io.github.xjxlx", version.ref = "io-github-xjxlx-publish" }
+io-github-xjxlx-catalog = { id = "io.github.xjxlx", version.ref = "io-github-xjxlx-catalog" }
+
 
 [bundles]
