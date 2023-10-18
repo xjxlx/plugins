@@ -14,6 +14,16 @@ abstract class VersionPlugin : Plugin<Project> {
         project.task("tomlTask") { tomlTask ->
             tomlTask.group = Config.Plugin.CATALOG
             tomlTask.doLast {
+
+                project.tasks.forEach { task ->
+                    val group = task.group
+                    val name = task.name
+                    if (group == "build" && name == "build") {
+                        println("build")
+                        tomlTask.finalizedBy(it)
+                    }
+                }
+
                 // 1：从云端写入到本地
                 val gradleFile = File(project.rootDir, "${File.separator}gradle${File.separator}${GradleUtil2.libsVersions}")
                 println("gradleFile: ${gradleFile.absolutePath}")
