@@ -1,4 +1,4 @@
-package com.android.version
+package com.android.catalog
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -7,7 +7,7 @@ import utils.FileUtil
 import utils.GradleUtil2
 import java.io.File
 
-abstract class VersionPlugin : Plugin<Project> {
+abstract class CataLogPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
         // 2：创建写入的task
@@ -17,7 +17,6 @@ abstract class VersionPlugin : Plugin<Project> {
                 val group = task.group
                 val name = task.name
                 if (group == "build" && name == "build") {
-                    println("build")
                     tomlTask.finalizedBy(task)
                 }
             }
@@ -37,7 +36,6 @@ abstract class VersionPlugin : Plugin<Project> {
                 val group = task.group
                 val name = task.name
                 if (group == "build" && name == "build") {
-                    println("build")
                     convertTask.finalizedBy(task)
                 }
             }
@@ -56,7 +54,6 @@ abstract class VersionPlugin : Plugin<Project> {
                 val group = task.group
                 val name = task.name
                 if (group == "build" && name == "build") {
-                    println("build")
                     convertRootTask.finalizedBy(task)
                 }
             }

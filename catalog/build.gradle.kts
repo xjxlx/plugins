@@ -28,7 +28,7 @@ gradlePlugin {
             displayName = "versionManager"
             // 插件的描述
             description = "A plugin used to manage dependencies of various project versions"
-            implementationClass = "com.android.version.VersionPlugin"
+            implementationClass = "com.android.catalog.CataLogPlugin"
         }
     }
 }
