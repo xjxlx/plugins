@@ -2,8 +2,10 @@
 # app - version
 com-android-application = "7.4.2"
 com-android-library = "7.4.2"
+
 org-jetbrains-kotlin-android = "1.6.21"
 org-jetbrains-kotlin-jvm = "1.6.21"
+
 io-github-xjxlx-common = "1.0.0"
 io-github-xjxlx-publish = "1.0.0"
 io-github-xjxlx-catalog = "1.0.0"
@@ -120,6 +122,5 @@ org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "org
 io-github-xjxlx-common = { id = "io.github.xjxlx", version.ref = "io-github-xjxlx-common" }
 io-github-xjxlx-publish = { id = "io.github.xjxlx", version.ref = "io-github-xjxlx-publish" }
 io-github-xjxlx-catalog = { id = "io.github.xjxlx", version.ref = "io-github-xjxlx-catalog" }
-
 
 [bundles]
