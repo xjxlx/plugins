@@ -119,8 +119,8 @@ com-android-library = { id = "com.android.library", version.ref = "com-android-l
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
 org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "org-jetbrains-kotlin-jvm" }
 
-io-github-xjxlx-common = { id = "io.github.xjxlx", version.ref = "io-github-xjxlx-common" }
-io-github-xjxlx-publish = { id = "io.github.xjxlx", version.ref = "io-github-xjxlx-publish" }
-io-github-xjxlx-catalog = { id = "io.github.xjxlx", version.ref = "io-github-xjxlx-catalog" }
+io-github-xjxlx-common = { id = "common", version.ref = "io-github-xjxlx-common" }
+io-github-xjxlx-publish = { id = "publish", version.ref = "io-github-xjxlx-publish" }
+io-github-xjxlx-catalog = {  id = "catalog", version.ref = "io-github-xjxlx-catalog" }
 
 [bundles]
