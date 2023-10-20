@@ -10,21 +10,10 @@ git submodule add <url> <path>  其中，url为子模块的路径，path为该�
     git submodule init
 
 // 2: 更新
-    git submodule update
-
     git submodule foreach "git submodule update"
 
-
-
-// 2：切换到master 分支
+// 3：切换到master 分支
     git submodule foreach "git checkout master"
 
-// 3: 更新所有的子模块地址
-    git submodule update --remote
-
-
-// 4：拉取-嵌套的(子仓库中包含子仓库)
-git submodule update --init --recursive
-
-3：从新 URL 更新子模块
-$ git submodule update --init --recursive
+// 4：从新 URL 更新子模块
+    git submodule update --init --recursive
