@@ -1,6 +1,9 @@
 package com.android.helper.plugin
 
 import com.android.build.api.dsl.LibraryExtension
+import common.Config
+import common.Config.Project.PUBLISH_PLUGIN_ID
+import common.Config.Project.PUBLISH_TYPE
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
