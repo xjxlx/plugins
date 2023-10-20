@@ -2,13 +2,12 @@
 git submodule add <url> <path>  其中，url为子模块的路径，path为该子模块存储的目录路径
 例子：git submodule add  https://github.com/xjxlx/apphelper.git  apphelper
 
- git submodule add  git@github.com:xjxlx/pluginConfig.git common
+    git submodule add -b master git@github.com:xjxlx/pluginConfig.git common
 
- git submodule add git@github.com:xjxlx/pluginUtils.git utils
+    git submodule add -b master git@github.com:xjxlx/pluginUtils.git utils
 
 // 1：初始化
     git submodule init
-
 
 // 2: 更新
     git submodule  update
