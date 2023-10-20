@@ -1,28 +1,20 @@
 
-git submodule add <url> <path>  其中，url为子模块的路径，path为该子模块存储的目录路径
-例子：git submodule add  https://github.com/xjxlx/apphelper.git  apphelper
-
     git submodule add -b master git@github.com:xjxlx/pluginConfig.git common
 
     git submodule add -b master git@github.com:xjxlx/pluginUtils.git utils
-
-// 1：初始化
-    git submodule init
-
-// 2: 更新
-    git submodule  update
 
     git submodule foreach "git pull origin master"
 
 // 3：切换到master 分支
     git submodule foreach "git checkout master"
 
-// 4：从新 URL 更新子模块
-    git submodule update --init --recursive
 
- git submodule update  --init  --remote --recursive
-
+// 1：初始化 拉取
+git submodule update  --init  --remote --recursive
     update :更新
     --init :初始化
     --remote :从远端更新
     --recursive ：循环更新
+
+// 2: 更新
+ git submodule update  --remote --recursive
