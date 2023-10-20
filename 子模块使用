@@ -9,7 +9,10 @@ git submodule add <url> <path>  其中，url为子模块的路径，path为该�
 // 1：初始化
     git submodule init
 
+
 // 2: 更新
+    git submodule  update
+
     git submodule foreach "git submodule update"
 
 // 3：切换到master 分支
