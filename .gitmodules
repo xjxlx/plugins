@@ -8,8 +8,8 @@
 	path = common/src/main/java/utils
 	url = git@github.com:xjxlx/pluginUtils.git
 
-[submodule "common/src/main/java/utils"]
-	path = common/src/main/java/utils
+[submodule "common/src/main/java/utils/common"]
+	path = common/src/main/java/utils/common
 	url = git@github.com:xjxlx/pluginConfig.git
 
 # publish
@@ -17,8 +17,8 @@
 	path = publish/src/main/java/utils
 	url = git@github.com:xjxlx/pluginUtils.git
 
-[submodule "publish/src/main/java/utils"]
-	path = publish/src/main/java/utils
+[submodule "publish/src/main/java/utils/common"]
+	path = publish/src/main/java/utils/common
 	url = git@github.com:xjxlx/pluginConfig.git
 
 # catalog
@@ -26,7 +26,7 @@
 	path = catalog/src/main/java/utils
 	url = git@github.com:xjxlx/pluginUtils.git
 
-[submodule "catalog/src/main/java/utils"]
-	path = catalog/src/main/java/utils
+[submodule "catalog/src/main/java/utils/common"]
+	path = catalog/src/main/java/utils/common
 	url = git@github.com:xjxlx/pluginConfig.git
 

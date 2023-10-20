@@ -19,3 +19,6 @@ git submodule add <url> <path>  其中，url为子模块的路径，path为该�
 
 // 4：拉取-嵌套的(子仓库中包含子仓库)
 git submodule update --init --recursive
+
+3：从新 URL 更新子模块
+$ git submodule update --init --recursive
