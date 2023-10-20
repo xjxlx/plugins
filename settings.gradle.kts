@@ -24,6 +24,12 @@ dependencyResolutionManagement {
         mavenLocal()//1、引用插件所在仓库同repositories上传的仓库
         gradlePluginPortal()
     }
+
+    versionCatalogs {
+        create("libs") {
+            from(files("gradle/29/libs.versions.toml"))
+        }
+    }
 }
 
 rootProject.name = "plugins"
