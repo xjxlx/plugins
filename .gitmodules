@@ -10,3 +10,7 @@
 [submodule "catalog/src/main/java/utils"]
 	path = catalog/src/main/java/utils
 	url = git@github.com:xjxlx/pluginUtils.git
+
+[submodule "buildSrc/src/main/kotlin/config"]
+	path = buildSrc/src/main/kotlin/config
+	url = git@github.com:xjxlx/pluginConfig.git

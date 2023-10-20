@@ -2,7 +2,6 @@ package com.android.catalog
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import utils.Config
 import utils.FileUtil
 import utils.GradleUtil2
 import java.io.File

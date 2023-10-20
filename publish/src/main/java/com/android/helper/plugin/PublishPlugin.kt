@@ -5,11 +5,6 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
-import utils.Config
-import utils.Config.Plugin.GROUP
-import utils.Config.Plugin.PUBLISH_CODE
-import utils.Config.Project.PUBLISH_PLUGIN_ID
-import utils.Config.Project.PUBLISH_TYPE
 import utils.FileUtil
 import utils.TextUtil
 import utils.VersionUtil
