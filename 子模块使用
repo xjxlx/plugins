@@ -12,6 +12,10 @@ git submodule add <url> <path>  其中，url为子模块的路径，path为该�
 // 2: 更新
     git submodule update
 
+    git submodule foreach "git submodule update"
+
+
+
 // 2：切换到master 分支
     git submodule foreach "git checkout master"
 
