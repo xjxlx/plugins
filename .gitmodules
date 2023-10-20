@@ -1,16 +1,32 @@
+# buildSrc
+[submodule "buildSrc/src/main/kotlin/common"]
+	path = buildSrc/src/main/kotlin/common
+	url = git@github.com:xjxlx/pluginConfig.git
 
-[submodule "publish/src/main/java/utils"]
-	path = publish/src/main/java/utils
-	url = git@github.com:xjxlx/pluginUtils.git
-
+# common
 [submodule "common/src/main/java/utils"]
 	path = common/src/main/java/utils
 	url = git@github.com:xjxlx/pluginUtils.git
 
+[submodule "common/src/main/java/utils"]
+	path = common/src/main/java/utils
+	url = git@github.com:xjxlx/pluginConfig.git
+
+# publish
+[submodule "publish/src/main/java/utils"]
+	path = publish/src/main/java/utils
+	url = git@github.com:xjxlx/pluginUtils.git
+
+[submodule "publish/src/main/java/utils"]
+	path = publish/src/main/java/utils
+	url = git@github.com:xjxlx/pluginConfig.git
+
+# catalog
 [submodule "catalog/src/main/java/utils"]
 	path = catalog/src/main/java/utils
 	url = git@github.com:xjxlx/pluginUtils.git
 
-[submodule "buildSrc/src/main/kotlin/common"]
-	path = buildSrc/src/main/kotlin/common
+[submodule "catalog/src/main/java/utils"]
+	path = catalog/src/main/java/utils
 	url = git@github.com:xjxlx/pluginConfig.git
+
