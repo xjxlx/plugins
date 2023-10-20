@@ -12,5 +12,5 @@
 	url = git@github.com:xjxlx/pluginUtils.git
 
 [submodule "buildSrc/src/main/kotlin/config"]
-	path = buildSrc/src/main/kotlin/config
+	path = buildSrc/src/main/kotlin/common
 	url = git@github.com:xjxlx/pluginConfig.git
