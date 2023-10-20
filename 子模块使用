@@ -19,3 +19,10 @@ git submodule add <url> <path>  其中，url为子模块的路径，path为该�
 
 // 4：从新 URL 更新子模块
     git submodule update --init --recursive
+
+ git submodule update  --init  --remote --recursive
+
+    update :更新
+    --init :初始化
+    --remote :从远端更新
+    --recursive ：循环更新
