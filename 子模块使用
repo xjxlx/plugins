@@ -15,3 +15,7 @@ git submodule add <url> <path>  其中，url为子模块的路径，path为该�
 
 // 3: 更新所有的子模块地址
     git submodule update --remote
+
+
+// 4：拉取-嵌套的(子仓库中包含子仓库)
+git submodule update --init --recursive
