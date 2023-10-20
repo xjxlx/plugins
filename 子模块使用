@@ -5,10 +5,6 @@
 
     git submodule foreach "git pull origin master"
 
-// 3：切换到master 分支
-    git submodule foreach "git checkout master"
-
-
 // 1：初始化 拉取
 git submodule update  --init  --remote --recursive
     update :更新
@@ -18,3 +14,7 @@ git submodule update  --init  --remote --recursive
 
 // 2: 更新
  git submodule update  --remote --recursive
+
+
+// 3：切换到master 分支
+    git submodule foreach --recursive "git checkout master"
