@@ -1,4 +1,4 @@
-import utils.Config.Plugin
+import common.Config.Plugin
 
 plugins {
     id("java-gradle-plugin")
