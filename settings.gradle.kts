@@ -25,6 +25,7 @@ dependencyResolutionManagement {
         gradlePluginPortal()
     }
 
+    // 配置使用libs.versions.toml地址
     versionCatalogs {
         create("libs") {
             from(files("gradle/29/libs.versions.toml"))
