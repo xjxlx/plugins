@@ -1,6 +1,6 @@
 package com.android.catalog
 
-import common.Catalog.CATALOG
+import common.ConfigCatalog.CATALOG
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import utils.VersionCataLogUtil
