@@ -1,5 +1,6 @@
 import common.Config.Plugin
 
+@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     id("java-gradle-plugin")
     id("org.jetbrains.kotlin.jvm") // 用kotlin语言来开发

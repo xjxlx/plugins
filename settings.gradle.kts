@@ -1,3 +1,5 @@
+enableFeaturePreview("VERSION_CATALOGS")
+
 pluginManagement {
     repositories {
         maven { setUrl("https://maven.aliyun.com/repository/google") }
