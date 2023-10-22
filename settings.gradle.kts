@@ -28,7 +28,18 @@ dependencyResolutionManagement {
     // 配置使用libs.versions.toml地址
     versionCatalogs {
         create("libs") {
-            from(files("gradle/29/libs.versions.toml"))
+            from(
+                files(
+                    File(
+                        rootDir, "gradle${File.separator}29${File.separator}libs.versions.toml"
+                    )
+                )
+            )
+//            library(
+//                "classpath-io-github-xjxlx-common",
+//                "io.github.xjxlx",
+//                "common",
+//            ).version("1.0.0")
         }
     }
 }
