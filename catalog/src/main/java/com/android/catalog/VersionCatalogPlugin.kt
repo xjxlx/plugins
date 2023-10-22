@@ -1,6 +1,6 @@
 package com.android.catalog
 
-import common.Config
+import common.Catalog.CATALOG
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import utils.VersionCataLogUtil
@@ -14,7 +14,7 @@ class VersionCatalogPlugin : Plugin<Project> {
 
         // 1: create catalog task
         project.tasks.create("catalog") { task ->
-            task.group = Config.Plugin.CATALOG
+            task.group = CATALOG
 
             // 1.2：找到library的publishing组下的publishToMavenLocal，在执行完publishTask后发布
             project.tasks.find { itemTask ->
