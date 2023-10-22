@@ -5,10 +5,68 @@ plugins {
     id("org.jetbrains.kotlin.jvm") // 用kotlin语言来开发
     id("com.gradle.plugin-publish") version "1.0.0-rc-1" // 这个是发布到插件门户网站的插件
     id("io.github.xjxlx.common")
+
+    // 1:配置发布插件
+    `version-catalog`
+    `maven-publish`
 }
 
+// ----------------------------------------↓↓↓发布到阿里云↓↓↓------------------------------------
+//<editor-fold desc=" 发布到阿里云  ">
+// 2：配置发布的跟文件，这里可以配置.toml文件，也可以配置具体的信息，可以具体查看官网
+catalog {
+    versionCatalog {
+        from(files(File(rootDir, "gradle${File.separator}29${File.separator}libs.versions.toml")))
+    }
+}
+
+// 3：配置发布信息类型
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            from(components["versionCatalog"])
+        }
+    }
+}
+
+// 4：配置具体的发布信息以及远程地址
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>(Plugin.CATALOG) {
+                groupId = Plugin.GROUP
+                version = Plugin.CATALOG_ALIYUN_CODE
+                artifactId = Plugin.CATALOG
+                from(components["versionCatalog"])
+            }
+        }
+
+        repositories {
+            maven {
+                setUrl("https://packages.aliyun.com/maven/repository/2131155-release-wH01IT/")
+                credentials {
+                    username = "6123a7974e5db15d52e7a9d8"
+                    password = "HsDc[dqcDfda"
+                }
+            }
+            maven {
+                setUrl("https://packages.aliyun.com/maven/repository/2131155-snapshot-mh62BC/")
+                credentials {
+                    username = "6123a7974e5db15d52e7a9d8"
+                    password = "HsDc[dqcDfda"
+                }
+            }
+        }
+    }
+}
+//</editor-fold>
+// ----------------------------------------↑↑↑发布到阿里云↑↑↑------------------------------------
+
+// ----------------------------------------↓↓↓发布到gradle↓↓↓------------------------------------
+//<editor-fold desc=" 发布到gradle门户  ">
+// 发布到gradle门户
 group = Plugin.GROUP
-version = Plugin.CATALOG_CODE
+version = Plugin.CATALOG_GRADLE_CODE
 
 pluginBundle {
     website = "https://github.com/xjxlx/plugins/blob/main/versionManager/README.md"
@@ -28,10 +86,12 @@ gradlePlugin {
             displayName = "versionManager"
             // 插件的描述
             description = "A plugin used to manage dependencies of various project versions"
-            implementationClass = "com.android.catalog.CataLogPlugin"
+            implementationClass = "com.android.catalog.VersionCatalogPlugin"
         }
     }
 }
+//</editor-fold>
+// ----------------------------------------↑↑↑发布到gradle↑↑↑------------------------------------
 
 dependencies {
     implementation("com.android.tools.build:gradle-api:7.4.2")
