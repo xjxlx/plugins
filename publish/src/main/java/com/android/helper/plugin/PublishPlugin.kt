@@ -1,9 +1,9 @@
 package com.android.helper.plugin
 
 import com.android.build.api.dsl.LibraryExtension
-import common.Config
-import common.Config.Plugin.PUBLISH_PLUGIN_ID
-import common.Config.Plugin.PUBLISH_TYPE
+import common.Publish
+import common.Publish.PUBLISH_PLUGIN_ID
+import common.Publish.PUBLISH_TYPE
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
@@ -34,11 +34,12 @@ class PublishPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
         // 1：添加group，不然会找不到id
-        project.project.group = Config.Plugin.JITPACK
-        project.project.version = Config.Plugin.JITPACK_VERSION
+        project.project.group = Publish.JITPACK
+        project.project.version = Publish.JITPACK_VERSION
 
         // 2：检查是否安装了push插件
-        project.pluginManager.findPlugin(PUBLISH_PLUGIN_ID).let {
+        project.pluginManager.findPlugin(PUBLISH_PLUGIN_ID)
+            .let {
                 if (it == null) {
                     project.pluginManager.apply(PUBLISH_PLUGIN_ID)
                 }
@@ -48,17 +49,17 @@ class PublishPlugin : Plugin<Project> {
         registerPublishType(project)
 
         // 4：注册一个片段，用来传输数据使用
-        val publishExtension =
-            project.extensions.create("publishExtension", PublishPluginExtension::class.java)
+        val publishExtension = project.extensions.create("publishExtension", PublishPluginExtension::class.java)
 
         // 5：在项目对象完全配置完成后，去获取自定义的属性
         project.gradle.projectsEvaluated {
             // 获取具体的自定义属性
-            val groupId = publishExtension.groupId.convention("com.github.xjxlx").get()
-            val artifactId =
-                publishExtension.artifactId.convention(VersionUtil.getModelNameForNamespace(project))
-                    .get()
-            val version = publishExtension.version.convention(VersionUtil.version).get()
+            val groupId = publishExtension.groupId.convention("com.github.xjxlx")
+                .get()
+            val artifactId = publishExtension.artifactId.convention(VersionUtil.getModelNameForNamespace(project))
+                .get()
+            val version = publishExtension.version.convention(VersionUtil.version)
+                .get()
 
             // 注册一个发布的信息
             publishTask(project, groupId, artifactId, version)
@@ -66,14 +67,15 @@ class PublishPlugin : Plugin<Project> {
 
         // 6：注册一个发布的task，用来写入一些本地的配置文件
         project.task("publishTask") { task ->
-            task.group = Config.Plugin.PUBLISH
+            task.group = Publish.PUBLISH
             // 6.1：先执行清理任务
             // task.dependsOn("clean")
 
             // 6.2：找到library的publishing组下的publishToMavenLocal，在执行完publishTask后发布
             project.tasks.find { itemTask ->
                 itemTask.group == "publishing" && itemTask.name == "publishToMavenLocal"
-            }?.let {
+            }
+                ?.let {
                     task.finalizedBy(it)
                 }
             // task.finalizedBy("publishToMavenLocal")
@@ -83,16 +85,11 @@ class PublishPlugin : Plugin<Project> {
                 // println("publishTask ----->doFirst")
                 // 6.4：写入github文件
                 mGithubStream?.let {
-                    val githubFile = File(
-                        File(
-                            project.rootDir,
-                            ".github" + File.separator + "workflows" + File.separator
-                        ).apply {
-                            if (!exists()) {
-                                mkdirs()
-                            }
-                        }, "release.yml"
-                    ).apply {
+                    val githubFile = File(File(project.rootDir, ".github" + File.separator + "workflows" + File.separator).apply {
+                        if (!exists()) {
+                            mkdirs()
+                        }
+                    }, "release.yml").apply {
                         if (!exists()) {
                             createNewFile()
                         }
@@ -145,7 +142,8 @@ class PublishPlugin : Plugin<Project> {
      */
     private fun registerPublishType(project: Project) {
         runCatching {
-            project.extensions.getByType(LibraryExtension::class.java).publishing {
+            project.extensions.getByType(LibraryExtension::class.java)
+                .publishing {
                     this.singleVariant(PUBLISH_TYPE) {
                         // this.withSourcesJar()
                         // this.withJavadocJar()
@@ -164,12 +162,12 @@ class PublishPlugin : Plugin<Project> {
      *  }
      * 2：必须是在项目进行评估的时候去添加
      */
-    private fun publishTask(
-        project: Project, groupId: String, artifactId: String, version: String
+    private fun publishTask(project: Project, groupId: String, artifactId: String, version: String
     ) {
         runCatching {
             // 在执行task的时候才会去执行
-            project.extensions.getByType(PublishingExtension::class.java).publications {
+            project.extensions.getByType(PublishingExtension::class.java)
+                .publications {
                     val name = it.findByName(PUBLISH_TYPE)?.name
                     if (TextUtil.isEmpty(name)) {
                         // 注册一个名字为 release 的发布内容
