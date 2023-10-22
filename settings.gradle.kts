@@ -35,11 +35,6 @@ dependencyResolutionManagement {
                     )
                 )
             )
-//            library(
-//                "classpath-io-github-xjxlx-common",
-//                "io.github.xjxlx",
-//                "common",
-//            ).version("1.0.0")
         }
     }
 }
