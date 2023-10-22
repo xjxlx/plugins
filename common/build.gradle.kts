@@ -8,7 +8,8 @@ plugins {
 }
 
 group = ConfigCommon.GROUP
-version = ConfigCommon.COMMON_CODE
+// version = ConfigCommon.COMMON_CODE
+version = "1.0.0"
 
 // 配置插件的发布地址信息
 pluginBundle {
