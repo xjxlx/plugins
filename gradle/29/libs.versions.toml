@@ -6,6 +6,9 @@ com-android-library = "7.4.2"
 org-jetbrains-kotlin-android = "1.6.21"
 org-jetbrains-kotlin-jvm = "1.6.21"
 
+com-android-tools-build-gradle = "7.4.2"
+com-github-dcendents-android-maven-gradle-plugin = "2.1"
+
 io-github-xjxlx-common = "1.0.0"
 io-github-xjxlx-publish = "1.0.0"
 io-github-xjxlx-catalog = "1.0.0"
@@ -71,6 +74,9 @@ io-github-xjxlx-common = { module = "io.github.xjxlx:common", version.ref = "io-
 io-github-xjxlx-publish = { module = "io.github.xjxlx:publish", version.ref = "io-github-xjxlx-publish" }
 io-github-xjxlx-catalog = { module = "io.github.xjxlx:catalog", version.ref = "io-github-xjxlx-catalog" }
 
+com-android-tools-build-gradle = { module = "com.android.tools.build:gradle", version.ref = "com-android-tools-build-gradle" }
+com-github-dcendents-android-maven-gradle-plugin = { module = "com.github.dcendents:android-maven-gradle-plugin", version.ref = "com-github-dcendents-android-maven-gradle-plugin" }
+
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
@@ -125,7 +131,6 @@ com-android-library = { id = "com.android.library", version.ref = "com-android-l
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
 org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "org-jetbrains-kotlin-jvm" }
 
-# apply(plugin = "io.github.xjxlx.common")
 io-github-xjxlx-common = { id = "io.github.xjxlx.common", version.ref = "io-github-xjxlx-common" }
 io-github-xjxlx-publish = { id = "io.github.xjxlx.publish", version.ref = "io-github-xjxlx-publish" }
 io-github-xjxlx-catalog = { id = "io.github.xjxlx.catalog", version.ref = "io-github-xjxlx-catalog" }
