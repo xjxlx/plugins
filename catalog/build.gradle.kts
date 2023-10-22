@@ -1,4 +1,4 @@
-import common.PluginCatalog
+import common.ConfigCatalog
 
 plugins {
     id("java-gradle-plugin")
@@ -17,8 +17,8 @@ if (switch) {
 // ----------------------------------------↓↓↓发布到gradle↓↓↓------------------------------------
 //<editor-fold desc=" 发布到gradle门户  ">
 // 发布到gradle门户
-    group = PluginCatalog.GRADLE_GROUP
-    version = PluginCatalog.GRADLE_CODE
+    group = ConfigCatalog.GRADLE_GROUP
+    version = ConfigCatalog.GRADLE_CODE
 
     pluginBundle {
         website = "https://github.com/xjxlx/plugins/blob/main/versionManager/README.md"
@@ -31,9 +31,9 @@ if (switch) {
         // 捆绑包中的每个插件都在块中指定。由于您此时只发布一个插件，因此只会有 一个条目，但如果您的项目将来发布捆绑包，您将在此处列出每个条目。plugins
         plugins {
             // 每个插件块的名称不会影响插件配置，但对于提供的每个插件需要是唯一的。
-            create(PluginCatalog.CATALOG) {
+            create(ConfigCatalog.CATALOG) {
                 // 	设置插件的唯一性。id
-                id = "${PluginCatalog.GRADLE_GROUP}.${PluginCatalog.CATALOG}"
+                id = "${ConfigCatalog.GRADLE_GROUP}.${ConfigCatalog.CATALOG}"
                 // 短名称显示
                 displayName = "versionManager"
                 // 插件的描述
@@ -74,10 +74,10 @@ if (switch) {
     afterEvaluate {
         publishing {
             publications {
-                create<MavenPublication>(PluginCatalog.CATALOG) {
-                    groupId = PluginCatalog.ALIYUN_GROUP
-                    artifactId = PluginCatalog.CATALOG
-                    version = PluginCatalog.ALIYUN_CODE
+                create<MavenPublication>(ConfigCatalog.CATALOG) {
+                    groupId = ConfigCatalog.ALIYUN_GROUP
+                    artifactId = ConfigCatalog.CATALOG
+                    version = ConfigCatalog.ALIYUN_CODE
                     from(components["versionCatalog"])
                 }
             }
