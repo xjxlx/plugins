@@ -7,7 +7,6 @@ plugins {
 
     // 1:配置发布插件
     `version-catalog`
-    `maven-publish`
 }
 
 // false : ALiYun , true: gradle
@@ -16,7 +15,7 @@ val switch = true
 if (switch) {
 // ----------------------------------------↓↓↓发布到gradle↓↓↓------------------------------------
 //<editor-fold desc=" 发布到gradle门户  ">
-// 发布到gradle门户
+    // 发布到gradle门户
     group = ConfigCatalog.GRADLE_GROUP
     version = ConfigCatalog.GRADLE_CODE
 
@@ -26,12 +25,12 @@ if (switch) {
         tags = listOf("common", "android", "version", "versionManager")
     }
 
-// 发布到gradle门户
+    // 发布到gradle门户
     gradlePlugin {
         // 捆绑包中的每个插件都在块中指定。由于您此时只发布一个插件，因此只会有 一个条目，但如果您的项目将来发布捆绑包，您将在此处列出每个条目。plugins
         plugins {
             // 每个插件块的名称不会影响插件配置，但对于提供的每个插件需要是唯一的。
-            create(ConfigCatalog.CATALOG) {
+            create("maven") {
                 // 	设置插件的唯一性。id
                 id = "${ConfigCatalog.GRADLE_GROUP}.${ConfigCatalog.CATALOG}"
                 // 短名称显示
