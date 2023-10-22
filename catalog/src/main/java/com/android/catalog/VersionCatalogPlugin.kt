@@ -58,6 +58,7 @@ class VersionCatalogPlugin : Plugin<Project> {
 
         // 5: 写入到本地
         project.tasks.create("catalogVersion") { task ->
+            task.group = CATALOG
             task.doLast {
                 val file = File(project.rootDir, "gradle${File.separator}29${File.separator}libs.versions.toml")
                 mGradleUtil.writeGradleToLocal(mVersionPath, file)
