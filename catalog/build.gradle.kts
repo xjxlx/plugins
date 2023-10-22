@@ -54,20 +54,11 @@ if (switch) {
         }
     }
 
-// 3：配置发布信息类型
-    publishing {
-        publications {
-            create<MavenPublication>("maven") {
-                from(components["versionCatalog"])
-            }
-        }
-    }
-
-// 4：配置具体的发布信息以及远程地址
+// 3：配置具体的发布信息以及远程地址
     afterEvaluate {
         publishing {
             publications {
-                create<MavenPublication>(ConfigCatalog.CATALOG) {
+                create<MavenPublication>("maven") {
                     groupId = ConfigCatalog.ALIYUN_GROUP
                     artifactId = ConfigCatalog.CATALOG
                     version = ConfigCatalog.ALIYUN_CODE
