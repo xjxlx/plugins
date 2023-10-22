@@ -1,9 +1,11 @@
 package com.android.helper.plugin
 
 import com.android.build.api.dsl.LibraryExtension
-import common.Publish
-import common.Publish.PUBLISH_PLUGIN_ID
-import common.Publish.PUBLISH_TYPE
+import common.ConfigPublish.JITPACK
+import common.ConfigPublish.JITPACK_VERSION
+import common.ConfigPublish.PUBLISH
+import common.ConfigPublish.PUBLISH_PLUGIN_ID
+import common.ConfigPublish.PUBLISH_TYPE
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
@@ -34,8 +36,8 @@ class PublishPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
         // 1：添加group，不然会找不到id
-        project.project.group = Publish.JITPACK
-        project.project.version = Publish.JITPACK_VERSION
+        project.project.group = JITPACK
+        project.project.version = JITPACK_VERSION
 
         // 2：检查是否安装了push插件
         project.pluginManager.findPlugin(PUBLISH_PLUGIN_ID)
@@ -49,15 +51,17 @@ class PublishPlugin : Plugin<Project> {
         registerPublishType(project)
 
         // 4：注册一个片段，用来传输数据使用
-        val publishExtension = project.extensions.create("publishExtension", PublishPluginExtension::class.java)
+        val publishExtension =
+            project.extensions.create("publishExtension", PublishPluginExtension::class.java)
 
         // 5：在项目对象完全配置完成后，去获取自定义的属性
         project.gradle.projectsEvaluated {
             // 获取具体的自定义属性
             val groupId = publishExtension.groupId.convention("com.github.xjxlx")
                 .get()
-            val artifactId = publishExtension.artifactId.convention(VersionUtil.getModelNameForNamespace(project))
-                .get()
+            val artifactId =
+                publishExtension.artifactId.convention(VersionUtil.getModelNameForNamespace(project))
+                    .get()
             val version = publishExtension.version.convention(VersionUtil.version)
                 .get()
 
@@ -67,7 +71,7 @@ class PublishPlugin : Plugin<Project> {
 
         // 6：注册一个发布的task，用来写入一些本地的配置文件
         project.task("publishTask") { task ->
-            task.group = Publish.PUBLISH
+            task.group = PUBLISH
             // 6.1：先执行清理任务
             // task.dependsOn("clean")
 
@@ -85,11 +89,16 @@ class PublishPlugin : Plugin<Project> {
                 // println("publishTask ----->doFirst")
                 // 6.4：写入github文件
                 mGithubStream?.let {
-                    val githubFile = File(File(project.rootDir, ".github" + File.separator + "workflows" + File.separator).apply {
-                        if (!exists()) {
-                            mkdirs()
-                        }
-                    }, "release.yml").apply {
+                    val githubFile = File(
+                        File(
+                            project.rootDir,
+                            ".github" + File.separator + "workflows" + File.separator
+                        ).apply {
+                            if (!exists()) {
+                                mkdirs()
+                            }
+                        }, "release.yml"
+                    ).apply {
                         if (!exists()) {
                             createNewFile()
                         }
@@ -162,7 +171,8 @@ class PublishPlugin : Plugin<Project> {
      *  }
      * 2：必须是在项目进行评估的时候去添加
      */
-    private fun publishTask(project: Project, groupId: String, artifactId: String, version: String
+    private fun publishTask(
+        project: Project, groupId: String, artifactId: String, version: String
     ) {
         runCatching {
             // 在执行task的时候才会去执行
