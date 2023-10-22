@@ -36,7 +36,7 @@ afterEvaluate {
         publications {
             create<MavenPublication>(Catalog.CATALOG) {
                 groupId = Catalog.ALIYUN_GROUP
-                artifactId = "${Catalog.ALIYUN_GROUP}.${Catalog.CATALOG}"
+                artifactId = Catalog.CATALOG
                 version = Catalog.ALIYUN_CODE
                 from(components["versionCatalog"])
             }
