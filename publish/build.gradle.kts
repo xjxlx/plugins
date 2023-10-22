@@ -9,7 +9,7 @@ plugins {
 
 group = ConfigPublish.GROUP
 // version = ConfigPublish.PUBLISH_CODE
-version = "1.0.0"
+version = "1.0.1"
 
 pluginBundle {
     // 为您的插件项目设置网站。
