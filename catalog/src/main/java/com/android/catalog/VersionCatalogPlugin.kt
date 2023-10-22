@@ -3,11 +3,15 @@ package com.android.catalog
 import common.ConfigCatalog.CATALOG
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import utils.GradleUtil
 import utils.VersionCataLogUtil
+import java.io.File
 
 class VersionCatalogPlugin : Plugin<Project> {
 
     private val mVersionUtil = VersionCataLogUtil()
+    private val mGradleUtil = GradleUtil()
+    private val mVersionPath = "https://github.com/xjxlx/plugins/blob/master/gradle/29/libs.versions.toml"
 
     override fun apply(project: Project) {
         println("apply versionCatalog --->")
@@ -49,6 +53,14 @@ class VersionCatalogPlugin : Plugin<Project> {
                 // write catalog
                 // 6 配置settings.gradle
                 mVersionUtil.write(project)
+            }
+        }
+
+        // 5: 写入到本地
+        project.tasks.create("catalogVersion") { task ->
+            task.doLast {
+                val file = File(project.rootDir, "gradle${File.separator}29${File.separator}libs.versions.toml")
+                mGradleUtil.writeGradleToLocal(mVersionPath, file)
             }
         }
     }
