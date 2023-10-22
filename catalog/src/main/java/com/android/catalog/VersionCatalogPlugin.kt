@@ -38,12 +38,12 @@ class VersionCatalogPlugin : Plugin<Project> {
             task.group = CATALOG
 
             // 5：找到library的publishing组下的publishToMavenLocal，在执行完publishTask后发布
-            project.tasks.find { itemTask ->
-                itemTask.group == "build" && itemTask.name == "build"
-            }
-                ?.let {
-                    task.finalizedBy(it)
-                }
+//            project.tasks.find { itemTask ->
+//                itemTask.group == "build" && itemTask.name == "build"
+//            }
+//                ?.let {
+//                    task.finalizedBy(it)
+//                }
 
             task.doLast {
                 // write catalog
