@@ -1,3 +1,5 @@
+import common.Catalog
+
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     id("java-gradle-plugin")
@@ -32,10 +34,10 @@ publishing {
 afterEvaluate {
     publishing {
         publications {
-            create<MavenPublication>(common.Config.Catalog.CATALOG) {
-                groupId = common.Config.Catalog.ALIYUN_GROUP
-                artifactId = common.Config.Catalog.CATALOG
-                version = common.Config.Catalog.ALIYUN_CODE
+            create<MavenPublication>(Catalog.CATALOG) {
+                groupId = Catalog.ALIYUN_GROUP
+                artifactId = "${Catalog.ALIYUN_GROUP}.${Catalog.CATALOG}"
+                version = Catalog.ALIYUN_CODE
                 from(components["versionCatalog"])
             }
         }
@@ -64,8 +66,8 @@ afterEvaluate {
 // ----------------------------------------↓↓↓发布到gradle↓↓↓------------------------------------
 //<editor-fold desc=" 发布到gradle门户  ">
 // 发布到gradle门户
-group = common.Config.Catalog.GRADLE_GROUP
-version = common.Config.Catalog.GRADLE_CODE
+group = Catalog.GRADLE_GROUP
+version = Catalog.GRADLE_CODE
 
 pluginBundle {
     website = "https://github.com/xjxlx/plugins/blob/main/versionManager/README.md"
@@ -78,9 +80,9 @@ gradlePlugin {
     // 捆绑包中的每个插件都在块中指定。由于您此时只发布一个插件，因此只会有 一个条目，但如果您的项目将来发布捆绑包，您将在此处列出每个条目。plugins
     plugins {
         // 每个插件块的名称不会影响插件配置，但对于提供的每个插件需要是唯一的。
-        create(common.Config.Catalog.CATALOG) {
+        create(Catalog.CATALOG) {
             // 	设置插件的唯一性。id
-            id = "${common.Config.Catalog.GRADLE_GROUP}.${common.Config.Catalog.CATALOG}"
+            id = "${Catalog.GRADLE_GROUP}.${Catalog.CATALOG}"
             // 短名称显示
             displayName = "versionManager"
             // 插件的描述
