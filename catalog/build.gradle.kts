@@ -1,12 +1,8 @@
-import common.ConfigCatalog
-
 plugins {
     id("java-gradle-plugin")
     id("org.jetbrains.kotlin.jvm") // 用kotlin语言来开发
     id("com.gradle.plugin-publish") version "1.0.0-rc-1" // 这个是发布到插件门户网站的插件
-
-    // 1:配置发布插件
-    `version-catalog`
+    `version-catalog` // 1:配置发布插件
 }
 
 // false : ALiYun , true: gradle
@@ -16,9 +12,8 @@ if (switch) {
 // ----------------------------------------↓↓↓发布到gradle↓↓↓------------------------------------
 //<editor-fold desc=" 发布到gradle门户  ">
     // 发布到gradle门户
-    group = ConfigCatalog.GRADLE_GROUP
-    // version = ConfigCatalog.GRADLE_CODE
-    version = "1.0.2"
+    group = properties["groupId"]!!
+    version = properties["catalogGradleVersion"]!!
 
     pluginBundle {
         website = "https://github.com/xjxlx/plugins/blob/main/versionManager/README.md"
@@ -33,7 +28,7 @@ if (switch) {
             // 每个插件块的名称不会影响插件配置，但对于提供的每个插件需要是唯一的。
             create("maven") {
                 // 	设置插件的唯一性。id
-                id = "${ConfigCatalog.GRADLE_GROUP}.${ConfigCatalog.CATALOG}"
+                id = "${group}.${properties["catalogGradleId"]}"
                 // 短名称显示
                 displayName = "versionManager"
                 // 插件的描述
@@ -59,9 +54,9 @@ if (switch) {
         publishing {
             publications {
                 create<MavenPublication>("maven") {
-                    groupId = ConfigCatalog.ALIYUN_GROUP
-                    artifactId = ConfigCatalog.CATALOG
-                    version = ConfigCatalog.ALIYUN_CODE
+                    groupId = "$group"
+                    artifactId = properties["catalogAliYunId"].toString()
+                    version = properties["catalogAliYunVersion"].toString()
                     from(components["versionCatalog"])
                 }
             }
