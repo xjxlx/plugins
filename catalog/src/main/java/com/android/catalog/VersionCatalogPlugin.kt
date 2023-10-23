@@ -4,6 +4,7 @@ import common.ConfigCatalog
 import common.ConfigCatalog.CATALOG
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import utils.FileUtil
 import utils.GradleUtil
 import utils.VersionCataLogUtil
 import java.io.File
@@ -80,20 +81,18 @@ class VersionCatalogPlugin : Plugin<Project> {
         project.tasks.create("deleteCatalog") { task ->
             task.group = CATALOG
             try {
-                val parentGradleCaches = File("/Users/XJX/.gradle/caches/modules-2/files-2.1/")
-                val gradleCachesFolder = File(parentGradleCaches, ConfigCatalog.GRADLE_GROUP)
+                val gradleCachesFolder = File("/Users/XJX/.gradle/caches/modules-2/files-2.1/", ConfigCatalog.GRADLE_GROUP)
                 if (gradleCachesFolder.exists()) {
-                    val delete = gradleCachesFolder.delete()
-                    println("[delete-gradleCaches]:[delete]:${delete}")
+                    FileUtil.deleteFolder(gradleCachesFolder)
+                    println("[delete-gradleCaches]:[delete]: completion！")
                 } else {
                     println("[delete-gradleCaches]:gradleCachesFolder not exists!")
                 }
 
-                val parentM2 = File("/Users/XJX/.m2/repository/")
-                val m2Folder = File(parentM2, ConfigCatalog.GRADLE_GROUP)
+                val m2Folder = File("/Users/XJX/.m2/repository/", ConfigCatalog.GRADLE_GROUP)
                 if (m2Folder.exists()) {
-                    val delete = m2Folder.delete()
-                    println("[delete-m2]:[delete]:${delete}")
+                    FileUtil.deleteFolder(m2Folder)
+                    println("[delete-m2]:[delete]: completion！")
                 } else {
                     println("[delete-m2]:m2Folder not exists!")
                 }
