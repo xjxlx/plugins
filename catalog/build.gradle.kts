@@ -18,7 +18,7 @@ if (switch) {
     // 发布到gradle门户
     group = ConfigCatalog.GRADLE_GROUP
     // version = ConfigCatalog.GRADLE_CODE
-    version = "1.0.1"
+    version = "1.0.2"
 
     pluginBundle {
         website = "https://github.com/xjxlx/plugins/blob/main/versionManager/README.md"
