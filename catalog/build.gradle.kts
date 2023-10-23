@@ -7,13 +7,14 @@ plugins {
 
 // false : ALiYun , true: gradle
 val switch = true
+val catalogId = "catalog"
 
 if (switch) {
 // ----------------------------------------↓↓↓发布到gradle↓↓↓------------------------------------
 //<editor-fold desc=" 发布到gradle门户  ">
     // 发布到gradle门户
-    group = properties["groupId"]!!
-    version = properties["catalogGradleVersion"]!!
+    group = properties["groupId"].toString()
+    version = "1.0.0"
 
     pluginBundle {
         website = "https://github.com/xjxlx/plugins/blob/main/versionManager/README.md"
@@ -28,7 +29,7 @@ if (switch) {
             // 每个插件块的名称不会影响插件配置，但对于提供的每个插件需要是唯一的。
             create("maven") {
                 // 	设置插件的唯一性。id
-                id = "${group}.${properties["catalogGradleId"]}"
+                id = "${group}.${catalogId}"
                 // 短名称显示
                 displayName = "versionManager"
                 // 插件的描述
@@ -54,9 +55,9 @@ if (switch) {
         publishing {
             publications {
                 create<MavenPublication>("maven") {
-                    groupId = "$group"
-                    artifactId = properties["catalogAliYunId"].toString()
-                    version = properties["catalogAliYunVersion"].toString()
+                    groupId = "com.android.version"
+                    artifactId = catalogId
+                    version = "1.0.0"
                     from(components["versionCatalog"])
                 }
             }
