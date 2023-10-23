@@ -4,7 +4,7 @@ plugins {
     id("com.gradle.plugin-publish") version "1.0.0-rc-1" // 这个是发布到插件门户网站的插件
 }
 
-val groupId = "com.github.xjxlx" // group id
+val groupId = "io.github.xjxlx" // group id
 val mavenId = "common"  // plugin id
 val versionCode = "1.0.0"  // 版本号
 
