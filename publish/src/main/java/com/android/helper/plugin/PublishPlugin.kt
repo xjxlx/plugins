@@ -131,18 +131,18 @@ class PublishPlugin : Plugin<Project> {
                 val gradleCachesFolder = File(parentGradleCaches, ConfigPublish.GROUP)
                 if (gradleCachesFolder.exists()) {
                     val delete = gradleCachesFolder.delete()
-                    println("[deletePublish-gradleCaches]:[delete]:${delete}")
+                    println("[delete-gradleCaches]:[delete]:${delete}")
                 } else {
-                    println("[deletePublish-gradleCaches]:gradleCachesFolder not exists!")
+                    println("[delete-gradleCaches]:gradleCachesFolder not exists!")
                 }
 
                 val parentM2 = File("/Users/XJX/.m2/repository/")
                 val m2Folder = File(parentM2, ConfigPublish.GROUP)
                 if (m2Folder.exists()) {
                     val delete = m2Folder.delete()
-                    println("[deletePublish-m2]:[delete]:${delete}")
+                    println("[delete-m2]:[delete]:${delete}")
                 } else {
-                    println("[deletePublish-m2]:m2Folder not exists!")
+                    println("[delete-m2]:m2Folder not exists!")
                 }
             } catch (e: Exception) {
                 println("[deletePublish]:error:${e.message}")
