@@ -1,15 +1,15 @@
-import common.ConfigCommon
-
 plugins {
     id("java-gradle-plugin")
     id("org.jetbrains.kotlin.jvm") // 用kotlin语言来开发
     id("com.gradle.plugin-publish") version "1.0.0-rc-1" // 这个是发布到插件门户网站的插件
-    // id("io.github.xjxlx.common")
 }
 
-group = ConfigCommon.GROUP
-// version = ConfigCommon.COMMON_CODE
-version = "1.0.0"
+val groupId = "com.github.xjxlx" // group id
+val mavenId = "common"  // plugin id
+val versionCode = "1.0.0"  // 版本号
+
+group = groupId
+version = versionCode
 
 // 配置插件的发布地址信息
 pluginBundle {
@@ -26,9 +26,9 @@ gradlePlugin {
     // 捆绑包中的每个插件都在块中指定。由于您此时只发布一个插件，因此只会有 一个条目，但如果您的项目将来发布捆绑包，您将在此处列出每个条目。plugins
     plugins {
         // 每个插件块的名称不会影响插件配置，但对于提供的每个插件需要是唯一的。
-        create(ConfigCommon.COMMON) {
+        create(mavenId) {
             // 	设置插件的唯一性。id
-            id = "${ConfigCommon.GROUP}.${ConfigCommon.COMMON}"
+            id = "${groupId}.${mavenId}"
             // 短名称显示
             displayName = "CommonPlugin"
             // 插件的描述
