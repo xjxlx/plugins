@@ -4,12 +4,8 @@ plugins {
     id("com.gradle.plugin-publish") version "1.0.0-rc-1" // 这个是发布到插件门户网站的插件
 }
 
-val groupId: String by project
-val commonId: String by project
-val commonVersion: String by project
-
-group = groupId
-version = commonVersion
+group = properties["groupId"].toString()
+version = properties["commonVersion"].toString()
 
 // 配置插件的发布地址信息
 pluginBundle {
@@ -28,7 +24,7 @@ gradlePlugin {
         // 每个插件块的名称不会影响插件配置，但对于提供的每个插件需要是唯一的。
         create("maven") {
             // 	设置插件的唯一性。id
-            id = "${groupId}.${commonId}"
+            id = "${group}.${properties["commonId"].toString()}"
             // 短名称显示
             displayName = "CommonPlugin"
             // 插件的描述
