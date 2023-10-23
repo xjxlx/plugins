@@ -125,8 +125,8 @@ class PublishPlugin : Plugin<Project> {
 
         // 7:删除本地缓存信息
         project.tasks.create("deletePublish") { task ->
-            task.group = ConfigPublish.GROUP
             try {
+                task.group = PUBLISH
                 val parentGradleCaches = File("/Users/XJX/.gradle/caches/modules-2/files-2.1/")
                 val gradleCachesFolder = File(parentGradleCaches, ConfigPublish.GROUP)
                 if (gradleCachesFolder.exists()) {
