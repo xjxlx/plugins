@@ -1,6 +1,7 @@
 package com.android.helper.plugin
 
 import com.android.build.api.dsl.LibraryExtension
+import common.ConfigPublish
 import common.ConfigPublish.JITPACK
 import common.ConfigPublish.JITPACK_VERSION
 import common.ConfigPublish.PUBLISH
@@ -51,17 +52,15 @@ class PublishPlugin : Plugin<Project> {
         registerPublishType(project)
 
         // 4：注册一个片段，用来传输数据使用
-        val publishExtension =
-            project.extensions.create("publishExtension", PublishPluginExtension::class.java)
+        val publishExtension = project.extensions.create("publishExtension", PublishPluginExtension::class.java)
 
         // 5：在项目对象完全配置完成后，去获取自定义的属性
         project.gradle.projectsEvaluated {
             // 获取具体的自定义属性
             val groupId = publishExtension.groupId.convention("com.github.xjxlx")
                 .get()
-            val artifactId =
-                publishExtension.artifactId.convention(VersionUtil.getModelNameForNamespace(project))
-                    .get()
+            val artifactId = publishExtension.artifactId.convention(VersionUtil.getModelNameForNamespace(project))
+                .get()
             val version = publishExtension.version.convention(VersionUtil.version)
                 .get()
 
@@ -89,16 +88,11 @@ class PublishPlugin : Plugin<Project> {
                 // println("publishTask ----->doFirst")
                 // 6.4：写入github文件
                 mGithubStream?.let {
-                    val githubFile = File(
-                        File(
-                            project.rootDir,
-                            ".github" + File.separator + "workflows" + File.separator
-                        ).apply {
-                            if (!exists()) {
-                                mkdirs()
-                            }
-                        }, "release.yml"
-                    ).apply {
+                    val githubFile = File(File(project.rootDir, ".github" + File.separator + "workflows" + File.separator).apply {
+                        if (!exists()) {
+                            mkdirs()
+                        }
+                    }, "release.yml").apply {
                         if (!exists()) {
                             createNewFile()
                         }
@@ -126,6 +120,32 @@ class PublishPlugin : Plugin<Project> {
 
             task.doLast {
                 // println("publishTask ----->doLast")
+            }
+        }
+
+        // 7:删除本地缓存信息
+        project.tasks.create("deletePublish") { task ->
+            task.group = ConfigPublish.GROUP
+            try {
+                val parentGradleCaches = File("/Users/XJX/.gradle/caches/modules-2/files-2.1/")
+                val gradleCachesFolder = File(parentGradleCaches, ConfigPublish.GROUP)
+                if (gradleCachesFolder.exists()) {
+                    val delete = gradleCachesFolder.delete()
+                    println("[deletePublish-gradleCaches]:[delete]:${delete}")
+                } else {
+                    println("[deletePublish-gradleCaches]:gradleCachesFolder not exists!")
+                }
+
+                val parentM2 = File("/Users/XJX/.m2/repository/")
+                val m2Folder = File(parentM2, ConfigPublish.GROUP)
+                if (m2Folder.exists()) {
+                    val delete = m2Folder.delete()
+                    println("[deletePublish-m2]:[delete]:${delete}")
+                } else {
+                    println("[deletePublish-m2]:m2Folder not exists!")
+                }
+            } catch (e: Exception) {
+                println("[deletePublish]:error:${e.message}")
             }
         }
     }
@@ -171,8 +191,7 @@ class PublishPlugin : Plugin<Project> {
      *  }
      * 2：必须是在项目进行评估的时候去添加
      */
-    private fun publishTask(
-        project: Project, groupId: String, artifactId: String, version: String
+    private fun publishTask(project: Project, groupId: String, artifactId: String, version: String
     ) {
         runCatching {
             // 在执行task的时候才会去执行

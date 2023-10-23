@@ -84,18 +84,18 @@ class VersionCatalogPlugin : Plugin<Project> {
                 val gradleCachesFolder = File(parentGradleCaches, ConfigCatalog.GRADLE_GROUP)
                 if (gradleCachesFolder.exists()) {
                     val delete = gradleCachesFolder.delete()
-                    println("[deleteCatalog]:[delete]:${delete}")
+                    println("[deleteCatalog-gradleCaches]:[delete]:${delete}")
                 } else {
-                    println("[deleteCatalog]:gradleCachesFolder not exists!")
+                    println("[deleteCatalog-gradleCaches]:gradleCachesFolder not exists!")
                 }
 
                 val parentM2 = File("/Users/XJX/.m2/repository/")
                 val m2Folder = File(parentM2, ConfigCatalog.GRADLE_GROUP)
                 if (m2Folder.exists()) {
                     val delete = m2Folder.delete()
-                    println("[deleteCatalog]:[delete]:${delete}")
+                    println("[deleteCatalog-m2]:[delete]:${delete}")
                 } else {
-                    println("[deleteCatalog]:m2Folder not exists!")
+                    println("[deleteCatalog-m2]:m2Folder not exists!")
                 }
             } catch (e: Exception) {
                 println("[deleteCatalog]:error:${e.message}")
