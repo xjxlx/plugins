@@ -60,8 +60,9 @@ class VersionCatalogPlugin : Plugin<Project> {
         project.tasks.create("catalogVersion") { task ->
             task.group = CATALOG
             task.doLast {
-                val file = File(project.rootDir, "gradle${File.separator}29${File.separator}libs.versions.toml")
-                mGradleUtil.writeGradleToLocal(mVersionPath, file)
+                val gradleFile = File(project.rootDir, "gradle${File.separator}29${File.separator}libs.versions.toml")
+                println("gradleFile:${gradleFile.absolutePath}")
+                mGradleUtil.writeGradleToLocal(mVersionPath, gradleFile)
             }
         }
     }
