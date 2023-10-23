@@ -1,5 +1,6 @@
 package com.android.catalog
 
+import common.ConfigCatalog
 import common.ConfigCatalog.CATALOG
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -72,6 +73,32 @@ class VersionCatalogPlugin : Plugin<Project> {
                 } catch (e: Exception) {
                     println("[localCatalog]:error:${e.message}")
                 }
+            }
+        }
+
+        // 6:删除本地缓存信息
+        project.tasks.create("deleteCatalog") { task ->
+            task.group = CATALOG
+            try {
+                val parentGradleCaches = File("/Users/XJX/.gradle/caches/modules-2/files-2.1/")
+                val gradleCachesFolder = File(parentGradleCaches, ConfigCatalog.GRADLE_GROUP)
+                if (gradleCachesFolder.exists()) {
+                    val delete = gradleCachesFolder.delete()
+                    println("[deleteCatalog]:[delete]:${delete}")
+                } else {
+                    println("[deleteCatalog]:gradleCachesFolder not exists!")
+                }
+
+                val parentM2 = File("/Users/XJX/.m2/repository/")
+                val m2Folder = File(parentM2, ConfigCatalog.GRADLE_GROUP)
+                if (m2Folder.exists()) {
+                    val delete = m2Folder.delete()
+                    println("[deleteCatalog]:[delete]:${delete}")
+                } else {
+                    println("[deleteCatalog]:m2Folder not exists!")
+                }
+            } catch (e: Exception) {
+                println("[deleteCatalog]:error:${e.message}")
             }
         }
     }
