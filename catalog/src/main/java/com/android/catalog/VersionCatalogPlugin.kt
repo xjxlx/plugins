@@ -57,12 +57,21 @@ class VersionCatalogPlugin : Plugin<Project> {
         }
 
         // 5: 写入到本地
-        project.tasks.create("catalogVersion") { task ->
+        project.tasks.create("localCatalog") { task ->
             task.group = CATALOG
             task.doLast {
-                val gradleFile = File(project.rootDir, "gradle${File.separator}29${File.separator}libs.versions.toml")
-                println("gradleFile:${gradleFile.absolutePath}")
-                mGradleUtil.writeGradleToLocal(mVersionPath, gradleFile)
+                try {
+                    val parentFile = File(project.rootDir, "gradle${File.separator}29${File.separator}")
+                    parentFile.mkdirs()
+                    val gradleFile = File(parentFile, "libs.versions.toml")
+                    if (!gradleFile.exists()) {
+                        gradleFile.createNewFile()
+                    }
+                    println("[localCatalog]:[path]:${gradleFile.absolutePath}")
+                    mGradleUtil.writeGradleToLocal(mVersionPath, gradleFile)
+                } catch (e: Exception) {
+                    println("[localCatalog]:error:${e.message}")
+                }
             }
         }
     }
