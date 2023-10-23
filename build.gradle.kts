@@ -13,7 +13,7 @@ buildscript {
         // classpath("com.android.tools.build:gradle:7.4.2")
         classpath(libs.com.android.tools.build.gradle)
         // classpath("io.github.xjxlx:common:1.0.0")
-        // classpath(libs.io.github.xjxlx.common)
+         // classpath(libs.io.github.xjxlx.common)
     }
 }
 
