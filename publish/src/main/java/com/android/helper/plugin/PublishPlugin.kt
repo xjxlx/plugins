@@ -16,6 +16,9 @@ import utils.TextUtil
 import utils.VersionUtil
 import java.io.File
 import java.io.InputStream
+import java.nio.file.Files
+import java.nio.file.Paths
+import kotlin.io.path.isRegularFile
 
 class PublishPlugin : Plugin<Project> {
 
@@ -127,20 +130,18 @@ class PublishPlugin : Plugin<Project> {
         project.tasks.create("deletePublish") { task ->
             try {
                 task.group = PUBLISH
-                val parentGradleCaches = File("/Users/XJX/.gradle/caches/modules-2/files-2.1/")
-                val gradleCachesFolder = File(parentGradleCaches, ConfigPublish.GROUP)
+                val gradleCachesFolder = File("/Users/XJX/.gradle/caches/modules-2/files-2.1/", ConfigPublish.GROUP)
                 if (gradleCachesFolder.exists()) {
-                    val delete = gradleCachesFolder.delete()
-                    println("[delete-gradleCaches]:[delete]:${delete}")
+                    FileUtil.deleteFolder(gradleCachesFolder)
+                    println("[delete-gradleCaches]:[delete]:completion！")
                 } else {
                     println("[delete-gradleCaches]:gradleCachesFolder not exists!")
                 }
 
-                val parentM2 = File("/Users/XJX/.m2/repository/")
-                val m2Folder = File(parentM2, ConfigPublish.GROUP)
+                val m2Folder = File("/Users/XJX/.m2/repository/", ConfigPublish.GROUP)
                 if (m2Folder.exists()) {
-                    val delete = m2Folder.delete()
-                    println("[delete-m2]:[delete]:${delete}")
+                    FileUtil.deleteFolder(m2Folder)
+                    println("[delete-m2]:[delete]:completion！")
                 } else {
                     println("[delete-m2]:m2Folder not exists!")
                 }
@@ -219,3 +220,19 @@ class PublishPlugin : Plugin<Project> {
         }
     }
 }
+
+//import java.io.IOException
+//import java.nio.file.*
+//fun deleteFilesInFolder(folderPath: Path) {
+//    try {
+//        Files.walk(folderPath)
+//            .filter { it.isRegularFile }
+//            .forEach { file ->
+//                file.toFile().delete()
+//            }
+//        println("所有文件已成功删除!")
+//    } catch (e: IOException) {
+//        println("删除文件时出现错误: $e")
+//    }
+//}
+
