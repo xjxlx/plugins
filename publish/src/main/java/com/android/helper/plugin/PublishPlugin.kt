@@ -128,25 +128,27 @@ class PublishPlugin : Plugin<Project> {
 
         // 7:删除本地缓存信息
         project.tasks.create("deletePublish") { task ->
-            try {
-                task.group = PUBLISH
-                val gradleCachesFolder = File("/Users/XJX/.gradle/caches/modules-2/files-2.1/", ConfigPublish.GROUP)
-                if (gradleCachesFolder.exists()) {
-                    FileUtil.deleteFolder(gradleCachesFolder)
-                    println("[delete-gradleCaches]:[delete]:completion！")
-                } else {
-                    println("[delete-gradleCaches]:gradleCachesFolder not exists!")
-                }
+            task.group = PUBLISH
+            task.doLast {
+                try {
+                    val gradleCachesFolder = File("/Users/XJX/.gradle/caches/modules-2/files-2.1/", ConfigPublish.GROUP)
+                    if (gradleCachesFolder.exists()) {
+                        FileUtil.deleteFolder(gradleCachesFolder)
+                        println("[delete-gradleCaches]:[delete]:completion！")
+                    } else {
+                        println("[delete-gradleCaches]:gradleCachesFolder not exists!")
+                    }
 
-                val m2Folder = File("/Users/XJX/.m2/repository/", ConfigPublish.GROUP)
-                if (m2Folder.exists()) {
-                    FileUtil.deleteFolder(m2Folder)
-                    println("[delete-m2]:[delete]:completion！")
-                } else {
-                    println("[delete-m2]:m2Folder not exists!")
+                    val m2Folder = File("/Users/XJX/.m2/repository/", ConfigPublish.GROUP)
+                    if (m2Folder.exists()) {
+                        FileUtil.deleteFolder(m2Folder)
+                        println("[delete-m2]:[delete]:completion！")
+                    } else {
+                        println("[delete-m2]:m2Folder not exists!")
+                    }
+                } catch (e: Exception) {
+                    println("[deletePublish]:error:${e.message}")
                 }
-            } catch (e: Exception) {
-                println("[deletePublish]:error:${e.message}")
             }
         }
     }

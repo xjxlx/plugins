@@ -80,24 +80,26 @@ class VersionCatalogPlugin : Plugin<Project> {
         // 6:删除本地缓存信息
         project.tasks.create("deleteCatalog") { task ->
             task.group = CATALOG
-            try {
-                val gradleCachesFolder = File("/Users/XJX/.gradle/caches/modules-2/files-2.1/", ConfigCatalog.GRADLE_GROUP)
-                if (gradleCachesFolder.exists()) {
-                    FileUtil.deleteFolder(gradleCachesFolder)
-                    println("[delete-gradleCaches]:[delete]: completion！")
-                } else {
-                    println("[delete-gradleCaches]:gradleCachesFolder not exists!")
-                }
+            task.doLast {
+                try {
+                    val gradleCachesFolder = File("/Users/XJX/.gradle/caches/modules-2/files-2.1/", ConfigCatalog.GRADLE_GROUP)
+                    if (gradleCachesFolder.exists()) {
+                        FileUtil.deleteFolder(gradleCachesFolder)
+                        println("[delete-gradleCaches]:[delete]: completion！")
+                    } else {
+                        println("[delete-gradleCaches]:gradleCachesFolder not exists!")
+                    }
 
-                val m2Folder = File("/Users/XJX/.m2/repository/", ConfigCatalog.GRADLE_GROUP)
-                if (m2Folder.exists()) {
-                    FileUtil.deleteFolder(m2Folder)
-                    println("[delete-m2]:[delete]: completion！")
-                } else {
-                    println("[delete-m2]:m2Folder not exists!")
+                    val m2Folder = File("/Users/XJX/.m2/repository/", ConfigCatalog.GRADLE_GROUP)
+                    if (m2Folder.exists()) {
+                        FileUtil.deleteFolder(m2Folder)
+                        println("[delete-m2]:[delete]: completion！")
+                    } else {
+                        println("[delete-m2]:m2Folder not exists!")
+                    }
+                } catch (e: Exception) {
+                    println("[deleteCatalog]:error:${e.message}")
                 }
-            } catch (e: Exception) {
-                println("[deleteCatalog]:error:${e.message}")
             }
         }
     }
