@@ -16,9 +16,6 @@ import utils.TextUtil
 import utils.VersionUtil
 import java.io.File
 import java.io.InputStream
-import java.nio.file.Files
-import java.nio.file.Paths
-import kotlin.io.path.isRegularFile
 
 class PublishPlugin : Plugin<Project> {
 
@@ -222,19 +219,3 @@ class PublishPlugin : Plugin<Project> {
         }
     }
 }
-
-//import java.io.IOException
-//import java.nio.file.*
-//fun deleteFilesInFolder(folderPath: Path) {
-//    try {
-//        Files.walk(folderPath)
-//            .filter { it.isRegularFile }
-//            .forEach { file ->
-//                file.toFile().delete()
-//            }
-//        println("所有文件已成功删除!")
-//    } catch (e: IOException) {
-//        println("删除文件时出现错误: $e")
-//    }
-//}
-
