@@ -1,6 +1,18 @@
 enableFeaturePreview("VERSION_CATALOGS")
 
-pluginManagement {
+pluginManagement { //    resolutionStrategy {
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.namespace == "io.github.xjxlx") {
+                println("namespace:${requested.id.namespace} id:${requested.id.id}")
+                if (requested.id.id == "io.github.xjxlx.catalog") {
+                    println("app --->catalog")
+                    useModule("io.github.xjxlx:catalog:1.0.0")
+                }
+            }
+        }
+    }
+
     repositories {
         maven { setUrl("https://maven.aliyun.com/repository/google") }
         maven { setUrl("https://maven.aliyun.com/repository/public") }
@@ -9,13 +21,15 @@ pluginManagement {
         maven { setUrl("https://jitpack.io") }
         google()
         mavenCentral()
-        mavenLocal()//1、引用插件所在仓库同repositories上传的仓库
+        mavenLocal() //1、引用插件所在仓库同repositories上传的仓库
         gradlePluginPortal()
     }
 }
 
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+
     repositories {
         maven { setUrl("https://maven.aliyun.com/repository/public") }
         maven { setUrl("https://maven.aliyun.com/repository/google") }
@@ -23,20 +37,12 @@ dependencyResolutionManagement {
         maven { setUrl("https://jitpack.io") }
         google()
         mavenCentral()
-        mavenLocal()//1、引用插件所在仓库同repositories上传的仓库
+        mavenLocal() //1、引用插件所在仓库同repositories上传的仓库
         gradlePluginPortal()
-    }
-
-    // 配置使用libs.versions.toml地址
+    } // 配置使用libs.versions.toml地址
     versionCatalogs {
         create("libs") {
-            from(
-                files(
-                    File(
-                        rootDir, "gradle${File.separator}29${File.separator}libs.versions.toml"
-                    )
-                )
-            )
+            from(files(File(rootDir, "gradle${File.separator}29${File.separator}libs.versions.toml")))
         }
     }
 }
@@ -46,3 +52,4 @@ include(":app")
 include(":common")
 include(":publish")
 include(":catalog")
+include(":testLibrary")
