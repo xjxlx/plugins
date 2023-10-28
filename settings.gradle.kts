@@ -1,22 +1,20 @@
 enableFeaturePreview("VERSION_CATALOGS")
 
 pluginManagement { //    resolutionStrategy {
-    resolutionStrategy {
-        eachPlugin {
-            if (requested.id.namespace == "io.github.xjxlx") {
-                println("namespace:${requested.id.namespace} id:${requested.id.id}")
-                if (requested.id.id == "io.github.xjxlx.catalog") {
-                    println("app --->catalog")
-                    useModule("io.github.xjxlx:catalog:1.0.0")
-                } else if (requested.id.id == "io.github.xjxlx.publish") {
-                    println("app --->publish")
-                    useModule("io.github.xjxlx:publish:1.0.0")
-                }
-            }
-        }
-    }
-
-
+    //    resolutionStrategy {
+    //        eachPlugin {
+    //            if (requested.id.namespace == "io.github.xjxlx") {
+    //                println("namespace:${requested.id.namespace} id:${requested.id.id}")
+    //                if (requested.id.id == "io.github.xjxlx.catalog") {
+    //                    println("app --->catalog")
+    //                    useModule("io.github.xjxlx:catalog:1.0.0")
+    //                } else if (requested.id.id == "io.github.xjxlx.publish") {
+    //                    println("app --->publish")
+    //                    useModule("io.github.xjxlx:publish:1.0.0")
+    //                }
+    //            }
+    //        }
+    //    }
     repositories {
         maven { setUrl("https://maven.aliyun.com/repository/google") }
         maven { setUrl("https://maven.aliyun.com/repository/public") }
