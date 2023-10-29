@@ -1,9 +1,7 @@
 plugins {
     id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-
-    id("io.github.xjxlx.publish") version "1.0.0"
-    id("io.github.xjxlx.catalog") version "1.0.0"
+    id("org.jetbrains.kotlin.android") //    id("io.github.xjxlx.publish")
+    //    id("io.github.xjxlx.catalog")
 }
 
 android {
