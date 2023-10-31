@@ -28,7 +28,6 @@ pluginManagement { //    resolutionStrategy {
     }
 }
 
-
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
 
@@ -41,7 +40,9 @@ dependencyResolutionManagement {
         mavenCentral()
         mavenLocal() //1、引用插件所在仓库同repositories上传的仓库
         gradlePluginPortal()
-    } // 配置使用libs.versions.toml地址
+    }
+
+    // 配置使用libs.versions.toml地址
     versionCatalogs {
         create("libs") {
             from(files(File(rootDir, "gradle${File.separator}29${File.separator}libs.versions.toml")))
