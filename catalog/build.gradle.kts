@@ -8,12 +8,14 @@ plugins {
 // false : ALiYun , true: gradle
 val switch = true
 val catalogId = "catalog"
+val alyVersion = "1.0.0"
+val gradleVersion = "1.0.0"
 
 if (switch) { // ----------------------------------------↓↓↓发布到gradle↓↓↓------------------------------------
     //<editor-fold desc=" 发布到gradle门户  ">
     // 发布到gradle门户
     group = properties["groupId"].toString()
-    version = "1.0.0"
+    version = gradleVersion
 
     pluginBundle {
         website = "https://github.com/xjxlx/plugins/blob/main/versionManager/README.md"
@@ -52,7 +54,7 @@ if (switch) { // ----------------------------------------↓↓↓发布到gradl
                 create<MavenPublication>("maven") {
                     groupId = "com.android.version"
                     artifactId = catalogId
-                    version = "1.0.0"
+                    version = alyVersion
                     from(components["versionCatalog"])
                 }
             }
