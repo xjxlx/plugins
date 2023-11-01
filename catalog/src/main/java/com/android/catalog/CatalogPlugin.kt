@@ -11,9 +11,9 @@ class CatalogPlugin : Plugin<Project> {
         private const val ORIGIN_GITHUB_CATALOG_PATH = "https://github.com/xjxlx/plugins/blob/master/gradle/29/libs.versions.toml"
         private const val GRADLE_GROUP = "io.github.xjxlx"
 
-        const val ALY_GROUP = "com.android.version"
         const val CATALOG = "catalog"
-        const val VERSION = "1.0.0"
+        const val ALY_GROUP = "com.android.version"
+        const val ALY_VERSION = "1.0.0"
 
         const val MAVEN_PUBLIC = "https://maven.aliyun.com/repository/public"
         const val MAVEN_RELEASE = "https://packages.aliyun.com/maven/repository/2131155-release-wH01IT/"
