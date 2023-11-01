@@ -1,7 +1,5 @@
 package com.android.catalog
 
-import common.ConfigCatalog
-import common.ConfigCatalog.CATALOG
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import utils.FileUtil
@@ -9,34 +7,48 @@ import utils.GradleUtil
 import utils.VersionCataLogUtil
 import java.io.File
 
-class VersionCatalogPlugin : Plugin<Project> {
+class CatalogPlugin : Plugin<Project> {
+
+    companion object {
+        private const val ORIGIN_GITHUB_CATALOG_PATH = "https://github.com/xjxlx/plugins/blob/master/gradle/29/libs.versions.toml"
+        private const val GRADLE_GROUP = "io.github.xjxlx"
+
+        const val ALY_GROUP = "com.android.version"
+        const val CATALOG = "catalog"
+        var VERSION = "1.0.2"
+
+        const val MAVEN_PUBLIC = "https://maven.aliyun.com/repository/public"
+        const val MAVEN_RELEASE = "https://packages.aliyun.com/maven/repository/2131155-release-wH01IT/"
+        const val MAVEN_SNAPSHOT = "https://packages.aliyun.com/maven/repository/2131155-snapshot-mh62BC/"
+        const val ALY_USER_NAME = "6123a7974e5db15d52e7a9d8"
+        const val ALY_PASSWORD = "HsDc[dqcDfda"
+    }
 
     private val mVersionUtil = VersionCataLogUtil()
     private val mGradleUtil = GradleUtil()
-    private val mVersionPath = "https://github.com/xjxlx/plugins/blob/master/gradle/29/libs.versions.toml"
 
     override fun apply(project: Project) {
         println("apply versionCatalog --->")
 
         // 1:配置阿里云信息
-        project.buildscript.repositories.maven { maven -> maven.setUrl("https://maven.aliyun.com/repository/public") }
+        project.parent?.repositories?.maven { maven -> maven.setUrl(MAVEN_PUBLIC) }
 
         // 2:用户信息-release
-        project.buildscript.repositories.maven { maven ->
+        project.parent?.repositories?.maven { maven ->
             maven.credentials { user ->
-                user.username = "6123a7974e5db15d52e7a9d8"
-                user.password = "HsDc[dqcDfda"
+                user.username = ALY_USER_NAME
+                user.password = ALY_PASSWORD
             }
-            maven.setUrl("https://packages.aliyun.com/maven/repository/2131155-release-wH01IT/")
+            maven.setUrl(MAVEN_RELEASE)
         }
 
         // 3：用户信息-snapshot
-        project.buildscript.repositories.maven { maven ->
+        project.parent?.repositories?.maven { maven ->
             maven.credentials { user ->
-                user.username = "6123a7974e5db15d52e7a9d8"
-                user.password = "HsDc[dqcDfda"
+                user.username = ALY_USER_NAME
+                user.password = ALY_PASSWORD
             }
-            maven.setUrl("https://packages.aliyun.com/maven/repository/2131155-snapshot-mh62BC/")
+            maven.setUrl(MAVEN_SNAPSHOT)
         }
 
         // 4: create catalog task
@@ -70,7 +82,7 @@ class VersionCatalogPlugin : Plugin<Project> {
                         gradleFile.createNewFile()
                     }
                     println("[localCatalog]:[path]:${gradleFile.absolutePath}")
-                    mGradleUtil.writeGradleToLocal(mVersionPath, gradleFile)
+                    mGradleUtil.writeGradleToLocal(ORIGIN_GITHUB_CATALOG_PATH, gradleFile)
                 } catch (e: Exception) {
                     println("[localCatalog]:error:${e.message}")
                 }
@@ -82,7 +94,7 @@ class VersionCatalogPlugin : Plugin<Project> {
             task.group = CATALOG
             task.doLast {
                 try {
-                    val gradleCachesFolder = File("/Users/XJX/.gradle/caches/modules-2/files-2.1/", ConfigCatalog.GRADLE_GROUP)
+                    val gradleCachesFolder = File("/Users/XJX/.gradle/caches/modules-2/files-2.1/", GRADLE_GROUP)
                     if (gradleCachesFolder.exists()) {
                         FileUtil.deleteFolder(gradleCachesFolder)
                         println("[delete-gradleCaches]:[delete]: completion！")
@@ -90,7 +102,7 @@ class VersionCatalogPlugin : Plugin<Project> {
                         println("[delete-gradleCaches]:gradleCachesFolder not exists!")
                     }
 
-                    val m2Folder = File("/Users/XJX/.m2/repository/", ConfigCatalog.GRADLE_GROUP)
+                    val m2Folder = File("/Users/XJX/.m2/repository/", GRADLE_GROUP)
                     if (m2Folder.exists()) {
                         FileUtil.deleteFolder(m2Folder)
                         println("[delete-m2]:[delete]: completion！")
