@@ -24,7 +24,7 @@ if (switch) { // ----------------------------------------↓↓↓发布到gradl
                 id = "${group}.${catalogId}" // 短名称显示
                 displayName = "versionManager" // 插件的描述
                 description = "A plugin used to manage dependencies of various project versions"
-                implementationClass = "com.android.catalog.VersionCatalogPlugin"
+                implementationClass = "com.android.catalog.CatalogPlugin"
             }
         }
     } //</editor-fold>
