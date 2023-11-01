@@ -3,8 +3,6 @@ package com.android.catalog
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import utils.FileUtil
-import utils.GradleUtil
-import utils.VersionCataLogUtil
 import java.io.File
 
 class CatalogPlugin : Plugin<Project> {
