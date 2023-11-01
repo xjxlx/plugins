@@ -75,19 +75,19 @@ class VersionCataLogUtil {
 
                         // 检测中央公共仓库
                         if (!mavenPublicTagFlag) {
-                            mavenPublicTagFlag = (trim.contains(CatalogPlugin.MAVEN_PUBLIC)) && (!trim.startsWith("\\"))
+                            mavenPublicTagFlag = (trim.contains(CatalogPlugin.MAVEN_PUBLIC)) && (!trim.startsWith("//"))
                         }
                         // 检测用户信息-release
                         if (!mavenPublicReleaseTagFlag) {
-                            mavenPublicReleaseTagFlag = (trim.contains(CatalogPlugin.MAVEN_RELEASE)) && (!trim.startsWith("\\"))
+                            mavenPublicReleaseTagFlag = (trim.contains(CatalogPlugin.MAVEN_RELEASE)) && (!trim.startsWith("//"))
                         }
                         // 检测用户信息-Snapshot
                         if (!mavenPublicSnapshotTagFlag) {
-                            mavenPublicSnapshotTagFlag = (trim.contains(CatalogPlugin.MAVEN_SNAPSHOT)) && (!trim.startsWith("\\"))
+                            mavenPublicSnapshotTagFlag = (trim.contains(CatalogPlugin.MAVEN_SNAPSHOT)) && (!trim.startsWith("//"))
                         }
                         // 检测catalog
                         if (!catalogFlag) {
-                            catalogFlag = (trim.contains(TAG_MAVEN_CATALOG)) && (!trim.startsWith("\\"))
+                            catalogFlag = (trim.contains(TAG_MAVEN_CATALOG)) && (!trim.startsWith("//"))
                         }
                     }
                     mListContent.add(item)
