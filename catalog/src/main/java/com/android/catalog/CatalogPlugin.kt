@@ -92,7 +92,10 @@ class CatalogPlugin : Plugin<Project> {
             task.group = CATALOG
             task.doLast {
                 try {
-                    val gradleCachesFolder = File("/Users/XJX/.gradle/caches/modules-2/files-2.1/", GRADLE_GROUP)
+                    // /Users/XJX/.gradle
+                    val gradleUserHomeDir = project.gradle.gradleUserHomeDir
+
+                    val gradleCachesFolder = File("${gradleUserHomeDir.absolutePath}/caches/modules-2/files-2.1/${GRADLE_GROUP}")
                     if (gradleCachesFolder.exists()) {
                         FileUtil.deleteFolder(gradleCachesFolder)
                         println("[delete-gradleCaches]:[delete]: completion！")
@@ -100,12 +103,16 @@ class CatalogPlugin : Plugin<Project> {
                         println("[delete-gradleCaches]:gradleCachesFolder not exists!")
                     }
 
-                    val m2Folder = File("/Users/XJX/.m2/repository/", GRADLE_GROUP)
-                    if (m2Folder.exists()) {
-                        FileUtil.deleteFolder(m2Folder)
-                        println("[delete-m2]:[delete]: completion！")
-                    } else {
-                        println("[delete-m2]:m2Folder not exists!")
+                    // delete .m2
+                    gradleUserHomeDir.parent?.let {
+                        val m2Folder = File("${it}/.m2/repository")
+                        println("m2Folder:${m2Folder.absolutePath}")
+                        if (m2Folder.exists()) {
+                            FileUtil.deleteFolder(m2Folder)
+                            println("[delete-m2]:[delete]: completion！")
+                        } else {
+                            println("[delete-m2]:m2Folder not exists!")
+                        }
                     }
                 } catch (e: Exception) {
                     println("[deleteCatalog]:error:${e.message}")
