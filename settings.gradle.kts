@@ -1,5 +1,3 @@
-enableFeaturePreview("VERSION_CATALOGS")
-
 pluginManagement { //    resolutionStrategy {
     //    resolutionStrategy {
     //        eachPlugin {
@@ -15,6 +13,7 @@ pluginManagement { //    resolutionStrategy {
     //            }
     //        }
     //    }
+
     repositories {
         maven { setUrl("https://maven.aliyun.com/repository/google") }
         maven { setUrl("https://maven.aliyun.com/repository/public") }
@@ -30,11 +29,11 @@ pluginManagement { //    resolutionStrategy {
 
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-
     repositories {
         maven { setUrl("https://maven.aliyun.com/repository/public") }
         maven { setUrl("https://maven.aliyun.com/repository/google") }
         maven { setUrl("https://maven.aliyun.com/repository/central") }
+        maven { setUrl("https://maven.aliyun.com/repository/gradle-plugin") }
         maven { setUrl("https://jitpack.io") }
         google()
         mavenCentral()
