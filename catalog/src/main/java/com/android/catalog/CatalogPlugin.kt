@@ -13,7 +13,7 @@ class CatalogPlugin : Plugin<Project> {
 
         const val ALY_GROUP = "com.android.version"
         const val CATALOG = "catalog"
-        var VERSION = "1.0.2"
+        const val VERSION = "1.0.0"
 
         const val MAVEN_PUBLIC = "https://maven.aliyun.com/repository/public"
         const val MAVEN_RELEASE = "https://packages.aliyun.com/maven/repository/2131155-release-wH01IT/"

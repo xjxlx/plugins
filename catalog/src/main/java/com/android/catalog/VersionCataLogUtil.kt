@@ -18,16 +18,10 @@ class VersionCataLogUtil {
         private const val MAVEN_PUBLIC = "        maven { setUrl({\n${CatalogPlugin.MAVEN_PUBLIC}\n}) }"
         private const val MAVEN_RELEASE = "        maven {\n" + "            credentials {\n" + "                username = \"${CatalogPlugin.ALY_USER_NAME}\"\n" + "                password = \"${CatalogPlugin.ALY_PASSWORD}\"\n" + "            }\n" + "            setUrl(\"${CatalogPlugin.MAVEN_RELEASE}\")\n" + "        }"
         private const val MAVEN_SNAPSHOT = "        maven {\n" + "            credentials {\n" + "                username = \"${CatalogPlugin.ALY_USER_NAME}\"\n" + "                password = \"${CatalogPlugin.ALY_PASSWORD}\"\n" + "            }\n" + "            setUrl(\"${CatalogPlugin.MAVEN_SNAPSHOT}\")\n" + "        }"
+        private const val MAVEN_CATALOG = "    $TAG_MAVEN_CATALOG {\n" + "        create(\"libs\") {\n" + "            from(\"${CatalogPlugin.ALY_GROUP}:${CatalogPlugin.CATALOG}:${CatalogPlugin.VERSION}\")\n" + "        }\n" + "    }"
     }
 
-    private val MAVEN_CATALOG = "    $TAG_MAVEN_CATALOG {\n" + "        create(\"libs\") {\n" + "            from(\"${CatalogPlugin.ALY_GROUP}:${CatalogPlugin.CATALOG}:${"111"}\")\n" + "        }\n" + "    }"
-
     fun write(project: Project) {
-        project.rootDir.listFiles().forEach {
-            println("file:${it.name}")
-        }
-        println("MAVEN_CATALOG:${MAVEN_CATALOG}")
-
         val settingsFile = project.rootDir.listFiles()?.find { it.isFile && it.name.contains("settings") }
         settingsFile?.let {
             FileUtil.readFile(settingsFile)?.let { settingsList ->
@@ -52,7 +46,6 @@ class VersionCataLogUtil {
                         dependencyResolutionManagementStartFlag = false
                         repositoriesStartFlag = false
                     }
-
                     // 检测到了dependencyResolutionManagement标签
                     if (trim.startsWith(TAG_DEPENDENCY_RESOLUTION_MANAGEMENT)) {
                         dependencyResolutionManagementStartFlag = true
@@ -75,7 +68,6 @@ class VersionCataLogUtil {
                                 count += 1
                             }
                             if (count >= 1) {
-                                println("count:$count index:$index")
                                 tempIndex = index
                                 addCountFlag = true
                             }
@@ -83,29 +75,29 @@ class VersionCataLogUtil {
 
                         // 检测中央公共仓库
                         if (!mavenPublicTagFlag) {
-                            mavenPublicTagFlag = trim.contains(CatalogPlugin.MAVEN_PUBLIC)
+                            mavenPublicTagFlag = (trim.contains(CatalogPlugin.MAVEN_PUBLIC)) && (!trim.startsWith("\\"))
                         }
                         // 检测用户信息-release
                         if (!mavenPublicReleaseTagFlag) {
-                            mavenPublicReleaseTagFlag = trim.contains(CatalogPlugin.MAVEN_RELEASE)
+                            mavenPublicReleaseTagFlag = (trim.contains(CatalogPlugin.MAVEN_RELEASE)) && (!trim.startsWith("\\"))
                         }
                         // 检测用户信息-Snapshot
                         if (!mavenPublicSnapshotTagFlag) {
-                            mavenPublicSnapshotTagFlag = trim.contains(CatalogPlugin.MAVEN_SNAPSHOT)
+                            mavenPublicSnapshotTagFlag = (trim.contains(CatalogPlugin.MAVEN_SNAPSHOT)) && (!trim.startsWith("\\"))
                         }
                         // 检测catalog
                         if (!catalogFlag) {
-                            catalogFlag = (trim.contains(TAG_MAVEN_CATALOG))
+                            catalogFlag = (trim.contains(TAG_MAVEN_CATALOG)) && (!trim.startsWith("\\"))
                         }
                     }
                     mListContent.add(item)
                     // println("item:$item count:$count")
                 }
 
-                println("[mavenPublic]:$mavenPublicTagFlag")
-                println("[mavenPublicRelease]:$mavenPublicReleaseTagFlag")
-                println("[mavenPublicSnapshot]:$mavenPublicSnapshotTagFlag")
-                println("[catalog]:$catalogFlag")
+                // println("[mavenPublic]:$mavenPublicTagFlag")
+                // println("[mavenPublicRelease]:$mavenPublicReleaseTagFlag")
+                // println("[mavenPublicSnapshot]:$mavenPublicSnapshotTagFlag")
+                // println("[catalog]:$catalogFlag")
 
                 // 添加阿里云：用户信息 - snapshot
                 if (!mavenPublicSnapshotTagFlag) {
