@@ -63,13 +63,6 @@ if (switch) {
                         password = "HsDc[dqcDfda"
                     }
                 }
-                maven {
-                    setUrl("https://packages.aliyun.com/maven/repository/2131155-snapshot-mh62BC/")
-                    credentials {
-                        username = "6123a7974e5db15d52e7a9d8"
-                        password = "HsDc[dqcDfda"
-                    }
-                }
             }
         }
     }
