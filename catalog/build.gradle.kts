@@ -6,7 +6,7 @@ plugins {
 }
 
 // false : ALiYun , true: gradle
-val switch = true
+val switch = false
 group = properties["groupId"].toString()
 version = properties["catalogVersion"].toString()
 
@@ -42,12 +42,13 @@ if (switch) {
             from(files(File(rootDir, "gradle${File.separator}29${File.separator}libs.versions.toml")))
         }
     }
+
     // 3：配置具体的发布信息以及远程地址
     afterEvaluate {
         publishing {
             publications {
                 create<MavenPublication>("maven") {
-                    groupId = "com.android.version"
+                    groupId = properties["groupId"].toString()
                     artifactId = properties["catalogId"].toString()
                     from(components["versionCatalog"])
                     version = properties["catalogVersion"].toString()
