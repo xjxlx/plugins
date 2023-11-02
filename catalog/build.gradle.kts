@@ -7,20 +7,20 @@ plugins {
 
 // false : ALiYun , true: gradle
 val switch = true
-group = properties["groupId"].toString()
-version = properties["catalogVersion"].toString()
-
 if (switch) {
     //<editor-fold desc=" 发布到gradle门户  ">
+    // 1: group
+    group = properties["groupId"].toString()
+    version = properties["catalogVersion"].toString()
 
-    // 发布到gradle门户
+    // 2：发布到gradle门户
     pluginBundle {
         website = "https://github.com/xjxlx/plugins/blob/main/versionManager/README.md"
         vcsUrl = "https://github.com/xjxlx/plugins/tree/main/versionManager"
         tags = listOf("common", "android", "version", "versionManager")
     }
 
-    // 发布到gradle门户
+    // 3：发布到gradle门户
     gradlePlugin {
         // 捆绑包中的每个插件都在块中指定。由于您此时只发布一个插件，因此只会有 一个条目，但如果您的项目将来发布捆绑包，您将在此处列出每个条目。plugins
         plugins {
@@ -37,6 +37,8 @@ if (switch) {
 } else {
     //<editor-fold desc=" 发布到阿里云  ">
     // 1: group && version
+    group = properties["alyGroupId"].toString()
+    version = properties["catalogVersion"].toString()
 
     // 2：配置发布的跟文件，这里可以配置.toml文件，也可以配置具体的信息，可以具体查看官网
     catalog {
@@ -51,7 +53,7 @@ if (switch) {
             publications {
                 create<MavenPublication>("maven") {
                     groupId = "${project.group}"
-                    artifactId = properties["libsId"].toString()
+                    artifactId = properties["catalogId"].toString()
                     version = "${project.version}"
                     from(components["versionCatalog"])
                 }
