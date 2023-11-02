@@ -6,7 +6,7 @@ plugins {
 }
 
 // false : ALiYun , true: gradle
-val switch = false
+val switch = true
 group = properties["groupId"].toString()
 version = properties["catalogVersion"].toString()
 
@@ -26,7 +26,7 @@ if (switch) {
         plugins {
             // 每个插件块的名称不会影响插件配置，但对于提供的每个插件需要是唯一的。
             create("maven") { // 	设置插件的唯一性。id
-                id = "${properties["groupId"].toString()}.version" // 短名称显示
+                id = "${project.group}.${properties["catalogId"]}" // 短名称显示
                 displayName = "versionManager" // 插件的描述
                 description = "A plugin used to manage dependencies of various project versions"
                 implementationClass = "com.android.catalog.CatalogPlugin"
@@ -36,6 +36,8 @@ if (switch) {
     //</editor-fold>
 } else {
     //<editor-fold desc=" 发布到阿里云  ">
+    // 1: group && version
+
     // 2：配置发布的跟文件，这里可以配置.toml文件，也可以配置具体的信息，可以具体查看官网
     catalog {
         versionCatalog {
@@ -48,10 +50,10 @@ if (switch) {
         publishing {
             publications {
                 create<MavenPublication>("maven") {
-                    groupId = properties["groupId"].toString()
-                    artifactId = properties["catalogId"].toString()
+                    groupId = "${project.group}"
+                    artifactId = properties["libsId"].toString()
+                    version = "${project.version}"
                     from(components["versionCatalog"])
-                    version = properties["catalogVersion"].toString()
                 }
             }
 
