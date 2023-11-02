@@ -7,16 +7,13 @@ plugins {
 
 // false : ALiYun , true: gradle
 val switch = true
-val catalogId = "catalog"
-val alyVersion = "1.0.0"
-val gradleVersion = "1.0.0"
+group = properties["groupId"].toString()
+version = properties["catalogVersion"].toString()
 
-if (switch) { // ----------------------------------------↓↓↓发布到gradle↓↓↓------------------------------------
+if (switch) {
     //<editor-fold desc=" 发布到gradle门户  ">
-    // 发布到gradle门户
-    group = properties["groupId"].toString()
-    version = gradleVersion
 
+    // 发布到gradle门户
     pluginBundle {
         website = "https://github.com/xjxlx/plugins/blob/main/versionManager/README.md"
         vcsUrl = "https://github.com/xjxlx/plugins/tree/main/versionManager"
@@ -29,7 +26,7 @@ if (switch) { // ----------------------------------------↓↓↓发布到gradl
         plugins {
             // 每个插件块的名称不会影响插件配置，但对于提供的每个插件需要是唯一的。
             create("maven") { // 	设置插件的唯一性。id
-                id = "${group}.${catalogId}" // 短名称显示
+                id = "${group}.${properties["catalogId"]}" // 短名称显示
                 displayName = "versionManager" // 插件的描述
                 description = "A plugin used to manage dependencies of various project versions"
                 implementationClass = "com.android.catalog.CatalogPlugin"
@@ -37,9 +34,7 @@ if (switch) { // ----------------------------------------↓↓↓发布到gradl
         }
     }
     //</editor-fold>
-    // ----------------------------------------↑↑↑发布到gradle↑↑↑------------------------------------
 } else {
-    // ----------------------------------------↓↓↓发布到阿里云↓↓↓------------------------------------
     //<editor-fold desc=" 发布到阿里云  ">
     // 2：配置发布的跟文件，这里可以配置.toml文件，也可以配置具体的信息，可以具体查看官网
     catalog {
@@ -53,9 +48,9 @@ if (switch) { // ----------------------------------------↓↓↓发布到gradl
             publications {
                 create<MavenPublication>("maven") {
                     groupId = "com.android.version"
-                    artifactId = catalogId
-                    version = alyVersion
+                    artifactId = properties["catalogId"].toString()
                     from(components["versionCatalog"])
+                    version = properties["catalogVersion"].toString()
                 }
             }
 
@@ -78,7 +73,6 @@ if (switch) { // ----------------------------------------↓↓↓发布到gradl
         }
     }
     //</editor-fold>
-    // ----------------------------------------↑↑↑发布到阿里云↑↑↑------------------------------------
 }
 
 java {
