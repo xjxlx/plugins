@@ -26,7 +26,7 @@ if (switch) {
         plugins {
             // 每个插件块的名称不会影响插件配置，但对于提供的每个插件需要是唯一的。
             create("maven") { // 	设置插件的唯一性。id
-                id = "${group}.${properties["catalogId"]}" // 短名称显示
+                id = "${properties["groupId"].toString()}.version" // 短名称显示
                 displayName = "versionManager" // 插件的描述
                 description = "A plugin used to manage dependencies of various project versions"
                 implementationClass = "com.android.catalog.CatalogPlugin"
