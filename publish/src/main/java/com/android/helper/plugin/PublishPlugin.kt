@@ -1,12 +1,6 @@
 package com.android.helper.plugin
 
 import com.android.build.api.dsl.LibraryExtension
-import common.ConfigPublish
-import common.ConfigPublish.JITPACK
-import common.ConfigPublish.JITPACK_VERSION
-import common.ConfigPublish.PUBLISH
-import common.ConfigPublish.PUBLISH_PLUGIN_ID
-import common.ConfigPublish.PUBLISH_TYPE
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
@@ -18,6 +12,17 @@ import java.io.File
 import java.io.InputStream
 
 class PublishPlugin : Plugin<Project> {
+
+    companion object {
+        const val GROUP = "io.github.xjxlx"
+        const val PUBLISH = "publish"
+
+        const val JITPACK = "com.github.jitpack"
+        const val JITPACK_VERSION = "1.0"
+
+        const val PUBLISH_PLUGIN_ID = "maven-publish"
+        const val PUBLISH_TYPE = "release"
+    }
 
     private val mJarPath: String? by lazy {
         return@lazy FileUtil.getFilePathForJar(PublishPlugin::class.java)
@@ -127,7 +132,7 @@ class PublishPlugin : Plugin<Project> {
                     // /Users/XJX/.gradle
                     val gradleUserHomeDir = project.gradle.gradleUserHomeDir
 
-                    val gradleCachesFolder = File("${gradleUserHomeDir.absolutePath}/caches/modules-2/files-2.1/${ConfigPublish.GROUP}")
+                    val gradleCachesFolder = File("${gradleUserHomeDir.absolutePath}/caches/modules-2/files-2.1/${GROUP}")
                     if (gradleCachesFolder.exists()) {
                         FileUtil.deleteFolder(gradleCachesFolder)
                         println("[delete-gradleCaches]:[delete]: completion！")
