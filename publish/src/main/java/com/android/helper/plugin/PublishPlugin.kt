@@ -117,10 +117,6 @@ class PublishPlugin : Plugin<Project> {
                     }
                 }
             }
-
-            task.doLast {
-                // println("publishTask ----->doLast")
-            }
         }
 
         // 7:删除本地缓存信息
@@ -128,20 +124,27 @@ class PublishPlugin : Plugin<Project> {
             task.group = PUBLISH
             task.doLast {
                 try {
-                    val gradleCachesFolder = File("/Users/XJX/.gradle/caches/modules-2/files-2.1/", ConfigPublish.GROUP)
+                    // /Users/XJX/.gradle
+                    val gradleUserHomeDir = project.gradle.gradleUserHomeDir
+
+                    val gradleCachesFolder = File("${gradleUserHomeDir.absolutePath}/caches/modules-2/files-2.1/${ConfigPublish.GROUP}")
                     if (gradleCachesFolder.exists()) {
                         FileUtil.deleteFolder(gradleCachesFolder)
-                        println("[delete-gradleCaches]:[delete]:completion！")
+                        println("[delete-gradleCaches]:[delete]: completion！")
                     } else {
                         println("[delete-gradleCaches]:gradleCachesFolder not exists!")
                     }
 
-                    val m2Folder = File("/Users/XJX/.m2/repository/", ConfigPublish.GROUP)
-                    if (m2Folder.exists()) {
-                        FileUtil.deleteFolder(m2Folder)
-                        println("[delete-m2]:[delete]:completion！")
-                    } else {
-                        println("[delete-m2]:m2Folder not exists!")
+                    // delete .m2
+                    gradleUserHomeDir.parent?.let {
+                        val m2Folder = File("${it}/.m2/repository")
+                        println("m2Folder:${m2Folder.absolutePath}")
+                        if (m2Folder.exists()) {
+                            FileUtil.deleteFolder(m2Folder)
+                            println("[delete-m2]:[delete]: completion！")
+                        } else {
+                            println("[delete-m2]:m2Folder not exists!")
+                        }
                     }
                 } catch (e: Exception) {
                     println("[deletePublish]:error:${e.message}")
@@ -176,7 +179,7 @@ class PublishPlugin : Plugin<Project> {
                     this.singleVariant(PUBLISH_TYPE) {
                         // this.withSourcesJar()
                         // this.withJavadocJar()
-                        println("[publishTask-register-type-$PUBLISH_TYPE]: success !")
+                        // println("[publishTask-register-type-$PUBLISH_TYPE]: success !")
                     }
                 }
         }.onFailure { throws ->
@@ -191,8 +194,7 @@ class PublishPlugin : Plugin<Project> {
      *  }
      * 2：必须是在项目进行评估的时候去添加
      */
-    private fun publishTask(project: Project, groupId: String, artifactId: String, version: String
-    ) {
+    private fun publishTask(project: Project, groupId: String, artifactId: String, version: String) {
         runCatching {
             // 在执行task的时候才会去执行
             project.extensions.getByType(PublishingExtension::class.java)
@@ -208,7 +210,7 @@ class PublishPlugin : Plugin<Project> {
 
                             // 从当前 module 的 release 包中发布
                             maven.from(project.components.getByName(PUBLISH_TYPE))
-                            println("[publishTask-publish]: success !")
+                            // println("[publishTask-publish]: success !")
                         }
                     } else {
                         println("[publishTask-publish]: type already exists !")
