@@ -9,6 +9,8 @@ class CatalogPlugin : Plugin<Project> {
 
     companion object {
         private const val ORIGIN_GITHUB_CATALOG_PATH = "https://github.com/xjxlx/plugins/blob/master/gradle/29/libs.versions.toml"
+        const val ORIGIN_VERSION = "https://github.com/xjxlx/plugins/blob/master/catalog/src/main/java/Version.kt"
+
         private const val GRADLE_GROUP = "io.github.xjxlx"
 
         const val CATALOG = "catalog"
