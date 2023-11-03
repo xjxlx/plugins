@@ -18,7 +18,7 @@ class VersionCataLogUtil {
         private const val MAVEN_PUBLIC = "        maven { setUrl({\n${CatalogPlugin.MAVEN_PUBLIC}\n}) }"
         private const val MAVEN_RELEASE = "        maven {\n" + "            credentials {\n" + "                username = \"${CatalogPlugin.ALY_USER_NAME}\"\n" + "                password = \"${CatalogPlugin.ALY_PASSWORD}\"\n" + "            }\n" + "            setUrl(\"${CatalogPlugin.MAVEN_RELEASE}\")\n" + "        }"
         private const val MAVEN_SNAPSHOT = "        maven {\n" + "            credentials {\n" + "                username = \"${CatalogPlugin.ALY_USER_NAME}\"\n" + "                password = \"${CatalogPlugin.ALY_PASSWORD}\"\n" + "            }\n" + "            setUrl(\"${CatalogPlugin.MAVEN_SNAPSHOT}\")\n" + "        }"
-        private val MAVEN_CATALOG = "    $TAG_MAVEN_CATALOG {\n" + "        create(\"libs\") {\n" + "            from(\"${CatalogPlugin.getVersion()}:${CatalogPlugin.CATALOG}:${CatalogPlugin.ALY_VERSION}\")\n" + "        }\n" + "    }"
+        private val MAVEN_CATALOG = "    $TAG_MAVEN_CATALOG {\n" + "        create(\"libs\") {\n" + "            from(\"${CatalogPlugin.getVersion()}\")\n" + "        }\n" + "    }"
     }
 
     fun write(project: Project) {

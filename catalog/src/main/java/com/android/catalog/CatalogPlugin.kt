@@ -15,10 +15,7 @@ class CatalogPlugin : Plugin<Project> {
         const val ORIGIN_VERSION = "https://github.com/xjxlx/plugins/blob/master/catalog/src/main/java/version.json"
 
         private const val GRADLE_GROUP = "io.github.xjxlx"
-
         const val CATALOG = "catalog"
-        const val ALY_GROUP = "com.android.version"
-        const val ALY_VERSION = "1.0.0"
 
         const val MAVEN_PUBLIC = "https://maven.aliyun.com/repository/public"
         const val MAVEN_RELEASE = "https://packages.aliyun.com/maven/repository/2131155-release-wH01IT/"
@@ -27,7 +24,7 @@ class CatalogPlugin : Plugin<Project> {
         const val ALY_PASSWORD = "HsDc[dqcDfda"
 
         fun getVersion(): String {
-            HtmlUtil.getHtmlForGithubJson(CatalogPlugin.ORIGIN_VERSION)
+            HtmlUtil.getHtmlForGithubJson(ORIGIN_VERSION)
                 ?.let {
                     try {
                         JSONArray(it).forEach { array ->
