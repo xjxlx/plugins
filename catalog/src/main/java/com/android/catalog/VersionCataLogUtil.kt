@@ -53,7 +53,7 @@ class VersionCataLogUtil {
 
     fun write(project: Project) {
         val settingsFile = project.rootDir.listFiles()
-            ?.find { it.isFile && it.name.contains("settings") }
+            ?.find { (it.isFile) && (it.name.contains("settings")) && (it.name.startsWith("settings")) }
         settingsFile?.let {
             FileUtil.readFile(settingsFile)
                 ?.let { settingsList ->
