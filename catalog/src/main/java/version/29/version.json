@@ -1,5 +1,4 @@
 {
-  "originVersion": "com.android.version:catalog:1.0.0",
   "MAVEN_PUBLIC": "        maven { setUrl(\"https://maven.aliyun.com/repository/public\") }",
   "MAVEN_RELEASE": "        maven {\n    credentials {\n        username = \"6123a7974e5db15d52e7a9d8\"\n        password = \"HsDc[dqcDfda\"\n    }\n    setUrl(\"https://packages.aliyun.com/maven/repository/2131155-release-wH01IT/\")\n}",
   "MAVEN_CATALOG": "    versionCatalogs {\n    create(\"libs\") {\n        from(\"com.android.version:catalog:1.0.0\")\n    }\n}"
