@@ -11,7 +11,7 @@ com-github-dcendents-android-maven-gradle-plugin = "2.1"
 
 io-github-xjxlx-common = "1.0.0"
 io-github-xjxlx-publish = "1.0.0"
-io-github-xjxlx-catalog = "1.0.2"
+io-github-xjxlx-catalog = "1.0.0"
 
 # model - version
 compileSdks = "30"
