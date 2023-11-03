@@ -18,8 +18,12 @@ class VersionCataLogUtil {
         private const val TAG_REPOSITORIES = "repositories"
         private const val TAG_MAVEN_CATALOG = "versionCatalogs"
         private val jsonList: List<JSONObject>? by lazy {
-            val jsonArray = HtmlUtil.getHtmlForGithubJsonArray(CatalogPlugin.ORIGIN_VERSION)
-            return@lazy JsonUtil.arrayToObject(jsonArray)
+            HtmlUtil.getHtmlForGithubJsonArray(CatalogPlugin.ORIGIN_VERSION)
+                ?.let {
+                    val arrayToObject = JsonUtil.arrayToObject(it)
+                    return@lazy arrayToObject
+                }
+            return@lazy null
         }
         private val MAVEN_PUBLIC: String by lazy {
             jsonList?.find { it.has("MAVEN_PUBLIC") }
@@ -58,7 +62,6 @@ class VersionCataLogUtil {
 
                     var mavenPublicTagFlag = false
                     var mavenPublicReleaseTagFlag = false
-                    var mavenPublicSnapshotTagFlag = false
                     var catalogFlag = false
 
                     var count = 0
