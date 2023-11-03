@@ -1,7 +1,10 @@
 package com.android.catalog
 
 import org.gradle.api.Project
+import org.json.JSONObject
 import utils.FileUtil
+import utils.HtmlUtil
+import utils.JsonUtil
 import java.io.FileOutputStream
 
 class VersionCataLogUtil {
@@ -14,11 +17,34 @@ class VersionCataLogUtil {
         private const val TAG_REPOSITORIES_MODE = "repositoriesMode"
         private const val TAG_REPOSITORIES = "repositories"
         private const val TAG_MAVEN_CATALOG = "versionCatalogs"
-
-        private const val MAVEN_PUBLIC = "        maven { setUrl({\n${CatalogPlugin.MAVEN_PUBLIC}\n}) }"
-        private const val MAVEN_RELEASE = "        maven {\n" + "            credentials {\n" + "                username = \"${CatalogPlugin.ALY_USER_NAME}\"\n" + "                password = \"${CatalogPlugin.ALY_PASSWORD}\"\n" + "            }\n" + "            setUrl(\"${CatalogPlugin.MAVEN_RELEASE}\")\n" + "        }"
-        private const val MAVEN_SNAPSHOT = "        maven {\n" + "            credentials {\n" + "                username = \"${CatalogPlugin.ALY_USER_NAME}\"\n" + "                password = \"${CatalogPlugin.ALY_PASSWORD}\"\n" + "            }\n" + "            setUrl(\"${CatalogPlugin.MAVEN_SNAPSHOT}\")\n" + "        }"
-        private val MAVEN_CATALOG = "    $TAG_MAVEN_CATALOG {\n" + "        create(\"libs\") {\n" + "            from(\"${CatalogPlugin.getVersion()}\")\n" + "        }\n" + "    }"
+        private val jsonList: List<JSONObject>? by lazy {
+            val jsonArray = HtmlUtil.getHtmlForGithubJsonArray(CatalogPlugin.ORIGIN_VERSION)
+            return@lazy JsonUtil.arrayToObject(jsonArray)
+        }
+        private val MAVEN_PUBLIC: String by lazy {
+            jsonList?.find { it.has("MAVEN_PUBLIC") }
+                ?.getString("MAVEN_PUBLIC")
+                ?.let {
+                    return@lazy it
+                }
+            return@lazy ""
+        }
+        private val MAVEN_RELEASE: String by lazy {
+            jsonList?.find { it.has("MAVEN_RELEASE") }
+                ?.getString("MAVEN_RELEASE")
+                ?.let {
+                    return@lazy it
+                }
+            return@lazy ""
+        }
+        private val MAVEN_CATALOG: String by lazy {
+            jsonList?.find { it.has("MAVEN_CATALOG") }
+                ?.getString("MAVEN_CATALOG")
+                ?.let {
+                    return@lazy it
+                }
+            return@lazy ""
+        }
     }
 
     fun write(project: Project) {
@@ -83,10 +109,7 @@ class VersionCataLogUtil {
                             if (!mavenPublicReleaseTagFlag) {
                                 mavenPublicReleaseTagFlag = (trim.contains(CatalogPlugin.MAVEN_RELEASE)) && (!trim.startsWith("//"))
                             }
-                            // 检测用户信息-Snapshot
-                            if (!mavenPublicSnapshotTagFlag) {
-                                mavenPublicSnapshotTagFlag = (trim.contains(CatalogPlugin.MAVEN_SNAPSHOT)) && (!trim.startsWith("//"))
-                            }
+
                             // 检测catalog
                             if (!catalogFlag) {
                                 catalogFlag = (trim.contains(TAG_MAVEN_CATALOG)) && (!trim.startsWith("//"))
@@ -98,14 +121,8 @@ class VersionCataLogUtil {
 
                     // println("[mavenPublic]:$mavenPublicTagFlag")
                     // println("[mavenPublicRelease]:$mavenPublicReleaseTagFlag")
-                    // println("[mavenPublicSnapshot]:$mavenPublicSnapshotTagFlag")
                     // println("[catalog]:$catalogFlag")
 
-                    // 添加阿里云：用户信息 - snapshot
-                    if (!mavenPublicSnapshotTagFlag) {
-                        mListContent.add(tempIndex, MAVEN_SNAPSHOT)
-                        addCount += 1
-                    }
                     // 添加阿里云：用户信息 - release
                     if (!mavenPublicReleaseTagFlag) {
                         mListContent.add(tempIndex, MAVEN_RELEASE)

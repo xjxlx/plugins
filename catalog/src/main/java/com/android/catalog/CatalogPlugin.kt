@@ -2,44 +2,22 @@ package com.android.catalog
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.json.JSONArray
-import org.json.JSONObject
 import utils.FileUtil
-import utils.HtmlUtil
 import java.io.File
 
 class CatalogPlugin : Plugin<Project> {
 
     companion object {
         private const val ORIGIN_GITHUB_CATALOG_PATH = "https://github.com/xjxlx/plugins/blob/master/gradle/29/libs.versions.toml"
-        const val ORIGIN_VERSION = "https://github.com/xjxlx/plugins/blob/master/catalog/src/main/java/version.json"
+        const val ORIGIN_VERSION = "https://github.com/xjxlx/plugins/blob/master/catalog/src/main/java/version/29/version.json"
 
         private const val GRADLE_GROUP = "io.github.xjxlx"
         const val CATALOG = "catalog"
 
         const val MAVEN_PUBLIC = "https://maven.aliyun.com/repository/public"
         const val MAVEN_RELEASE = "https://packages.aliyun.com/maven/repository/2131155-release-wH01IT/"
-        const val MAVEN_SNAPSHOT = "https://packages.aliyun.com/maven/repository/2131155-snapshot-mh62BC/"
         const val ALY_USER_NAME = "6123a7974e5db15d52e7a9d8"
         const val ALY_PASSWORD = "HsDc[dqcDfda"
-
-        fun getVersion(): String {
-            HtmlUtil.getHtmlForGithubJson(ORIGIN_VERSION)
-                ?.let {
-                    try {
-                        JSONArray(it).forEach { array ->
-                            if (array is JSONObject) {
-                                if (array.has("originVersion")) {
-                                    return array.getString("originVersion")
-                                }
-                            }
-                        }
-                    } catch (e: Exception) {
-                        println("origin version:error:${e.message}")
-                    }
-                }
-            return ""
-        }
     }
 
     private val mVersionUtil = VersionCataLogUtil()
@@ -60,16 +38,7 @@ class CatalogPlugin : Plugin<Project> {
             maven.setUrl(MAVEN_RELEASE)
         }
 
-        // 3：用户信息-snapshot
-        project.parent?.repositories?.maven { maven ->
-            maven.credentials { user ->
-                user.username = ALY_USER_NAME
-                user.password = ALY_PASSWORD
-            }
-            maven.setUrl(MAVEN_SNAPSHOT)
-        }
-
-        // 4: create catalog task
+        // 3: create catalog task
         project.tasks.create("catalog") { task ->
             task.group = CATALOG
 

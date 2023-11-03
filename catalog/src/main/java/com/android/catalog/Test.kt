@@ -1,25 +1,18 @@
 package com.android.catalog
 
-import org.json.JSONArray
-import org.json.JSONObject
 import utils.HtmlUtil
+import utils.JsonUtil
 
 object Test {
 
     @JvmStatic
     fun main(args: Array<String>) {
-        HtmlUtil.getHtmlForGithubJson(CatalogPlugin.ORIGIN_VERSION)
+        HtmlUtil.getHtmlForGithubJsonArray(CatalogPlugin.ORIGIN_VERSION)
             ?.let {
-                println("it:$it")
-                JSONArray(it).forEach { array ->
-                    if (array is JSONObject) {
-                        println("originVersion:$array")
-                        if (array.has("originVersion")) {
-                            val originVersion = array.getString("originVersion")
-                            println("originVersion:$originVersion")
-                            return
-                        }
-                    }
+                val jsonArrayToJsonObject = JsonUtil.arrayToObject(it)
+                println("jsonArrayToJsonObject:$jsonArrayToJsonObject")
+                jsonArrayToJsonObject.forEach { obj ->
+                    println("sss:${obj}")
                 }
             }
     }
