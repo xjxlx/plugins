@@ -127,7 +127,6 @@ android-gif-drawable = { module = "pl.droidsonroids.gif:android-gif-drawable", v
 kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect" } # 反射
 org-json = { group = "org.json", name = "json", version.ref = "org-json" }
 org-jsoup = { group = "org.jsoup", name = "jsoup", version.ref = "org-jsoup" }
-#implementation("com.android.tools.build:gradle-api:8.1.1")
 gradle-api = { group = "com.android.tools.build", name = "gradle-api", version.ref = "gradle-api" }
 #-------------------------↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑-----------------------------------------------------------------------
 
