@@ -6,6 +6,9 @@ com-android-application = "8.1.1"
 com-android-library = "8.1.1"
 
 #update
+org-json = "20230227"
+org-jsoup = "1.16.1"
+gradle-api = "8.1.1"
 org-jetbrains-kotlin-android = "1.7.20"
 org-jetbrains-kotlin-jvm = "1.7.20"
 
@@ -122,7 +125,10 @@ android-pickerview = { group = "com.contrarywind", name = "Android-PickerView", 
 viewpager2 = { group = "androidx.viewpager2", name = "viewpager2", version.ref = "viewpager2" }
 android-gif-drawable = { module = "pl.droidsonroids.gif:android-gif-drawable", version.ref = "android-gif-drawable" }
 kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect" } # 反射
-
+org-json = { group = "org.json", name = "json", version.ref = "org-json" }
+org-jsoup = { group = "org.jsoup", name = "jsoup", version.ref = "org-jsoup" }
+#implementation("com.android.tools.build:gradle-api:8.1.1")
+gradle-api = { group = "com.android.tools.build", name = "gradle-api", version.ref = "gradle-api" }
 #-------------------------↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑-----------------------------------------------------------------------
 
 [plugins]
