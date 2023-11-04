@@ -58,6 +58,15 @@ if (switch) {
                     from(components["versionCatalog"])
                 }
             }
+            repositories {
+                maven {
+                    setUrl("https://packages.aliyun.com/maven/repository/2131155-release-wH01IT/")
+                    credentials {
+                        username = "6123a7974e5db15d52e7a9d8"
+                        password = "HsDc[dqcDfda"
+                    }
+                }
+            }
         }
     }
     //</editor-fold>
