@@ -42,11 +42,11 @@ dependencyResolutionManagement {
     }
 
     // 配置使用libs.versions.toml地址
-    versionCatalogs {
-        create("libs") {
-            from(files(File(rootDir, "gradle${File.separator}29${File.separator}libs.versions.toml")))
-        }
-    }
+//    versionCatalogs {
+//        create("libs") {
+//            from(files(File(rootDir, "gradle${File.separator}29${File.separator}libs.versions.toml")))
+//        }
+//    }
 }
 
 rootProject.name = "plugins"

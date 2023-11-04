@@ -9,7 +9,7 @@ Usage
 
 ```kotlin
 
-Application build . gradle . kts
+Application build.gradle. kts
 
         @Suppress("DSL_SCOPE_VIOLATION") plugins {
             alias(libs.plugins.com.android.application) apply false
