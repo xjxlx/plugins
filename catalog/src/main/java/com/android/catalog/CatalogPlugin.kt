@@ -2,7 +2,7 @@ package com.android.catalog
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import utils.FileUtil
+import utils.GradleUtil
 import java.io.File
 
 class CatalogPlugin : Plugin<Project> {
@@ -80,38 +80,7 @@ class CatalogPlugin : Plugin<Project> {
         project.tasks.create("deleteCatalog") { task ->
             task.group = CATALOG
             task.doLast {
-                try {
-                    // /Users/XJX/.gradle
-                    val gradleUserHomeDir = project.gradle.gradleUserHomeDir
-                    val modules2 = File(gradleUserHomeDir.absolutePath, "caches/modules-2")
-                    if (modules2.exists()) {
-                        FileUtil.iteratorsFile(modules2.absolutePath, check = { file -> (file.isDirectory) }) { file ->
-                            if (file.name.startsWith(GRADLE_GROUP)) {
-                                println("[delete-gradle]:${file.absolutePath}")
-                                FileUtil.deleteFolder(file)
-                            } else if (file.name.startsWith("com.android.catalog")) {
-                                println("[delete-gradle-catalog]:${file.absolutePath}")
-                                FileUtil.deleteFolder(file)
-                            }
-                        }
-                    } else {
-                        println("[delete-modules2]:modules2 not exists!")
-                    }
-
-                    // delete .m2
-                    gradleUserHomeDir.parent?.let {
-                        val m2Folder = File("${it}/.m2/repository")
-                        println("m2Folder:${m2Folder.absolutePath}")
-                        if (m2Folder.exists()) {
-                            FileUtil.deleteFolder(m2Folder)
-                            println("[delete-m2]:[delete]: completion！")
-                        } else {
-                            println("[delete-m2]:m2Folder not exists!")
-                        }
-                    }
-                } catch (e: Exception) {
-                    println("[deleteCatalog]:error:${e.message}")
-                }
+                mGradleUtil.deleteCache(project)
             }
         }
     }
