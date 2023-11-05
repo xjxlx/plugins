@@ -6,6 +6,7 @@ import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
 import utils.FileUtil
+import utils.GradleUtil
 import utils.TextUtil
 import utils.VersionUtil
 import java.io.File
@@ -14,7 +15,9 @@ import java.io.InputStream
 class PublishPlugin : Plugin<Project> {
 
     companion object {
-        const val GROUP = "io.github.xjxlx"
+        const val GROUP_GRADLE = "io.github.xjxlx"
+        const val GROUP_CATALOG = "com.android.catalog"
+        const val GROUP_GITHUB = "com.github.xjxlx"
         const val PUBLISH = "publish"
 
         const val JITPACK = "com.github.jitpack"
@@ -38,6 +41,9 @@ class PublishPlugin : Plugin<Project> {
             return@lazy FileUtil.getInputStreamForJar(it, "jitpack.yml")
         }
         return@lazy null
+    }
+    private val mGradleUtil: GradleUtil by lazy {
+        return@lazy GradleUtil()
     }
 
     override fun apply(project: Project) {
@@ -128,38 +134,7 @@ class PublishPlugin : Plugin<Project> {
         project.tasks.create("deletePublish") { task ->
             task.group = PUBLISH
             task.doLast {
-                try {
-                    // /Users/XJX/.gradle
-                    val gradleUserHomeDir = project.gradle.gradleUserHomeDir
-                    val modules2 = File(gradleUserHomeDir.absolutePath, "caches/modules-2")
-                    if (modules2.exists()) {
-                        FileUtil.iteratorsFile(modules2.absolutePath, check = { file -> (file.isDirectory) }) { file ->
-                            if (file.name.startsWith(GROUP)) {
-                                println("[delete-gradle]:${file.absolutePath}")
-                                FileUtil.deleteFolder(file)
-                            } else if (file.name.startsWith("com.android.catalog")) {
-                                println("[delete-gradle-catalog]:${file.absolutePath}")
-                                FileUtil.deleteFolder(file)
-                            }
-                        }
-                    } else {
-                        println("[delete-modules2]:modules2 not exists!")
-                    }
-
-                    // delete .m2
-                    gradleUserHomeDir.parent?.let {
-                        val m2Folder = File("${it}/.m2/repository")
-                        println("m2Folder:${m2Folder.absolutePath}")
-                        if (m2Folder.exists()) {
-                            FileUtil.deleteFolder(m2Folder)
-                            println("[delete-m2]:[delete]: completion！")
-                        } else {
-                            println("[delete-m2]:m2Folder not exists!")
-                        }
-                    }
-                } catch (e: Exception) {
-                    println("[deleteCatalog]:error:${e.message}")
-                }
+                mGradleUtil.deleteCache(project)
             }
         }
     }
