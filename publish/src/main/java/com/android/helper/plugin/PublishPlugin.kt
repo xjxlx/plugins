@@ -8,6 +8,7 @@ import org.gradle.api.publish.maven.MavenPublication
 import utils.FileUtil
 import utils.GradleUtil
 import utils.TextUtil
+import utils.VersionCataLogUtil
 import utils.VersionUtil
 import java.io.File
 import java.io.InputStream
@@ -15,16 +16,17 @@ import java.io.InputStream
 class PublishPlugin : Plugin<Project> {
 
     companion object {
-        const val GROUP_GRADLE = "io.github.xjxlx"
-        const val GROUP_CATALOG = "com.android.catalog"
-        const val GROUP_GITHUB = "com.github.xjxlx"
         const val PUBLISH = "publish"
-
         const val JITPACK = "com.github.jitpack"
         const val JITPACK_VERSION = "1.0"
-
         const val PUBLISH_PLUGIN_ID = "maven-publish"
         const val PUBLISH_TYPE = "release"
+
+        private const val ORIGIN_GITHUB_CATALOG_PATH = "https://github.com/xjxlx/plugins/blob/master/gradle/29/libs.versions.toml"
+        const val MAVEN_PUBLIC = "https://maven.aliyun.com/repository/public"
+        const val MAVEN_RELEASE = "https://packages.aliyun.com/maven/repository/2131155-release-wH01IT/"
+        const val ALY_USER_NAME = "6123a7974e5db15d52e7a9d8"
+        const val ALY_PASSWORD = "HsDc[dqcDfda"
     }
 
     private val mJarPath: String? by lazy {
@@ -45,8 +47,20 @@ class PublishPlugin : Plugin<Project> {
     private val mGradleUtil: GradleUtil by lazy {
         return@lazy GradleUtil()
     }
+    private val mVersionUtil = VersionCataLogUtil()
 
     override fun apply(project: Project) {
+        // publish - plugin
+        publishPlugin(project)
+
+        // catalog plugin
+        catalogPlugin(project)
+    }
+
+    /**
+     * publish - plugin
+     */
+    private fun publishPlugin(project: Project) {
         // 1：添加group，不然会找不到id
         project.project.group = JITPACK
         project.project.version = JITPACK_VERSION
@@ -135,6 +149,61 @@ class PublishPlugin : Plugin<Project> {
             task.group = PUBLISH
             task.doLast {
                 mGradleUtil.deleteCache(project)
+            }
+        }
+    }
+
+    /**
+     * catalog - plugin
+     */
+    private fun catalogPlugin(project: Project) {
+        // 1:配置阿里云信息
+        project.parent?.repositories?.maven { maven -> maven.setUrl(MAVEN_PUBLIC) }
+
+        // 2:用户信息-release
+        project.parent?.repositories?.maven { maven ->
+            maven.credentials { user ->
+                user.username = ALY_USER_NAME
+                user.password = ALY_PASSWORD
+            }
+            maven.setUrl(MAVEN_RELEASE)
+        }
+
+        // 3: create catalog task
+        project.tasks.create("catalog") { task ->
+            task.group = PUBLISH
+
+            // 5：找到library的publishing组下的publishToMavenLocal，在执行完publishTask后发布
+//            project.tasks.find { itemTask ->
+//                itemTask.group == "build" && itemTask.name == "build"
+//            }
+//                ?.let {
+//                    task.finalizedBy(it)
+//                }
+
+            task.doLast {
+                // write catalog
+                // 6 配置settings.gradle
+                mVersionUtil.write(project)
+            }
+        }
+
+        // 5: 写入到本地
+        project.tasks.create("localCatalog") { task ->
+            task.group = PUBLISH
+            task.doLast {
+                try {
+                    val parentFile = File(project.rootDir, "gradle${File.separator}29${File.separator}")
+                    parentFile.mkdirs()
+                    val gradleFile = File(parentFile, "libs.versions.toml")
+                    if (!gradleFile.exists()) {
+                        gradleFile.createNewFile()
+                    }
+                    println("[localCatalog]:[path]:${gradleFile.absolutePath}")
+                    mGradleUtil.writeGradleToLocal(ORIGIN_GITHUB_CATALOG_PATH, gradleFile)
+                } catch (e: Exception) {
+                    println("[localCatalog]:error:${e.message}")
+                }
             }
         }
     }
