@@ -1,32 +1,24 @@
 [versions]
 
-#update
-com-android-application = "8.1.1"
-#update
-com-android-library = "8.1.1"
-
-#update
-org-json = "20230227"
-org-jsoup = "1.16.1"
-gradle-api = "8.1.1"
-org-jetbrains-kotlin-android = "1.7.20"
-org-jetbrains-kotlin-jvm = "1.7.20"
-
-# update
-com-android-tools-build-gradle = "8.1.1"
-com-github-dcendents-android-maven-gradle-plugin = "2.1"
-
-io-github-xjxlx-publish = "1.0.0"
-io-github-xjxlx-catalog = "1.0.0"
-
-# model - version
 compileSdks = "30"
 minSdk = "24"
 targetSdk = "29"
 versionCode = "2"
 versionName = "1.0.0"
 
-# library - system - version
+com-android-application = "8.1.1"
+com-android-library = "8.1.1"
+org-json = "20230227"
+org-jsoup = "1.16.1"
+gradle-api = "8.1.1"
+com-android-tools-build-gradle = "8.1.1"
+io-github-xjxlx-publish = "1.0.0"
+
+# ------>
+org-jetbrains-kotlin-android = "1.7.20"
+org-jetbrains-kotlin-jvm = "1.7.20"
+com-github-dcendents-android-maven-gradle-plugin = "2.1"
+
 appcompat = "1.3.1"
 junit = "4.13.2"
 material = "1.4.0"
@@ -63,7 +55,7 @@ jeromq = "0.5.3"
 adapter-rxjava2 = "2.9.0"
 rxjava2 = "2.2.21"
 rxjava3 = "3.0.4"
-rxandroid = "2.1.1"
+rxandroid2 = "2.1.1"
 eventbus = "3.2.0"
 rxpermissions = "0.12"
 glide = "4.12.0"
@@ -77,12 +69,16 @@ android-maven-gradle-plugin = "2.1"
 
 [libraries]
 io-github-xjxlx-publish = { module = "io.github.xjxlx:publish", version.ref = "io-github-xjxlx-publish" }
-io-github-xjxlx-catalog = { module = "io.github.xjxlx:catalog", version.ref = "io-github-xjxlx-catalog" }
-
 com-android-tools-build-gradle = { module = "com.android.tools.build:gradle", version.ref = "com-android-tools-build-gradle" }
 com-github-dcendents-android-maven-gradle-plugin = { module = "com.github.dcendents:android-maven-gradle-plugin", version.ref = "com-github-dcendents-android-maven-gradle-plugin" }
 
 #-----------------------------↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓----------------------------------------------------
+kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect" } # 反射
+org-json = { group = "org.json", name = "json", version.ref = "org-json" }
+org-jsoup = { group = "org.jsoup", name = "jsoup", version.ref = "org-jsoup" }
+gradle-api = { group = "com.android.tools.build", name = "gradle-api", version.ref = "gradle-api" }
+# --->
+
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinx-coroutines-core" }
@@ -118,16 +114,12 @@ rxpermissions = { group = "com.github.tbruyelle", name = "rxpermissions", versio
 rxjava2 = { group = "io.reactivex.rxjava2", name = "rxjava", version.ref = "rxjava2" }
 adapter-rxjava2 = { group = "com.squareup.retrofit2", name = "adapter-rxjava2", version.ref = "adapter-rxjava2" }
 rxjava3 = { group = "io.reactivex.rxjava3", name = "rxjava", version.ref = "rxjava3" }
-rxandroid2 = { group = "io.reactivex.rxjava2", name = "rxandroid", version.ref = "rxandroid" }
+rxandroid2 = { group = "io.reactivex.rxjava2", name = "rxandroid", version.ref = "rxandroid2" }
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide-compiler" }
 android-pickerview = { group = "com.contrarywind", name = "Android-PickerView", version.ref = "android-pickerview" } # 日历选择器
 viewpager2 = { group = "androidx.viewpager2", name = "viewpager2", version.ref = "viewpager2" }
 android-gif-drawable = { module = "pl.droidsonroids.gif:android-gif-drawable", version.ref = "android-gif-drawable" }
-kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect" } # 反射
-org-json = { group = "org.json", name = "json", version.ref = "org-json" }
-org-jsoup = { group = "org.jsoup", name = "jsoup", version.ref = "org-jsoup" }
-gradle-api = { group = "com.android.tools.build", name = "gradle-api", version.ref = "gradle-api" }
 #-------------------------↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑-----------------------------------------------------------------------
 
 [plugins]
@@ -135,7 +127,5 @@ com-android-application = { id = "com.android.application", version.ref = "com-a
 com-android-library = { id = "com.android.library", version.ref = "com-android-library" }
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
 org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "org-jetbrains-kotlin-jvm" }
-
 io-github-xjxlx-publish = { id = "io.github.xjxlx.publish", version.ref = "io-github-xjxlx-publish" }
-io-github-xjxlx-catalog = { id = "io.github.xjxlx.catalog", version.ref = "io-github-xjxlx-catalog" }
 [bundles]
