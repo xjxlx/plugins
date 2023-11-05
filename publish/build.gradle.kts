@@ -28,7 +28,7 @@ gradlePlugin {
             displayName = "PublishPlugin"
             // 插件的描述
             description = "A helper plug-in for publishing an application"
-            implementationClass = "com.android.helper.plugin.PublishPlugin"
+            implementationClass = "com.android.publish.PublishPlugin"
         }
     }
 }
