@@ -83,13 +83,19 @@ class CatalogPlugin : Plugin<Project> {
                 try {
                     // /Users/XJX/.gradle
                     val gradleUserHomeDir = project.gradle.gradleUserHomeDir
-
-                    val gradleCachesFolder = File("${gradleUserHomeDir.absolutePath}/caches/modules-2/files-2.1/${GRADLE_GROUP}")
-                    if (gradleCachesFolder.exists()) {
-                        FileUtil.deleteFolder(gradleCachesFolder)
-                        println("[delete-gradleCaches]:[delete]: completion！")
+                    val modules2 = File(gradleUserHomeDir.absolutePath, "caches/modules-2")
+                    if (modules2.exists()) {
+                        FileUtil.iteratorsFile(modules2.absolutePath, check = { file -> (file.isDirectory) }) { file ->
+                            if (file.name.startsWith(GRADLE_GROUP)) {
+                                println("[delete-gradle]:${file.absolutePath}")
+                                FileUtil.deleteFolder(file)
+                            } else if (file.name.startsWith("com.android.catalog")) {
+                                println("[delete-gradle-catalog]:${file.absolutePath}")
+                                FileUtil.deleteFolder(file)
+                            }
+                        }
                     } else {
-                        println("[delete-gradleCaches]:gradleCachesFolder not exists!")
+                        println("[delete-modules2]:modules2 not exists!")
                     }
 
                     // delete .m2
