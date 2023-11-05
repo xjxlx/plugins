@@ -1,4 +1,4 @@
-package com.android.helper.plugin
+package com.android.publish
 
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Internal

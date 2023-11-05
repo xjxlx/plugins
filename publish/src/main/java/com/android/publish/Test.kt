@@ -1,4 +1,4 @@
-package com.android.helper.plugin
+package com.android.publish
 
 import utils.FileUtil
 import java.io.File
