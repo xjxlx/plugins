@@ -1,11 +1,3 @@
-[submodule "catalog/src/main/java/utils"]
-	path = catalog/src/main/java/utils
-	url = git@github.com:xjxlx/pluginUtils.git
-	branch = master
-[submodule "common/src/main/java/utils"]
-	path = common/src/main/java/utils
-	url = git@github.com:xjxlx/pluginUtils.git
-	branch = master
 [submodule "publish/src/main/java/utils"]
 	path = publish/src/main/java/utils
 	url = git@github.com:xjxlx/pluginUtils.git
