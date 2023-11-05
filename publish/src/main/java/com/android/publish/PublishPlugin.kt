@@ -23,10 +23,6 @@ class PublishPlugin : Plugin<Project> {
         const val PUBLISH_TYPE = "release"
 
         private const val ORIGIN_GITHUB_CATALOG_PATH = "https://github.com/xjxlx/plugins/blob/master/gradle/29/libs.versions.toml"
-        const val MAVEN_PUBLIC = "https://maven.aliyun.com/repository/public"
-        const val MAVEN_RELEASE = "https://packages.aliyun.com/maven/repository/2131155-release-wH01IT/"
-        const val ALY_USER_NAME = "6123a7974e5db15d52e7a9d8"
-        const val ALY_PASSWORD = "HsDc[dqcDfda"
     }
 
     private val mJarPath: String? by lazy {
@@ -145,7 +141,7 @@ class PublishPlugin : Plugin<Project> {
         }
 
         // 7:删除本地缓存信息
-        project.tasks.create("deletePublish") { task ->
+        project.task("deletePublish") { task ->
             task.group = PUBLISH
             task.doLast {
                 mGradleUtil.deleteCache(project)
@@ -157,20 +153,8 @@ class PublishPlugin : Plugin<Project> {
      * catalog - plugin
      */
     private fun catalogPlugin(project: Project) {
-        // 1:配置阿里云信息
-        project.parent?.repositories?.maven { maven -> maven.setUrl(MAVEN_PUBLIC) }
-
-        // 2:用户信息-release
-        project.parent?.repositories?.maven { maven ->
-            maven.credentials { user ->
-                user.username = ALY_USER_NAME
-                user.password = ALY_PASSWORD
-            }
-            maven.setUrl(MAVEN_RELEASE)
-        }
-
-        // 3: create catalog task
-        project.tasks.create("catalog") { task ->
+        // 1: create catalog task
+        project.task("catalog") { task ->
             task.group = PUBLISH
 
             // 5：找到library的publishing组下的publishToMavenLocal，在执行完publishTask后发布
@@ -188,8 +172,8 @@ class PublishPlugin : Plugin<Project> {
             }
         }
 
-        // 5: 写入到本地
-        project.tasks.create("localCatalog") { task ->
+        // 2: 写入到本地
+        project.task("localCatalog") { task ->
             task.group = PUBLISH
             task.doLast {
                 try {
