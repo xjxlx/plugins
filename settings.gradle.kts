@@ -19,7 +19,12 @@ pluginManagement { //    resolutionStrategy {
         maven { setUrl("https://maven.aliyun.com/repository/public") }
         maven { setUrl("https://maven.aliyun.com/repository/central") }
         maven { setUrl("https://maven.aliyun.com/repository/gradle-plugin") }
-        maven { setUrl("https://jitpack.io") }
+        maven {
+            setUrl("https://jitpack.io")
+            content {
+                includeGroup("com.github.xjxlx")
+            }
+        }
         google()
         mavenCentral()
         mavenLocal() //1、引用插件所在仓库同repositories上传的仓库
@@ -34,7 +39,12 @@ dependencyResolutionManagement {
         maven { setUrl("https://maven.aliyun.com/repository/google") }
         maven { setUrl("https://maven.aliyun.com/repository/central") }
         maven { setUrl("https://maven.aliyun.com/repository/gradle-plugin") }
-        maven { setUrl("https://jitpack.io") }
+        maven {
+            setUrl("https://jitpack.io")
+            content {
+                includeGroup("com.github.xjxlx")
+            }
+        }
         google()
         mavenCentral()
         mavenLocal() //1、引用插件所在仓库同repositories上传的仓库
