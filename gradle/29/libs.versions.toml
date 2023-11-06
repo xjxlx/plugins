@@ -128,4 +128,5 @@ com-android-library = { id = "com.android.library", version.ref = "com-android-l
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
 org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "org-jetbrains-kotlin-jvm" }
 io-github-xjxlx-publish = { id = "io.github.xjxlx.publish", version.ref = "io-github-xjxlx-publish" }
+kotlin-parcelize = { id = "kotlin-parcelize" }
 [bundles]
