@@ -7,11 +7,13 @@ plugins {
 }
 
 // false : ALiYun , true: gradle
-val switch = true
+val switch = false
+val versionCode = "1.0.0"
 if (switch) {
     //<editor-fold desc=" 发布到gradle门户  ">
-    group = properties["groupId"].toString()
-    version = properties["version"].toString()
+    System.out.println("gradle--->")
+    group = "io.github.xjxlx"
+    version = versionCode
 
     // 发布的插件信息
     pluginBundle {
@@ -30,7 +32,7 @@ if (switch) {
             // 每个插件块的名称不会影响插件配置，但对于提供的每个插件需要是唯一的。
             create("maven") {
                 // 	设置插件的唯一性。id
-                id = "${project.group}.${properties["artifactId"]}"
+                id = "${project.group}.publish"
                 // 短名称显示
                 displayName = "PublishPlugin"
                 // 插件的描述
@@ -42,9 +44,10 @@ if (switch) {
     //</editor-fold>
 } else {
     //<editor-fold desc=" 发布到阿里云  ">
-    // 1: group && version
-    group = properties["alyGroupId"].toString()
-    version = properties["version"].toString()
+    System.out.println("aly--->")
+    val alyGroupId = "com.android"
+    group = alyGroupId
+    version = versionCode
 
     // 2：配置发布的跟文件，这里可以配置.toml文件，也可以配置具体的信息，可以具体查看官网
     catalog {
@@ -58,9 +61,9 @@ if (switch) {
         publishing {
             publications {
                 create<MavenPublication>("maven") {
-                    groupId = "${project.group}"
-                    artifactId = properties["artifactId"].toString()
-                    version = "${project.version}"
+                    groupId = alyGroupId
+                    artifactId = "catalog"
+                    version = versionCode
                     from(components["versionCatalog"])
                 }
             }
