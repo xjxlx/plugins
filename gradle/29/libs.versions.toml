@@ -12,7 +12,7 @@ org-json = "20230227"
 org-jsoup = "1.16.1"
 gradle-api = "8.1.1"
 com-android-tools-build-gradle = "8.1.1"
-io-github-xjxlx-publish = "1.0.0"
+io-github-xjxlx-publish = "1.0.1"
 
 # ------>
 org-jetbrains-kotlin-android = "1.7.20"
