@@ -7,13 +7,12 @@ plugins {
 }
 
 // false : ALiYun , true: gradle
-val switch = true
-val versionCode = "1.0.1"
+val switch = false
 if (switch) {
     //<editor-fold desc=" 发布到gradle门户  ">
     System.out.println("gradle--->")
     group = "io.github.xjxlx"
-    version = versionCode
+    version = "1.0.1"
 
     // 发布的插件信息
     pluginBundle {
@@ -46,7 +45,7 @@ if (switch) {
     //<editor-fold desc=" 发布到阿里云  ">
     System.out.println("aly--->")
     group = "com.android"
-    version = versionCode
+    version = "1.0.0"
 
     // 2：配置发布的跟文件，这里可以配置.toml文件，也可以配置具体的信息，可以具体查看官网
     catalog {
@@ -62,7 +61,7 @@ if (switch) {
                 create<MavenPublication>("maven") {
                     groupId = "${project.group}"
                     artifactId = "catalog"
-                    version = versionCode
+                    version = "${project.group}"
                     from(components["versionCatalog"])
                 }
             }
