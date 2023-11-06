@@ -7,8 +7,8 @@ plugins {
 }
 
 // false : ALiYun , true: gradle
-val switch = false
-val versionCode = "1.0.0"
+val switch = true
+val versionCode = "1.0.1"
 if (switch) {
     //<editor-fold desc=" 发布到gradle门户  ">
     System.out.println("gradle--->")
