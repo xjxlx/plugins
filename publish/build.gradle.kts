@@ -67,7 +67,7 @@ if (switch) {
             publications {
                 create<MavenPublication>("maven") {
                     groupId = alyGroupId
-                    artifactId = "catalog"
+                    artifactId = "catalogs"
                     version = alyVersion
                     from(components["versionCatalog"])
                 }
