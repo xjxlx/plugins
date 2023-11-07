@@ -16,7 +16,7 @@ Usage - Publish
 
 ```kotlin
 plugins {
-    id("io.github.xjxlx.publish") version "xxxx"
+    id("io.github.xjxlx.publishing") version "xxxx"
 }
 
 configure<com.android.helper.plugin.PublishPluginExtension> {
@@ -69,7 +69,7 @@ Usage - Publish
 
 ```kotlin
 plugins {
-    id("io.github.xjxlx.publish") version "xxxx"
+    id("io.github.xjxlx.publishing") version "xxxx"
 }
 
 configure<com.android.helper.plugin.PublishPluginExtension> {
