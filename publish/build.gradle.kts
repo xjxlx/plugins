@@ -12,7 +12,7 @@ if (switch) {
     //<editor-fold desc=" 发布到gradle门户  ">
     System.out.println("gradle--->")
     val gradleGroupId = "io.github.xjxlx"
-    val gradleVersion = "1.0.1"
+    val gradleVersion = "1.0.0"
 
     group = gradleGroupId
     version = gradleVersion
