@@ -62,4 +62,4 @@ dependencyResolutionManagement {
 rootProject.name = "plugins"
 include(":app")
 include(":publish")
-include(":testLibrary")
+//include(":testLibrary")
