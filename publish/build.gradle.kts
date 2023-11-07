@@ -49,7 +49,7 @@ if (switch) {
     System.out.println("aly--->")
 
     val alyGroupId = "com.android"
-    val alyVersion = "1.0.1"
+    val alyVersion = "1.0.0"
 
     group = alyGroupId
     version = alyVersion
