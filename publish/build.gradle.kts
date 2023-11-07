@@ -45,7 +45,7 @@ if (switch) {
     //<editor-fold desc=" 发布到阿里云  ">
     System.out.println("aly--->")
     group = "com.android"
-    version = "1.0.0"
+    version = "1.0.1"
 
     // 2：配置发布的跟文件，这里可以配置.toml文件，也可以配置具体的信息，可以具体查看官网
     catalog {
