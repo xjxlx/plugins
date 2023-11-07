@@ -68,7 +68,7 @@ refresh-footer-classics = "2.0.6"
 android-maven-gradle-plugin = "2.1"
 
 [libraries]
-io-github-xjxlx-publish = { module = "io.github.xjxlx:publish", version.ref = "io-github-xjxlx-publish" }
+io-github-xjxlx-publish = { module = "io.github.xjxlx:publishing", version.ref = "io-github-xjxlx-publishing" }
 com-android-tools-build-gradle = { module = "com.android.tools.build:gradle", version.ref = "com-android-tools-build-gradle" }
 com-github-dcendents-android-maven-gradle-plugin = { module = "com.github.dcendents:android-maven-gradle-plugin", version.ref = "com-github-dcendents-android-maven-gradle-plugin" }
 
