@@ -11,8 +11,11 @@ val switch = false
 if (switch) {
     //<editor-fold desc=" 发布到gradle门户  ">
     System.out.println("gradle--->")
-    group = "io.github.xjxlx"
-    version = "1.0.1"
+    val gradleGroupId = "io.github.xjxlx"
+    val gradleVersion = "1.0.1"
+
+    group = gradleGroupId
+    version = gradleVersion
 
     // 发布的插件信息
     pluginBundle {
@@ -31,7 +34,7 @@ if (switch) {
             // 每个插件块的名称不会影响插件配置，但对于提供的每个插件需要是唯一的。
             create("maven") {
                 // 	设置插件的唯一性。id
-                id = "${project.group}.publish"
+                id = "${gradleGroupId}.publish"
                 // 短名称显示
                 displayName = "PublishPlugin"
                 // 插件的描述
@@ -44,8 +47,12 @@ if (switch) {
 } else {
     //<editor-fold desc=" 发布到阿里云  ">
     System.out.println("aly--->")
-    group = "com.android"
-    version = "1.0.1"
+
+    val alyGroupId = "com.android"
+    val alyVersion = "1.0.1"
+
+    group = alyGroupId
+    version = alyVersion
 
     // 2：配置发布的跟文件，这里可以配置.toml文件，也可以配置具体的信息，可以具体查看官网
     catalog {
@@ -59,9 +66,9 @@ if (switch) {
         publishing {
             publications {
                 create<MavenPublication>("maven") {
-                    groupId = "${project.group}"
+                    groupId = alyGroupId
                     artifactId = "catalog"
-                    version = "${project.group}"
+                    version = alyVersion
                     from(components["versionCatalog"])
                 }
             }
