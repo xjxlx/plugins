@@ -123,6 +123,7 @@ kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect" } # �
 pictureselector = { group = "io.github.lucksiege", name = "pictureselector", version = "v3.11.1" } # 图片选择库
 compress = { group = "io.github.lucksiege", name = "compress", version = "v3.11.1" } # 图片压缩
 exoplayer = { group = "com.google.android.exoplayer", name = "exoplayer", version = "2.16.0" } # 视频加载
+photo = { group = "com.github.xjxlx", name = "photo", version = "1.0.0" } # photo
 
 #-------------------------↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑-----------------------------------------------------------------------
 
