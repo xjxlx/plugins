@@ -73,7 +73,6 @@ com-android-tools-build-gradle = { module = "com.android.tools.build:gradle", ve
 com-github-dcendents-android-maven-gradle-plugin = { module = "com.github.dcendents:android-maven-gradle-plugin", version.ref = "com-github-dcendents-android-maven-gradle-plugin" }
 
 #-----------------------------↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓----------------------------------------------------
-kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect" } # 反射
 org-json = { group = "org.json", name = "json", version.ref = "org-json" }
 org-jsoup = { group = "org.jsoup", name = "jsoup", version.ref = "org-jsoup" }
 gradle-api = { group = "com.android.tools.build", name = "gradle-api", version.ref = "gradle-api" }
@@ -120,6 +119,11 @@ glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", versi
 android-pickerview = { group = "com.contrarywind", name = "Android-PickerView", version.ref = "android-pickerview" } # 日历选择器
 viewpager2 = { group = "androidx.viewpager2", name = "viewpager2", version.ref = "viewpager2" }
 android-gif-drawable = { module = "pl.droidsonroids.gif:android-gif-drawable", version.ref = "android-gif-drawable" }
+kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect" } # 反射
+pictureselector = { group = "io.github.lucksiege", name = "pictureselector", version = "v3.11.1" } # 图片选择库
+compress = { group = "io.github.lucksiege", name = "compress", version = "v3.11.1" } # 图片压缩
+exoplayer = { group = "com.google.android.exoplayer", name = "exoplayer", version = "2.16.0" } # 视频加载
+
 #-------------------------↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑-----------------------------------------------------------------------
 
 [plugins]
