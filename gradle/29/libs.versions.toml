@@ -124,7 +124,7 @@ pictureselector = { group = "io.github.lucksiege", name = "pictureselector", ver
 compress = { group = "io.github.lucksiege", name = "compress", version = "v3.11.1" } # 图片压缩
 exoplayer = { group = "com.google.android.exoplayer", name = "exoplayer", version = "2.16.0" } # 视频加载
 photo = { group = "com.github.xjxlx", name = "photo", version = "1.0.0" } # photo
-
+player = { group = "com.github.xjxlx", name = "player", version = "1.0.0" } # player
 #-------------------------↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑-----------------------------------------------------------------------
 
 [plugins]
