@@ -5,7 +5,7 @@
 
 android {
     namespace = "com.android.plugins"
-    compileSdk = 30
+    compileSdk = libs.versions.compileSdks.get().toInt()
 
     defaultConfig {
         applicationId = "com.android.plugins"
