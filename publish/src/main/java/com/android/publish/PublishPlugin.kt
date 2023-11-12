@@ -22,7 +22,7 @@ class PublishPlugin : Plugin<Project> {
         const val PUBLISH_PLUGIN_ID = "maven-publish"
         const val PUBLISH_TYPE = "release"
 
-        private const val ORIGIN_GITHUB_CATALOG_PATH = "https://github.com/xjxlx/plugins/blob/master/gradle/29/libs.versions.toml"
+        private const val ORIGIN_GITHUB_CATALOG_PATH = "https://github.com/xjxlx/plugins/blob/master/gradle/31/libs.versions.toml"
     }
 
     private val mJarPath: String? by lazy {
