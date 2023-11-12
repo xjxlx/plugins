@@ -35,12 +35,13 @@ class PublishPlugin : Plugin<Project> {
                 null
             }
         }
-        private val TARGET: String by lazy {
+        private val TARGET: Int by lazy {
             return@lazy try {
-                mJsonList?.find { find -> find.has("TARGET") }?.getString("TARGET")
-                ""
+                mJsonList?.find { it.has("TARGET") }?.getInt("TARGET")
+                0
             } catch (e: java.lang.Exception) {
-                ""
+                println("[TARGET]:error:${e.message}")
+                0
             }
         }
         private val ORIGIN_GITHUB_CATALOG_PATH = "https://github.com/xjxlx/plugins/blob/master/gradle/${TARGET}/libs.versions.toml"
