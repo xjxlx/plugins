@@ -37,8 +37,11 @@ class PublishPlugin : Plugin<Project> {
         }
         private val TARGET: Int by lazy {
             return@lazy try {
-                mJsonList?.find { it.has("TARGET") }?.getInt("TARGET")
-                0
+                var target = mJsonList?.find { it.has("TARGET") }?.getInt("TARGET")
+                if (target == null) {
+                    target = 0
+                }
+                target
             } catch (e: java.lang.Exception) {
                 println("[TARGET]:error:${e.message}")
                 0
