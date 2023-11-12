@@ -54,7 +54,7 @@ dependencyResolutionManagement {
     // 配置使用libs.versions.toml地址
     versionCatalogs {
         create("libs") {
-            from(files(File(rootDir, "gradle${File.separator}29${File.separator}libs.versions.toml")))
+            from(files(File(rootDir, "gradle${File.separator}31${File.separator}libs.versions.toml")))
         }
     }
 }
