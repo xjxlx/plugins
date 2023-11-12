@@ -5,8 +5,11 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
+import org.json.JSONObject
 import utils.FileUtil
 import utils.GradleUtil
+import utils.HtmlUtil
+import utils.JsonUtil
 import utils.TextUtil
 import utils.VersionCataLogUtil
 import utils.VersionUtil
@@ -21,8 +24,26 @@ class PublishPlugin : Plugin<Project> {
         const val JITPACK_VERSION = "1.0"
         const val PUBLISH_PLUGIN_ID = "maven-publish"
         const val PUBLISH_TYPE = "release"
-
-        private const val ORIGIN_GITHUB_CATALOG_PATH = "https://github.com/xjxlx/plugins/blob/master/gradle/31/libs.versions.toml"
+        private const val ORIGIN_VERSION =
+            "https://github.com/xjxlx/plugins/blob/master/publish/src/main/java/com/android/publish/version/version.json"
+        val mJsonList: List<JSONObject>? by lazy {
+            return@lazy try {
+                HtmlUtil.getHtmlForGithubJsonArray(ORIGIN_VERSION)?.let {
+                    return@lazy JsonUtil.arrayToObject(it)
+                }
+            } catch (e: java.lang.Exception) {
+                null
+            }
+        }
+        private val TARGET: String by lazy {
+            return@lazy try {
+                mJsonList?.find { find -> find.has("TARGET") }?.getString("TARGET")
+                ""
+            } catch (e: java.lang.Exception) {
+                ""
+            }
+        }
+        private val ORIGIN_GITHUB_CATALOG_PATH = "https://github.com/xjxlx/plugins/blob/master/gradle/${TARGET}/libs.versions.toml"
     }
 
     private val mJarPath: String? by lazy {
@@ -177,7 +198,7 @@ class PublishPlugin : Plugin<Project> {
             task.group = PUBLISH
             task.doLast {
                 try {
-                    val parentFile = File(project.rootDir, "gradle${File.separator}29${File.separator}")
+                    val parentFile = File(project.rootDir, "gradle${File.separator}${TARGET}${File.separator}")
                     parentFile.mkdirs()
                     val gradleFile = File(parentFile, "libs.versions.toml")
                     if (!gradleFile.exists()) {
