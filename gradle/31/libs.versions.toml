@@ -7,11 +7,11 @@ versionName = "1.0.0"
 
 [libraries]
 io-github-xjxlx-publish = { module = "io.github.xjxlx:publishing", version = "1.0.0" }
-com-android-tools-build-gradle = { module = "com.android.tools.build:gradle", version = "8.1.1" }
+com-android-tools-build-gradle = { module = "com.android.tools.build:gradle", version = "8.1.3" }
 com-github-dcendents-android-maven-gradle-plugin = { module = "com.github.dcendents:android-maven-gradle-plugin", version = "2.1" }
 
 #-----------------------------↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓----------------------------------------------------
-gradle-api = { group = "com.android.tools.build", name = "gradle-api", version = "8.1.1" }
+gradle-api = { group = "com.android.tools.build", name = "gradle-api", version = "8.1.3" }
 org-json = { group = "org.json", name = "json", version = "20230227" }
 org-jsoup = { group = "org.jsoup", name = "jsoup", version = "1.16.1" }
 
