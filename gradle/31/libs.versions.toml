@@ -69,6 +69,7 @@ refresh-footer-classics = { group = "io.github.scwang90", name = "refresh-footer
 eventbus = { group = "org.greenrobot", name = "eventbus", version = "3.2.0" }
 rxpermissions = { group = "com.github.tbruyelle", name = "rxpermissions", version = "0.12" }
 rxjava2 = { group = "io.reactivex.rxjava2", name = "rxjava", version = "2.2.21" }
+adapter-rxjava = { group = "com.squareup.retrofit2", name = "adapter-rxjava", version = "2.9.0" }
 adapter-rxjava2 = { group = "com.squareup.retrofit2", name = "adapter-rxjava2", version = "2.9.0" }
 rxjava3 = { group = "io.reactivex.rxjava3", name = "rxjava", version = "3.0.4" }
 rxandroid2 = { group = "io.reactivex.rxjava2", name = "rxandroid", version = "2.1.1" }
