@@ -178,6 +178,9 @@ class PublishPlugin : Plugin<Project> {
      * catalog - plugin
      */
     private fun catalogPlugin(project: Project) {
+        // 4：注册一个片段，用来传输数据使用
+        val localVersionExtension = project.extensions.create("localVersionExtension", LocalVersionExtension::class.java)
+
         // 1: create catalog task
         project.task("catalog") { task ->
             task.group = PUBLISH
@@ -202,7 +205,8 @@ class PublishPlugin : Plugin<Project> {
             task.group = PUBLISH
             task.doLast {
                 try {
-                    val parentFile = File(project.rootDir, "gradle${File.separator}${TARGET}${File.separator}")
+                    val localVersion = localVersionExtension.version.convention("$TARGET").get()
+                    val parentFile = File(project.rootDir, "gradle${File.separator}${localVersion}${File.separator}")
                     parentFile.mkdirs()
                     val gradleFile = File(parentFile, "libs.versions.toml")
                     if (!gradleFile.exists()) {
