@@ -35,10 +35,15 @@ configure<com.android.helper.plugin.PublishPluginExtension> {
     version.set("xxxx") // 默认的数据是：获取github上项目中推送的最后的tag
 }
 
-4：注意事项
-  4.1：插件的最低支持版本是java-11
-  4.2：gradle的版本很重要，如果是8.0以下，可以使用java-11,如果是8.0以上，需要使用java-17
-  4.3:发布插件的jitpack.yml中，如果是gradle8.0以下，则使用openjdk11,8.0以上，则使用openjdk17
+4：配置下载到本地的依赖信息
+configure<com.android.helper.plugin.LocalVersionExtension> {
+    version.set("xxxx") // 默认的数据是：com.github.xjxlx
+}
+
+5：注意事项
+4.1：插件的最低支持版本是java - 11
+4.2：gradle的版本很重要，如果是8.0 以下 ， 可以使用java -11,如果是8.0 以上 ， 需要使用java -17
+4.3:发布插件的jitpack.yml中，如果是gradle8.0 以下 ， 则使用openjdk11,8.0 以上 ， 则使用openjdk17
 ```
 
 <br>
@@ -88,24 +93,28 @@ plugins {
     id("io.github.xjxlx.publishing") version "1.0.0"
 }
 
-2：After configuring catalogs, it can be written as follows
-@Suppress("DSL_SCOPE_VIOLATION") plugins {
+2：After configuring catalogs, it can be written as follows @Suppress(
+    "DSL_SCOPE_VIOLATION") plugins {
     id("com.android.library")
     id("kotlin-android")
     alias(libs.plugins.io.github.xjxlx.publishing)
 }
 
-3：Configure publishing dependent information
-configure<com.android.helper.plugin.PublishPluginExtension> {
-    groupId.set("xxxx") // 默认的数据是：com.github.xjxlx
-    artifactId.set("xxxx") // 默认的数据是：model的名字
-    version.set("xxxx") // 默认的数据是：获取github上项目中推送的最后的tag
+3：Configure publishing dependent information configure<com.android.helper.plugin.PublishPluginExtension> {
+    groupId.set("xxxx") // default data：com.github.xjxlx
+    artifactId.set("xxxx") // default data：model的名字
+    version.set("xxxx") // default data：Obtain the last tag pushed in the project on Github
 }
 
-4：Precautions
-  4.1：The minimum supported version of the plugin is java-11
-  4.2：The version of Gradle is very important. If it is below 8.0, you can use Java-11, and if it is above 8.0, you need to use Java-17
-  4.3:In jitpack.yml for publishing plugins, if it is below gradle8.0, openjdk11 will be used; if it is above 8.0, openjdk17 will be used
+4：Configure dependency information downloaded locally
+configure<com.android.helper.plugin.LocalVersionExtension> {
+    version.set("xxxx") // default data：com.github.xjxlx
+}
+
+5：Precautions
+4.1：The minimum supported version of the plugin is java-11
+4.2：The version of Gradle is very important.If it is below 8.0, you can use Java -11, and if it is above 8.0, you need to use Java - 17
+4.3:In jitpack . yml for publishing plugins, if it is below gradle8 .0, openjdk11 will be used; if it is above 8.0, openjdk17 will be used
 ```
 
 Usage - Catalog
