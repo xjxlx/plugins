@@ -6,8 +6,17 @@ plugins {
     id("maven-publish")
 }
 
-// false : ALiYun , true: gradle
+/**
+ * buddy    ：1
+ * 31       ：other
+ */
+val catalogSwitch = 0
+/**
+ * ALiYun ：false
+ * gradle ：true
+ */
 val switch = false
+
 if (switch) {
     //<editor-fold desc=" 发布到gradle门户  ">
     System.out.println("gradle--->")
@@ -53,11 +62,22 @@ if (switch) {
 
     group = alyGroupId
     version = alyVersion
+    var artifactIdValue = ""
 
     // 2：配置发布的跟文件，这里可以配置.toml文件，也可以配置具体的信息，可以具体查看官网
     catalog {
         versionCatalog {
-            from(files(File(rootDir, "gradle${File.separator}31${File.separator}libs.versions.toml")))
+            when (catalogSwitch) {
+                1 -> {
+                    artifactIdValue = "buddy"
+                    from(files(File(rootDir, "gradle${File.separator}buddy${File.separator}libs.versions.toml")))
+                }
+
+                else -> {
+                    artifactIdValue = "catalogs"
+                    from(files(File(rootDir, "gradle${File.separator}31${File.separator}libs.versions.toml")))
+                }
+            }
         }
     }
 
@@ -67,7 +87,7 @@ if (switch) {
             publications {
                 create<MavenPublication>("maven") {
                     groupId = alyGroupId
-                    artifactId = "catalogs"
+                    artifactId = artifactIdValue
                     version = alyVersion
                     from(components["versionCatalog"])
                 }
