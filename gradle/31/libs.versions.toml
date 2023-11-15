@@ -57,7 +57,7 @@ converter-scalars = { group = "com.squareup.retrofit2", name = "converter-scalar
 okhttp3 = { group = "com.squareup.okhttp3", name = "okhttp", version = "5.0.0-alpha.2" }# okHttp的依赖
 gson = { group = "com.google.code.gson", name = "gson", version = "2.10.1" }
 logger = { group = "com.orhanobut", name = "logger", version = "2.2.0" }
-dimens = { group = "com.github.xjxlx", name = "dimens", version = "1.0.1" }
+dimens = { group = "com.github.xjxlx", name = "dimens", version = "1.0.2" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version = "2.1.4" }
 
 jeromq = { group = "org.zeromq", name = "jeromq", version = "0.5.3" }
