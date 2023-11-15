@@ -53,7 +53,7 @@ if (switch) {
         }
 
         plugins {
-            create("maven") {
+            create("common") {
                 id = "${gradleGroupId}.common"
                 displayName = "commonPlugin"
                 description = "A public plugin"
