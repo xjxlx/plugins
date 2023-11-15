@@ -51,6 +51,15 @@ if (switch) {
                 implementationClass = "com.android.publish.PublishPlugin"
             }
         }
+
+        plugins {
+            create("maven") {
+                id = "${gradleGroupId}.common"
+                displayName = "commonPlugin"
+                description = "A public plugin"
+                implementationClass = "com.android.publish.CommonPlugin"
+            }
+        }
     }
     //</editor-fold>
 } else {
