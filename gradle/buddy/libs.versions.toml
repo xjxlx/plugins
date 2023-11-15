@@ -6,17 +6,12 @@ targetSdk = "29"
 versionCode = "2"
 versionName = "1.0.0"
 
-com-android-application = "8.1.1"
-com-android-library = "8.1.1"
 org-json = "20230227"
 org-jsoup = "1.16.1"
 gradle-api = "8.1.1"
 com-android-tools-build-gradle = "8.1.1"
-io-github-xjxlx-publishing = "1.0.0"
 
 # ------>
-org-jetbrains-kotlin-android = "1.7.20"
-org-jetbrains-kotlin-jvm = "1.7.20"
 com-github-dcendents-android-maven-gradle-plugin = "2.1"
 
 appcompat = "1.3.1"
@@ -132,10 +127,11 @@ player = { group = "com.github.xjxlx", name = "player", version = "1.0.0" } # pl
 #-------------------------↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑-----------------------------------------------------------------------
 
 [plugins]
-com-android-application = { id = "com.android.application", version.ref = "com-android-application" }
-com-android-library = { id = "com.android.library", version.ref = "com-android-library" }
-org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
-org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "org-jetbrains-kotlin-jvm" }
-io-github-xjxlx-publishing = { id = "io.github.xjxlx.publishing", version.ref = "io-github-xjxlx-publishing" }
+com-android-application = { id = "com.android.application", version = "8.1.1" }
+com-android-library = { id = "com.android.library", version = "8.1.1" }
+org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version = "1.7.20" }
+org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version = "1.7.20" }
+io-github-xjxlx-publishing = { id = "io.github.xjxlx.publishing", version = "1.0.0" }
+io-github-xjxlx-common = { id = "io.github.xjxlx.common", version = "1.0.0" }
 kotlin-parcelize = { id = "kotlin-parcelize" }
 [bundles]
