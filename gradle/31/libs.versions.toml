@@ -15,26 +15,50 @@ gradle-api = { group = "com.android.tools.build", name = "gradle-api", version =
 org-json = { group = "org.json", name = "json", version = "20230227" }
 org-jsoup = { group = "org.jsoup", name = "jsoup", version = "1.16.1" }
 
-#---------31---↓-->
+junit = { group = "junit", name = "junit", version = "4.13.2" }
+espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version = "3.5.1" }
+
+kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version = "1.6.4" }
+kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version = "1.6.4" }
+gson = { group = "com.google.code.gson", name = "gson", version = "2.10.1" }
+logger = { group = "com.orhanobut", name = "logger", version = "2.2.0" }
+
+jeromq = { group = "org.zeromq", name = "jeromq", version = "0.5.3" }
+androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version = "1.1.5" }
+eventbus = { group = "org.greenrobot", name = "eventbus", version = "3.2.0" }
+kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect" } # 反射
+pictureselector = { group = "io.github.lucksiege", name = "pictureselector", version = "v3.11.1" } # 图片选择库
+compress = { group = "io.github.lucksiege", name = "compress", version = "v3.11.1" } # 图片压缩
+exoplayer = { group = "com.google.android.exoplayer", name = "exoplayer", version = "2.18.5" } # 视频加载
+crashreport = { group = "com.tencent.bugly", name = "crashreport", version = "latest.release" }
+legacy-support-v4 = { group = "androidx.legacy", name = "legacy-support-v4", version = "1.0.0" }
+
+#---------↓↓↓ --->【UI】<--- ↓↓↓---------
 #noinspection GradleDependency
 appcompat = { group = "androidx.appcompat", name = "appcompat", version = "1.4.2" }
 #noinspection GradleDependency
 material = { group = "com.google.android.material", name = "material", version = "1.6.1" }
+
+#noinspection GradleDependency
+recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version = "1.2.1" }
+viewpager2 = { group = "androidx.viewpager2", name = "viewpager2", version = "1.0.0" }
+refresh-layout-kernel = { group = "io.github.scwang90", name = "refresh-layout-kernel", version = "2.0.6" }
+refresh-header-classics = { group = "io.github.scwang90", name = "refresh-header-classics", version = "2.0.6" }
+refresh-footer-classics = { group = "io.github.scwang90", name = "refresh-footer-classics", version = "2.0.6" }
+constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version = "2.1.4" }
+android-pickerview = { group = "com.contrarywind", name = "Android-PickerView", version = "4.1.9" } # 日历选择器
+android-gif-drawable = { module = "pl.droidsonroids.gif:android-gif-drawable", version = "1.2.25" }
+
 #noinspection GradleDependency
 core = { group = "androidx.core", name = "core", version = "1.8.0" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version = "1.8.0" }
-#noinspection GradleDependency
 activity = { group = "androidx.activity", name = "activity", version = "1.5.1" }
-#noinspection GradleDependency
 activity-ktx = { group = "androidx.activity", name = "activity-ktx", version = "1.5.1" }
 fragment = { group = "androidx.fragment", name = "fragment", version = "1.5.7" }
 fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version = "1.5.7" }
-#noinspection GradleDependency
-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version = "1.2.1" }
-#noinspection GradleDependency
-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel", version = "2.5.1" }
-#noinspection GradleDependency
-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version = "2.5.1" }
+#---------↑↑↑ --->【UI】<--- ↑↑↑---------
+
+#---------↓↓↓ 【lifecycle】 ↓↓↓---------
 #noinspection GradleDependency
 lifecycle-livedata = { group = "androidx.lifecycle", name = "lifecycle-livedata", version = "2.5.1" }
 #noinspection GradleDependency
@@ -47,48 +71,35 @@ lifecycle-livedata-core-ktx = { group = "androidx.lifecycle", name = "lifecycle-
 lifecycle-runtime = { group = "androidx.lifecycle", name = "lifecycle-runtime", version = "2.5.1" }
 #noinspection GradleDependency
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version = "2.5.1" }
-#---------31---↑-->
+#noinspection GradleDependency
+lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel", version = "2.5.1" }
+#noinspection GradleDependency
+lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version = "2.5.1" }
+#---------↑↑↑ 【lifecycle】 ↑↑↑---------
 
-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version = "3.5.1" }
-kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version = "1.6.4" }
-kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version = "1.6.4" }
+#---------↓↓↓ 【http】 ↓↓↓---------
 retrofit2 = { group = "com.squareup.retrofit2", name = "retrofit", version = "2.9.0" }
+adapter-rxjava = { group = "com.squareup.retrofit2", name = "adapter-rxjava", version = "2.9.0" }
+adapter-rxjava2 = { group = "com.squareup.retrofit2", name = "adapter-rxjava2", version = "2.9.0" }
 converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version = "2.9.0" } # 必要依赖，解析json字符所用
 converter-scalars = { group = "com.squareup.retrofit2", name = "converter-scalars", version = "2.9.0" }# 必要依赖，把数据转产成字符串使用
 okhttp3 = { group = "com.squareup.okhttp3", name = "okhttp", version = "5.0.0-alpha.2" }# okHttp的依赖
 logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version = "4.11.0" }
-gson = { group = "com.google.code.gson", name = "gson", version = "2.10.1" }
-logger = { group = "com.orhanobut", name = "logger", version = "2.2.0" }
-dimens = { group = "com.github.xjxlx", name = "dimens", version = "1.0.2" }
-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version = "2.1.4" }
-
-jeromq = { group = "org.zeromq", name = "jeromq", version = "0.5.3" }
-junit = { group = "junit", name = "junit", version = "4.13.2" }
-androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version = "1.1.5" }
-refresh-layout-kernel = { group = "io.github.scwang90", name = "refresh-layout-kernel", version = "2.0.6" }
-refresh-header-classics = { group = "io.github.scwang90", name = "refresh-header-classics", version = "2.0.6" }
-refresh-footer-classics = { group = "io.github.scwang90", name = "refresh-footer-classics", version = "2.0.6" }
-eventbus = { group = "org.greenrobot", name = "eventbus", version = "3.2.0" }
-rxpermissions = { group = "com.github.tbruyelle", name = "rxpermissions", version = "0.12" }
 rxjava2 = { group = "io.reactivex.rxjava2", name = "rxjava", version = "2.2.21" }
-adapter-rxjava = { group = "com.squareup.retrofit2", name = "adapter-rxjava", version = "2.9.0" }
-adapter-rxjava2 = { group = "com.squareup.retrofit2", name = "adapter-rxjava2", version = "2.9.0" }
-rxjava3 = { group = "io.reactivex.rxjava3", name = "rxjava", version = "3.0.4" }
 rxandroid2 = { group = "io.reactivex.rxjava2", name = "rxandroid", version = "2.1.1" }
+
+rxpermissions = { group = "com.github.tbruyelle", name = "rxpermissions", version = "0.12" }
+rxjava3 = { group = "io.reactivex.rxjava3", name = "rxjava", version = "3.0.4" }
 glide = { group = "com.github.bumptech.glide", name = "glide", version = "4.15.1" }
 glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", version = "4.12.0" }
-android-pickerview = { group = "com.contrarywind", name = "Android-PickerView", version = "4.1.9" } # 日历选择器
-viewpager2 = { group = "androidx.viewpager2", name = "viewpager2", version = "1.0.0" }
-android-gif-drawable = { module = "pl.droidsonroids.gif:android-gif-drawable", version = "1.2.25" }
-kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect" } # 反射
-pictureselector = { group = "io.github.lucksiege", name = "pictureselector", version = "v3.11.1" } # 图片选择库
-compress = { group = "io.github.lucksiege", name = "compress", version = "v3.11.1" } # 图片压缩
-exoplayer = { group = "com.google.android.exoplayer", name = "exoplayer", version = "2.18.5" } # 视频加载
+#---------↑↑↑ 【http】 ↑↑↑---------
+
+#---------↓↓↓ 【xjxlx】 ↓↓↓---------
+dimens = { group = "com.github.xjxlx", name = "dimens", version = "1.0.2" }
 photo = { group = "com.github.xjxlx", name = "photo", version = "1.0.0" } # photo
 player = { group = "com.github.xjxlx", name = "player", version = "1.0.0" } # player
+#---------↑↑↑ 【xjxlx】 ↑↑↑---------
 
-crashreport = { group = "com.tencent.bugly", name = "crashreport", version = "latest.release" }
-legacy-support-v4 = { group = "androidx.legacy", name = "legacy-support-v4", version = "1.0.0" }
 #-------------------------↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑-----------------------------------------------------------------------
 
 [plugins]
