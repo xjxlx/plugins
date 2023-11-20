@@ -97,7 +97,7 @@ glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", versi
 #---------↓↓↓ 【xjxlx】 ↓↓↓---------
 dimens = { group = "com.github.xjxlx", name = "dimens", version = "1.0.2" }
 photo = { group = "com.github.xjxlx", name = "photo", version = "1.0.0" } # photo
-player = { group = "com.github.xjxlx", name = "player", version = "1.0.0" } # player
+player = { group = "com.github.xjxlx", name = "player", version = "1.0.1" } # player
 #---------↑↑↑ 【xjxlx】 ↑↑↑---------
 
 #-------------------------↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑-----------------------------------------------------------------------
