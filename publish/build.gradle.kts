@@ -84,7 +84,7 @@ if (switch) {
 
                 else -> {
                     artifactIdValue = "catalogs"
-                    from(files(File(rootDir, "gradle${File.separator}33${File.separator}libs.versions.toml")))
+                    from(files(File(rootDir, "gradle${File.separator}34${File.separator}libs.versions.toml")))
                 }
             }
         }
